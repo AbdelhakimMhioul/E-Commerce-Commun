@@ -10,7 +10,8 @@
 ## Khadija Tasks
 - [ ] Django Learning
 ## Hakim Tasks
-- [ ] NavBar
+- [ ] NavBar (baseNavbar.html / homeNavbar.html / sellerNavbar.html / clientNavbar.html)
+- [ ] Database management and static Files
 ## Databases
   #### Admin
     - name
