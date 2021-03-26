@@ -37,8 +37,15 @@
 
 ### Databases
 - Admin
-- - name
-- - email
+  - name
+  - email
+  - phone
 - Seller
+  - name
+  - email
+  - phone
 - Buyer
+  - name
+  - email
+  - phone
 
