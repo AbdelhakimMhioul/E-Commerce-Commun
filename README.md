@@ -55,3 +55,8 @@
   1. Ajouter produit au panier
   2. Confirmer l'achat
   3. supprimer produit du panier
+  4. liaison avec compte paypal ou carte internationale pr payment
+-####Dashbord
+   vendeur:
+         1- statistique:nb elements vendu de chaque prod  + reste de stock+notification qd stock prod fini+ profit
+         2-administrateur:nb prod vendu +nb client+nv vendeurs+les plus vendu+profit
