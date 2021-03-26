@@ -39,6 +39,11 @@
     1. Ajouter produit au panier
     2. Confirmer l'achat
     3. supprimer produit du panier
+  #### Produit
+    - name
+    - description
+    - photo
+    - 
 
 ## Commun A toutes les pages:
   ### Dark Mode  
