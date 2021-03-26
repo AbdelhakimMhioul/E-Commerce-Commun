@@ -11,7 +11,13 @@
 - Clear navigation menus
 - Include “Top selling”, “Featured product” and “Recommended for you"
 - As your customer scrolls through your product listing, let your customers know of stock availability on the product listing page.
-- 
+- Show filtering and sorting functions
+- Highlight best sellers or customer favorites
+- Include customer review scores (Rate Products and vendors)
+- Make the “Buy” or “Add to basket” button prominent
+- Feature an “Add to wishlist” button
+- Upsell (aka “You may also like”)
+- Product photos from different angles
 
 ## Ikram Tasks
 
