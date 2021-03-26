@@ -21,6 +21,9 @@
     - nombre de vendeurs (registredSellers)
   #### Seller
     - name
+    - description
+    - photo
+    - genre
     - email
     - phone
     - nombre element elements vendus de chaque produit (nbElementProd)
