@@ -65,6 +65,7 @@
 
 ## Home Page
 - [ ] Display customer reviews or testimonials and include customer review scores (Rate Products and vendors)
+- [ ] Promotions
 ## Seller DashBoard
 - [ ] Show stock availability
 - [ ] DashBoard (Statistique des ventes)
