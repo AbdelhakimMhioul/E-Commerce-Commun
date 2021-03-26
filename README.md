@@ -4,13 +4,13 @@
 - [ ] Responsive Website (mobile-friendly)
 
 ## Ikram Tasks
-- [ ] 
+- [ ] Liaison avec compte paypal ou carte internationale pour payment
 ## Houda Tasks
-- [ ] 
+- [ ] Django Learning
 ## Khadija Tasks
-- [ ] 
+- [ ] Django Learning
 ## Hakim Tasks
-- [ ] 
+- [ ] NavBar
 ## Databases
   #### Admin
     - name
@@ -39,11 +39,11 @@
     1. Ajouter produit au panier
     2. Confirmer l'achat
     3. supprimer produit du panier
-  #### Produit
+  #### Produit
     - name
     - description
     - photo
-    - 
+    - price
 
 ## Commun A toutes les pages:
   ### Dark Mode  
@@ -56,9 +56,8 @@
     6. Cart Icon
     7. Checkout Button
     8. Notification Icon
-      6.1. For Seller: Notification quand stock produit fini, ...
-      6.2. For Client: Trending Products, Shipping Infos, Upsell (aka “You may also like”) and “Recommended for you" ...
-    9. 
+      8.1. For Seller: Notification quand stock produit fini, ...
+      8.2. For Client: Trending Products, Shipping Infos, Upsell (aka “You may also like”) and “Recommended for you" ...
   ### Footer
     1. Social Media Links
     2. Policy (Profit de 40% pour tout produit vendu)
