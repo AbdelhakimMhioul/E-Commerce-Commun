@@ -17,7 +17,15 @@
 - Make the “Buy” or “Add to basket” button prominent
 - Feature an “Add to wishlist” button
 - Upsell (aka “You may also like”)
+- Show estimated delivery time
 - Product photos from different angles
+- Use tabs for products that have a lot of detail
+- Display customer reviews or testimonials
+- Show stock availability
+- Provide an easy way to update cart items
+- Include a “Return to shop” link (Do not want product anymore)
+- Show delivery options (COD,...)
+- 
 
 ## Ikram Tasks
 
