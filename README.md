@@ -4,14 +4,15 @@
 - [ ] Responsive Website (mobile-friendly)
 
 ## Ikram Tasks
-- [ ] 
+- [ ] Liaison avec compte paypal ou carte internationale pour payment
 ## Houda Tasks
-- [ ] 
+- [ ] Django Learning
 ## Khadija Tasks
-- [ ] 
+- [ ] Django Learning
 ## Hakim Tasks
-- [ ] 
-### Databases
+- [ ] NavBar (baseNavbar.html / homeNavbar.html / sellerNavbar.html / clientNavbar.html)
+- [ ] Database management and static Files
+## Databases
   #### Admin
     - name
     - email
@@ -21,6 +22,9 @@
     - nombre de vendeurs (registredSellers)
   #### Seller
     - name
+    - description
+    - photo
+    - genre
     - email
     - phone
     - nombre element elements vendus de chaque produit (nbElementProd)
@@ -36,6 +40,11 @@
     1. Ajouter produit au panier
     2. Confirmer l'achat
     3. supprimer produit du panier
+  #### Produit
+    - name
+    - description
+    - photo
+    - price
 
 ## Commun A toutes les pages:
   ### Dark Mode  
@@ -48,15 +57,15 @@
     6. Cart Icon
     7. Checkout Button
     8. Notification Icon
-      6.1. For Seller: Notification quand stock produit fini, ...
-      6.2. For Client: Trending Products, Shipping Infos, Upsell (aka “You may also like”) and “Recommended for you" ...
-    9. 
+      8.1. For Seller: Notification quand stock produit fini, ...
+      8.2. For Client: Trending Products, Shipping Infos, Upsell (aka “You may also like”) and “Recommended for you" ...
   ### Footer
     1. Social Media Links
     2. Policy (Profit de 40% pour tout produit vendu)
 
 ## Home Page
 - [ ] Display customer reviews or testimonials and include customer review scores (Rate Products and vendors)
+- [ ] Promotions
 ## Seller DashBoard
 - [ ] Show stock availability
 - [ ] DashBoard (Statistique des ventes)
