@@ -25,7 +25,8 @@
 - Provide an easy way to update cart items
 - Include a “Return to shop” link (Do not want product anymore)
 - Show delivery options (COD,...)
-- 
+- DashBoard (Statistique des ventes)
+- Paypal and Card confirmations
 
 ## Ikram Tasks
 
@@ -44,8 +45,13 @@
   - name
   - email
   - phone
+  1. Ajouter produit aux produits
+  2. modifier produit existant (modifer quantité, type, cout, )
+  3. supprimer produit de la liste des produits
 - Buyer
   - name
   - email
   - phone
-
+  1. Ajouter produit au panier
+  2. Confirmer l'achat
+  3. supprimer produit du panier
