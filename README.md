@@ -46,16 +46,16 @@
   - nombre weekly produits vendus (weeklySelledProducts)
   - nombre de clients (registredClients)
   - nombre de vendeurs (registredSellers)
-- Seller
-  - name
-  - email
-  - phone
-  - nombre element elements vendus de chaque produit (nbElementProd)
-  - reste de stock pour chaque produit (resteProd)
-  - profit de chaque produit (profitProd)
-  1. ajouter produit aux produits
-  2. modifier produit existant (modifer quantité, type, cout, )
-  3. supprimer produit de la liste des produits
+  - Seller
+    - name
+    - email
+    - phone
+    - nombre element elements vendus de chaque produit (nbElementProd)
+    - reste de stock pour chaque produit (resteProd)
+    - profit de chaque produit (profitProd)
+    1. ajouter produit aux produits
+    2. modifier produit existant (modifer quantité, type, cout, )
+    3. supprimer produit de la liste des produits
 - Buyer
   - name
   - email
