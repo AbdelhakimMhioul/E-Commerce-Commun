@@ -1,6 +1,17 @@
 # E-Commerce-Commun
 
 ## Website Requirements
+- Every e-commerce website needs a shopping cart
+- Dark Mode
+- Email Marketing tools : Sending Weekly mails about new products
+- Responsive Website (mobile-frindly)
+- The cart icon must be available on every page
+- The checkout button must always be clearly visible
+- Have a prominent search bar on every page
+- Clear navigation menus
+- Include “Top selling”, “Featured product” and “Recommended for you"
+- As your customer scrolls through your product listing, let your customers know of stock availability on the product listing page.
+- 
 
 ## Ikram Tasks
 
