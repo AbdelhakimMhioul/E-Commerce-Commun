@@ -26,7 +26,9 @@
 - Include a “Return to shop” link (Do not want product anymore)
 - Show delivery options (COD,...)
 - DashBoard (Statistique des ventes)
-- Paypal and Card confirmations
+- Notification quand stock produit fini
+- Liaison avec compte paypal ou carte internationale pour payment
+- Policy (Profit de 40% pour tout produit vendu)
 
 ## Ikram Tasks
 
@@ -41,11 +43,17 @@
   - name
   - email
   - phone
+  - nombre weekly produits vendus (weeklySelledProducts)
+  - nombre de clients (registredClients)
+  - nombre de vendeurs (registredSellers)
 - Seller
   - name
   - email
   - phone
-  1. Ajouter produit aux produits
+  - nombre element elements vendus de chaque produit (nbElementProd)
+  - reste de stock pour chaque produit (resteProd)
+  - profit de chaque produit (profitProd)
+  1. ajouter produit aux produits
   2. modifier produit existant (modifer quantité, type, cout, )
   3. supprimer produit de la liste des produits
 - Buyer
@@ -55,9 +63,3 @@
   1. Ajouter produit au panier
   2. Confirmer l'achat
   3. supprimer produit du panier
-  4. liaison avec compte paypal ou carte internationale pr payment
-
--####Dashbord
-   vendeur:
-         1- statistique:nb elements vendu de chaque prod  + reste de stock+notification qd stock prod fini+ profit
-         2-administrateur:nb prod vendu +nb client+nv vendeurs+les plus vendu+profit
