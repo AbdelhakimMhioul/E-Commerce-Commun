@@ -4,8 +4,6 @@
 - [ ] Dark Mode
 - [ ] Email Marketing tools : Sending Weekly mails about new products
 - [ ] Responsive Website (mobile-frindly)
-- [ ] The cart icon must be available on every page
-- [ ] The checkout button must always be clearly visible
 - [ ] Have a prominent search bar on every page
 - [ ] Clear navigation menus
 - [ ] Include “Top selling”, “Featured product” and “Recommended for you"
@@ -25,7 +23,7 @@
 - [ ] Include a “Return to shop” link (Do not want product anymore)
 - [ ] Show delivery options (COD,...)
 - [ ] DashBoard (Statistique des ventes)
-- [ ] Notification quand stock produit fini
+- [ ] 
 
 
 ## Ikram Tasks
@@ -54,7 +52,7 @@
     1. ajouter produit aux produits
     2. modifier produit existant (modifer quantité, type, cout, )
     3. supprimer produit de la liste des produits
-  #### Buyer
+  #### Client
     - name
     - email
     - phone
@@ -64,20 +62,26 @@
 
 ## Commun A toutes les pages:
   ### NavBar
-    - [ ] Search Bar
+    1. Search Bar
     2. Login/Logout Button
     3. Logo
     4. Categories
     5. Shopping Cart
+    6. Cart Icon
+    7. Checkout Button
+    8. Notification Icon
+      6.1. For Seller: Notification quand stock produit fini, ...
+      6.2. For Client: Trending Products, Shipping Infos, ...
+    9. 
   ### Footer
     1. Social Media Links
     2. Policy (Profit de 40% pour tout produit vendu)
 
 ## Home Page
-
+- 
 ## Seller DashBoard
-
+- 
 ## Client DashBoard
-
+- 
 ## Login/Logout Pages
 - [ ] Liaison avec compte paypal ou carte internationale pour payment
