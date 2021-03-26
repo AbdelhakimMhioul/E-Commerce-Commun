@@ -63,3 +63,11 @@
   1. Ajouter produit au panier
   2. Confirmer l'achat
   3. supprimer produit du panier
+
+## Home Page
+
+## Seller DashBoard
+
+## Client DashBoard
+
+## Login/Logout Pages
