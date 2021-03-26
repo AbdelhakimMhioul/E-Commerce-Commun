@@ -66,6 +66,10 @@
 
 ## Home Page
 
+  ### NavBar (Commun à toutes les pages)
+    1. Search Bar
+    2. Login/Logout Button
+
 ## Seller DashBoard
 
 ## Client DashBoard
