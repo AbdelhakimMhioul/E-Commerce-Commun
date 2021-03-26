@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'e_commerce',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
@@ -53,8 +55,8 @@ ROOT_URLCONF = 'root.urls'
 
 TEMPLATES = [
     {
-        'BACKEND': os.path.dir(BASE_DIR,'templates/'),
-        'DIRS': [],
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': ['templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -119,8 +121,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-MEDIA_URL = '/static/media/'
+MEDIA_URL = '/media/'
 
-STATICFILES_DIR = [
-    os.path.join(BASE_DIR,'/static/')
+STATICDIRS_URL = [
+    os.path.join(BASE_DIR,'static/')
 ]
