@@ -39,14 +39,14 @@
 ## Hakim Tasks
 - [ ] 
 ### Databases
-- Admin
-  - name
-  - email
-  - phone
-  - nombre weekly produits vendus (weeklySelledProducts)
-  - nombre de clients (registredClients)
-  - nombre de vendeurs (registredSellers)
-  - Seller
+  #### Admin
+    - name
+    - email
+    - phone
+    - nombre weekly produits vendus (weeklySelledProducts)
+    - nombre de clients (registredClients)
+    - nombre de vendeurs (registredSellers)
+  #### Seller
     - name
     - email
     - phone
@@ -56,19 +56,23 @@
     1. ajouter produit aux produits
     2. modifier produit existant (modifer quantité, type, cout, )
     3. supprimer produit de la liste des produits
-- Buyer
-  - name
-  - email
-  - phone
-  1. Ajouter produit au panier
-  2. Confirmer l'achat
-  3. supprimer produit du panier
+  #### Buyer
+    - name
+    - email
+    - phone
+    1. Ajouter produit au panier
+    2. Confirmer l'achat
+    3. supprimer produit du panier
 
-## Home Page
-
+## Commun A toutes les pages:
   ### NavBar (Commun à toutes les pages)
     1. Search Bar
     2. Login/Logout Button
+    3. Logo
+  ### Footer
+    1. Social Media Links
+
+## Home Page
 
 ## Seller DashBoard
 
