@@ -35,3 +35,10 @@
 
 ## Hakim Tasks
 
+### Databases
+- Admin
+- - name
+- - email
+- Seller
+- Buyer
+
