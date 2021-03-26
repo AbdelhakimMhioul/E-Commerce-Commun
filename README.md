@@ -1,7 +1,7 @@
 # E-Commerce-Commun
 
 ## Website Requirements
-- [ ] Responsive Website (mobile-frindly)
+- [ ] Responsive Website (mobile-friendly)
 
 ## Ikram Tasks
 - [ ] 
