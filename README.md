@@ -1,7 +1,6 @@
 # E-Commerce-Commun
 
 ## Website Requirements
-- [ ] Every e-commerce website needs a shopping cart
 - [ ] Dark Mode
 - [ ] Email Marketing tools : Sending Weekly mails about new products
 - [ ] Responsive Website (mobile-frindly)
@@ -27,8 +26,7 @@
 - [ ] Show delivery options (COD,...)
 - [ ] DashBoard (Statistique des ventes)
 - [ ] Notification quand stock produit fini
-- [ ] Liaison avec compte paypal ou carte internationale pour payment
-- [ ] Policy (Profit de 40% pour tout produit vendu)
+
 
 ## Ikram Tasks
 - [ ] 
@@ -65,12 +63,15 @@
     3. supprimer produit du panier
 
 ## Commun A toutes les pages:
-  ### NavBar (Commun à toutes les pages)
-    1. Search Bar
+  ### NavBar
+    - [ ] Search Bar
     2. Login/Logout Button
     3. Logo
+    4. Categories
+    5. Shopping Cart
   ### Footer
     1. Social Media Links
+    2. Policy (Profit de 40% pour tout produit vendu)
 
 ## Home Page
 
@@ -79,3 +80,4 @@
 ## Client DashBoard
 
 ## Login/Logout Pages
+- [ ] Liaison avec compte paypal ou carte internationale pour payment
