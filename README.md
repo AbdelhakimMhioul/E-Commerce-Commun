@@ -27,6 +27,8 @@
     - genre
     - email
     - phone
+    - idSeller
+    - addressSeller
     - nombre element elements vendus de chaque produit (nbElementProd)
     - reste de stock pour chaque produit (resteProd)
     - profit de chaque produit (profitProd)
@@ -34,9 +36,11 @@
     2. modifier produit existant (modifer quantité, type, cout, )
     3. supprimer produit de la liste des produits
   #### Client
+    - idClient
     - name
     - email
     - phone
+    - addressClient
     1. Ajouter produit au panier
     2. Confirmer l'achat
     3. supprimer produit du panier
@@ -45,6 +49,21 @@
     - description
     - photo
     - price
+    - idProduct
+    - idSeller
+    - image1
+    - image2
+    - image3
+    - status
+  #### Order
+    - idOrder
+    - idClient
+    - idSeller
+    - idProduct
+    - status
+    - qty
+    - due_amount
+    - dateCreated
 
 ## Commun A toutes les pages:
   ### Dark Mode  
