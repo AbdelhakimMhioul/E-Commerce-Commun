@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'e_commerce',
+    'products',
+    'users',
     'widget_tweaks',
     'fontawesome-free',
     'phone_field',

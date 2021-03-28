@@ -6,44 +6,49 @@ from django.http import JsonResponse
 from django.views import View
 from .models import Product
 
-stripe.api_key=settings.STRIPE_SECRET_KEY
+stripe.api_key = settings.STRIPE_SECRET_KEY
+
+
 class SuccessView(TemplateView):
-    template_name= "products/success.html"
+    template_name = "products/success.html"
+
 
 class CancelView(TemplateView):
-    template_name= "products/cancel.html"
+    template_name = "products/cancel.html"
 
 
 class landingPageView(TemplateView):
-    template_name="products/landing.html"
-    def get_context_data(self,**kwargs):
-        product=Product.objects.get(name="Jellaba")
-        context=super(landingPageView,self).get_context_data(**kwargs)
+    template_name = "products/landing.html"
+
+    def get_context_data(self, **kwargs):
+        product = Product.objects.get(name="Jellaba")
+        context = super(landingPageView, self).get_context_data(**kwargs)
         context.update({
-            "product":product,
+            "product": product,
             "STRIPE_PUBLIC_KEY": settings.STRIPE_PUBLIC_KEY
         })
         return context
+
+
 class CreateCheckoutSessionView(View):
-    def post(self,request,*args,**kwargs):
-        product_id=self.kwargs["pk"]
-        product=Product.objects.get(id=product_id)
+    def post(self, request, *args, **kwargs):
+        product_id = self.kwargs["pk"]
+        product = Product.objects.get(id=product_id)
         print(product)
-        YOUR_DOMAIN= "http://127.0.0.1:8000/"
+        YOUR_DOMAIN = "http://127.0.0.1:8000/"
         checkout_session = stripe.checkout.Session.create(
             payment_method_types=['card'],
-            line_items=[
-                {
-                    'price_data': {
-                        'currency': 'usd',
-                        'unit_amount': product.price,
-                        'product_data': {
-                            'name': product.name,
-                            #'images': ['https://i.imgur.com/EHyR2nP.png'],
-                        },
+            line_items=[{
+                'price_data': {
+                    'currency': 'usd',
+                    'unit_amount': product.price,
+                    'product_data': {
+                        'name': product.name,
+                        # 'images': ['https://i.imgur.com/EHyR2nP.png'],
                     },
-                    'quantity': 1,
                 },
+                'quantity': 1,
+            },
             ],
             mode='payment',
             success_url=YOUR_DOMAIN + '/success',
@@ -52,4 +57,3 @@ class CreateCheckoutSessionView(View):
         return JsonResponse({
             'id': checkout_session.id
         })
-       
