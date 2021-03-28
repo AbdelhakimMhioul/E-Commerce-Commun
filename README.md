@@ -11,7 +11,7 @@
 - [ ] Django Learning
 ## Hakim Tasks
 - [ ] NavBar
-- [ ] Database management and static Files
+- [x] Database management and static Files
 ## Databases
   #### Admin
     - name
