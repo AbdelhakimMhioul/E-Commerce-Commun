@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'e_commerce',
     'widget_tweaks',
+    'fontawesome-free',
+    'phone_field',
 ]
 
 MIDDLEWARE = [
