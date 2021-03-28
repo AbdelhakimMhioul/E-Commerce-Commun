@@ -13,11 +13,14 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="{% url 'home' %}"><i class="fa fa-home me-3"></i></a>
         </li>
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</a>
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+          aria-expanded="false">Dropdown</a>
         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
           <li><a class="dropdown-item" href="#">Action</a></li>
           <li><a class="dropdown-item" href="#">Another action</a></li>
-          <li><hr class="dropdown-divider"></li>
+          <li>
+            <hr class="dropdown-divider">
+          </li>
           <li><a class="dropdown-item" href="#">Something else here</a></li>
         </ul>
         </li>
@@ -25,11 +28,11 @@
       <form class="d-flex">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-success me-2" type="submit"><i class="fas fa-search"></i></button>
-        <button class="btn btn-outline-success me-2"><a href="#"><img class="user_icon"
+        <button class="btn btn-outline-success me-2"><a href="{% url 'register' %}"><img class="user_icon"
               src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1560918647/user.svg"
               alt="Register">Register</a></button>
-        <button class="btn btn-outline-success me-2"><a href="#"><img
-              src="https://img.icons8.com/ios-filled/20/000000/login-rounded-right.png" />Sign-In</a></button>
+        <button class="btn btn-outline-success me-2"><a href="{% url 'login' %}"><img
+              src="https://img.icons8.com/ios-filled/20/000000/login-rounded-right.png"/>Sign-In</a></button>
       </form>
       <div class="col-lg-3 col-9 order-lg-3 order-2 text-lg-left text-right">
         <div class="wishlist_cart d-flex flex-row align-items-center justify-content-end">
