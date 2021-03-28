@@ -3,3 +3,19 @@
 {% block title %}
 Home
 {% endblock title %}
+
+{% block content %}
+<div class="d-flex">
+    {% for product in products %}
+    <div class="card" style="width: 18rem;">
+        <a href="#"><img src="https://picsum.photos/200/200" class="card-img-top" alt="..."></a>
+        <div class="card-body">
+            <h5 class="card-title">{{product.name}}</h5>
+            <p class="card-text">{{product.description}}</p>
+            <p class="card-text">Price : {{product.price}}€</p>
+            <a href="#" class="btn btn-primary">Check Product</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock content %}

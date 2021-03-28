@@ -1,27 +1,25 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Buy cool new product</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"></script>
-    <script src="https://js.stripe.com/v3/"></script>
-  </head>
-  <body>
-    <section>
-      <div class="product">
-        <img
-          src="https://i.imgur.com/EHyR2nP.png"
-          alt="The cover of Stubborn Attachments"
-        />
-        <div class="description">
-          <h3>{{product.name}}</h3>
-          <h5>${{product.get_display_price}}</h5>
-        </div>
+
+<head>
+  <title>Buy cool new product</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"></script>
+  <script src="https://js.stripe.com/v3/"></script>
+</head>
+
+<body>
+  <section>
+    <div class="product">
+      <img src="https://i.imgur.com/EHyR2nP.png" alt="The cover of Stubborn Attachments" />
+      <div class="description">
+        <h3>{{product.name}}</h3>
+        <h5>${{product.get_display_price}}</h5>
       </div>
-      <button type="button" id="checkout-button">Checkout</button>
-    </section>
-    {% csrf_token%}
-  </body>
+    </div>
+    <button type="button" id="checkout-button">Checkout</button>
+  </section>
+  {% csrf_token%}
   <script type="text/javascript">
     const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
     // Create an instance of the Stripe object with your publishable API key
@@ -30,8 +28,8 @@
     checkoutButton.addEventListener("click", function () {
       fetch("{% url 'create-checkout-session' product.id %}", {
         method: "POST",
-        headers:{
-            'X-CSRFToken':csrftoken
+        headers: {
+          'X-CSRFToken': csrftoken
         }
       })
         .then(function (response) {
@@ -53,4 +51,6 @@
         });
     });
   </script>
+</body>
+
 </html>

@@ -1,6 +1,7 @@
 import e_commerce
 from django.contrib import admin
 from django.urls import path, include
+from products.views import SuccessView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
