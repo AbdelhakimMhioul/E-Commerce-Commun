@@ -1,34 +1,93 @@
 {% load static %}
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light" id="nav">
+<!-- Top-NavBar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">E-Commerce Website</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+    <div class="col-lg-2 col-sm-2 col-2">
+      <div class="logo_container">
+        <div class="logo"><a class="navbar-brand ms-2" href="#">Brand</a></div>
+      </div>
+    </div>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
+          <a class="nav-link active" aria-current="page" href="{% url 'home' %}"><i class="fa fa-home me-3"></i></a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Categories</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Products</a>
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</a>
+        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <li><a class="dropdown-item" href="#">Action</a></li>
+          <li><a class="dropdown-item" href="#">Another action</a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item" href="#">Something else here</a></li>
+        </ul>
         </li>
       </ul>
       <form class="d-flex">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success ml-1" type="submit">Search</button>
-        <a href=""><i class="far fa-bell"></i></a>
-        <a href=""><i class="far fa-shopping-cart"></i></a>
-        <img src="https://img.icons8.com/wired/50/000000/card-security.png" />
-        <img src="https://img.icons8.com/ios/50/000000/shopping-cart-loaded--v2.png" />
-        <button class="btn btn-success ml-5" type="submit">Register</button>
-        <button class="btn btn-success ml-5" type="submit">Login</button>
+        <button class="btn btn-outline-success me-2" type="submit"><i class="fas fa-search"></i></button>
+        <button class="btn btn-outline-success me-2"><a href="#"><img class="user_icon"
+              src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1560918647/user.svg"
+              alt="Register">Register</a></button>
+        <button class="btn btn-outline-success me-2"><a href="#"><img
+              src="https://img.icons8.com/ios-filled/20/000000/login-rounded-right.png" />Sign-In</a></button>
       </form>
+      <div class="col-lg-3 col-9 order-lg-3 order-2 text-lg-left text-right">
+        <div class="wishlist_cart d-flex flex-row align-items-center justify-content-end">
+          <div class="wishlist d-flex flex-row align-items-center justify-content-end">
+            <div class="wishlist_icon"><img
+                src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1560918681/heart.png" alt=""></div>
+            <div class="wishlist_content">
+              <div class="wishlist_text"><a href="#">Wishlist</a></div>
+              <div class="wishlist_count">10</div>
+            </div>
+          </div> <!-- Cart -->
+          <div class="cart">
+            <div class="cart_container d-flex flex-row align-items-center justify-content-end">
+              <div class="cart_icon"> <img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1560918704/cart.png"
+                  alt="">
+                <div class="cart_count"><span>3</span></div>
+              </div>
+              <div class="cart_content me-2">
+                <div class="cart_text"><a href="#">Cart</a></div>
+                <div class="cart_price">$185</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </nav>
+<!-- End Top-NavBar -->
+<!-- Main-NavBar -->
+<nav class="main_nav">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <div class="main_nav_content d-flex flex-row">
+          <!-- Main Nav Menu -->
+          <div class="main_nav_menu">
+            <ul class="standard_dropdown main_nav_dropdown">
+              <li class="hassubs"><a href="#">Livres<i class="fas fa-chevron-down ms-2"></i></a></li>
+              <li class="hassubs"> <a href="#">Laptop<i class="fas fa-chevron-down ms-2"></i></a>
+                <ul>
+                  <li> <a href="#">Lenovo<i class="fas fa-chevron-down me-2"></i></a>
+                    <ul>
+                      <li><a href="#">Lenovo 1<i class="fas fa-chevron-down"></i></a></li>
+                      <li><a href="#">Lenovo 3<i class="fas fa-chevron-down"></i></a></li>
+                      <li><a href="#">Lenovo 2<i class="fas fa-chevron-down"></i></a></li>
+                    </ul>
+                  </li>
+                  <li><a href="#">DELL<i class="fas fa-chevron-down"></i></a></li>
+                  <li><a href="#">APPLE<i class="fas fa-chevron-down"></i></a></li>
+                  <li><a href="#">HP<i class="fas fa-chevron-down"></i></a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<!-- End Main-NavBar -->
