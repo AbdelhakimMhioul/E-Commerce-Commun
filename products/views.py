@@ -1,23 +1,25 @@
+from products.forms import CheckoutForm
 import stripe
 from django.conf import settings
 from django.views.generic import TemplateView
 from django.http import JsonResponse
 from django.views import View
+from django.shortcuts import render,redirect
 from .models import Product
 
 # stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
 class SuccessView(TemplateView):
-    template_name = "products/success.html"
+    template_name = "success.html"
 
 
 class CancelView(TemplateView):
-    template_name = "products/cancel.html"
+    template_name = "cancel.html"
 
 
 class landingPageView(TemplateView):
-    template_name = "products/landing.html"
+    template_name = "landing.html"
 
     def get_context_data(self, **kwargs):
         product = Product.objects.get(name="Jellaba")
@@ -57,3 +59,14 @@ class CreateCheckoutSessionView(View):
             'id': checkout_session.id
         })
 
+
+def checkout(request):
+    formCheckout = CheckoutForm()
+    if request.method == 'POST':
+        formCheckout = CheckoutForm(request.POST)
+        if formCheckout.is_valid():
+            formCheckout.save()
+            return redirect('home')
+
+    context = {'formCheckout': formCheckout}
+    return render(request, 'checkout.html', context)

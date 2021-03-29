@@ -3,5 +3,14 @@ from .models import *
 
 # Register your models here.
 
-admin.site.register(Seller)
-admin.site.register(Client)
+
+# class SellerAdmin(admin.ModelAdmin):
+#     list_display = ("name", "phone",)
+
+
+# class PersonAdmin(admin.ModelAdmin):
+#     list_display = ("name", "phone",)
+
+
+# admin.site.register(Seller, SellerAdmin)
+admin.site.register(Person)

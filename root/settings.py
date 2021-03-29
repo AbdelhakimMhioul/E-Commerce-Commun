@@ -37,13 +37,32 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'e_commerce',
     'products',
     'users',
+    'rest_framework',
     'widget_tweaks',
     'fontawesome-free',
     'phone_field',
+    'crispy_forms',
+    'rest_framework.authtoken',
+    'rest_auth',
+    'allauth',
+    'allauth.account',
+    'rest_auth.registration',
 ]
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+SITE_ID = 1
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
+    ],
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -128,8 +147,8 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR,'static/')
+    os.path.join(BASE_DIR, 'static/')
 ]
-STRIPE_PUBLIC_KEY="pk_test_51IZwEvJvlSlcLIkHlKkgCaJoks2fa72vjNvNZy5Q1nlKLr92qovuIYZE77D7kWajNDNzbkPJr2X3G0hopfQjI0vX00XNeExF9F"
-STRIPE_SECRET_KEY="sk_test_51IZwEvJvlSlcLIkHo7RM5VAPcNZLl69So4pdNa0rP4eLjGWj3SPxPFI9DBYYJyDEQccwW1q7P3AheWdwYMrQluRl00r6utkaNN"
-STRIPE_WEBHOOK_SECRET=" "
+STRIPE_PUBLIC_KEY = "pk_test_51IZwEvJvlSlcLIkHlKkgCaJoks2fa72vjNvNZy5Q1nlKLr92qovuIYZE77D7kWajNDNzbkPJr2X3G0hopfQjI0vX00XNeExF9F"
+STRIPE_SECRET_KEY = "sk_test_51IZwEvJvlSlcLIkHo7RM5VAPcNZLl69So4pdNa0rP4eLjGWj3SPxPFI9DBYYJyDEQccwW1q7P3AheWdwYMrQluRl00r6utkaNN"
+STRIPE_WEBHOOK_SECRET = " "

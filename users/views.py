@@ -1,9 +1,7 @@
 from django.shortcuts import render, redirect
 from .forms import SignUpForm
-from django.contrib.auth import login as auth_login
-from django.shortcuts import render, redirect
-from django.contrib import messages
-from django.contrib.auth import authenticate
+from django.contrib.auth import login as auth_login,authenticate
+from django.contrib import messages 
 
 
 def register(request):
@@ -26,8 +24,9 @@ def login(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             auth_login(request, user)
-            return redirect('register')
+            return redirect('register.html')
         else:
             messages.info(request, 'Username or Password incorrect')
             return render(request, 'login.html')
     return render(request, 'login.html')
+

@@ -32,7 +32,7 @@
               src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1560918647/user.svg"
               alt="Register">Register</a></button>
         <button class="btn btn-outline-success me-2"><a href="{% url 'login' %}"><img
-              src="https://img.icons8.com/ios-filled/20/000000/login-rounded-right.png"/>Sign-In</a></button>
+              src="https://img.icons8.com/ios-filled/20/000000/login-rounded-right.png" />Sign-In</a></button>
       </form>
       <div class="col-lg-3 col-9 order-lg-3 order-2 text-lg-left text-right">
         <div class="wishlist_cart d-flex flex-row align-items-center justify-content-end">
@@ -71,21 +71,18 @@
           <!-- Main Nav Menu -->
           <div class="main_nav_menu">
             <ul class="standard_dropdown main_nav_dropdown">
-              <li class="hassubs"><a href="#">Livres<i class="fas fa-chevron-down ms-2"></i></a></li>
-              <li class="hassubs"> <a href="#">Laptop<i class="fas fa-chevron-down ms-2"></i></a>
+              <div class="d-flex">
+                {% for supercategorie in superCategories %}
+                <li class="hassubs"><a href="#">{{supercategorie}}<i class="fas fa-chevron-down ms-2"></i></a></li>
+                {% for categorie in categories %}
+                {% if categorie.supercategory == supercategorie %}
                 <ul>
-                  <li> <a href="#">Lenovo<i class="fas fa-chevron-down ms-2"></i></a>
-                    <ul>
-                      <li><a href="#">Lenovo 1<i class="fas fa-chevron-down ms-2"></i></a></li>
-                      <li><a href="#">Lenovo 3<i class="fas fa-chevron-down ms-2"></i></a></li>
-                      <li><a href="#">Lenovo 2<i class="fas fa-chevron-down ms-2"></i></a></li>
-                    </ul>
-                  </li>
-                  <li><a href="#">DELL<i class="fas fa-chevron-down ms-2"></i></a></li>
-                  <li><a href="#">APPLE<i class="fas fa-chevron-down ms-2"></i></a></li>
-                  <li><a href="#">HP<i class="fas fa-chevron-down ms-2"></i></a></li>
+                  <li class=""> <a href="#">{{categorie.category}}<i class="fas fa-chevron-down ms-2"></i></a>
                 </ul>
-              </li>
+                {% endif %}
+                {% endfor %}
+                {% endfor %}
+              </div>
             </ul>
           </div>
         </div>

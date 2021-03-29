@@ -1,4 +1,4 @@
-from products.models import Product
+from products.models import Category, Product, SuperCategory
 from django.shortcuts import render
 
 # Create your views here.
@@ -6,5 +6,8 @@ from django.shortcuts import render
 
 def home(request):
     products = Product.objects.all()
-    context = {'products': products}
+    categories = Category.objects.all()
+    superCategories = SuperCategory.objects.all()
+    context = {'products': products, 'categories': categories,
+               'superCategories': superCategories}
     return render(request, 'home.html', context)
