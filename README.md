@@ -6,7 +6,7 @@
 ## Ikram Tasks
 - [ ] Liaison avec compte paypal ou carte internationale pour payment
 - [X] Footer
-- [X]dashbord seller
+- [X] Dashbord seller
 ## Houda Tasks
 - [ ] Django Learning
 ## Khadija Tasks
