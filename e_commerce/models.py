@@ -1,4 +1,4 @@
-from django.db.models import Model, CharField, FloatField, TextField, CASCADE, ForeignKey, PositiveBigIntegerField
+from django.db.models import Model, CharField, FloatField, TextField, CASCADE, ForeignKey, PositiveBigIntegerField, IntegerField
 from django.forms import ChoiceField, RadioSelect
 from django.db.models.fields import EmailField
 from django.db.models.fields.files import ImageField
@@ -11,6 +11,8 @@ TRADE_ROLE = (
     (1, 'CLIENT'),
     (2, 'BOTH'),
 )
+
+INTEGERS = ((0, 0), (1, 1), (2, 2), (3, 3), (4, 4), (5, 5))
 
 
 class Category(Model):
@@ -55,6 +57,14 @@ class Seller(Person):
 
     def __str__(self):
         return super().name
+
+
+class Rating(Model):
+    product = ForeignKey(Product, on_delete=CASCADE)
+    rates = IntegerField(choices=INTEGERS, default=0)
+
+    def __str__(self):
+        return self.product.name
 
 # class Checkout(models.Model):
 #     first_name = models.CharField(max_length=50)
