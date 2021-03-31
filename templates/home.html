@@ -6,16 +6,65 @@ Home
 
 {% block content %}
 <div class="d-flex">
-    {% for product in products %}
+    <div class="container">
+        <div class="row ">
+            <div class="col-lg-4">
+                <div class="card" style="width: 18rem;">
+                    <a href="#"><img src="https://picsum.photos/300/200" class="card-img-top" alt=""></a>
+                    <div class="card-body">
+                        <h5 class="card-title">Product</h5>
+                        <hr>
+                        <p class="card-text">Product Description</p>
+                        <p class="card-text">Price : €</p>
+                        <div class="d-flex">
+                            <a href="#" class="btn btn-secondary me-2">Add To Cart</a>
+                            <a href="#" class="btn btn-primary">View</a>              
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card" style="width: 18rem;">
+                    <a href="#"><img src="https://picsum.photos/300/200" class="card-img-top" alt=""></a>
+                    <div class="card-body">
+                        <h5 class="card-title">Product</h5>
+                        <hr>
+                        <p class="card-text">Product Description</p>
+                        <p class="card-text">Price : €</p>
+                        <div class="d-flex">
+                            <a href="#" class="btn btn-secondary me-2">Add To Cart</a>
+                            <a href="#" class="btn btn-primary">View</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card" style="width: 18rem;">
+                    <a href="#"><img src="https://picsum.photos/300/200" class="card-img-top" alt=""></a>
+                    <div class="card-body">
+                        <h5 class="card-title">Product</h5>
+                        <hr>
+                        <p class="card-text">Product Description</p>
+                        <p class="card-text">Price : €</p>
+                        <div class="d-flex">
+                            <a href="#" class="btn btn-secondary me-2">Add To Cart</a>
+                            <a href="#" class="btn btn-primary">View</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- {% for product in products %}
     <div class="card" style="width: 18rem;">
         <a href="#"><img src="https://picsum.photos/200/200" class="card-img-top" alt=""></a>
         <div class="card-body">
             <h5 class="card-title">{{product.name}}</h5>
             <p class="card-text">{{product.description}}</p>
             <p class="card-text">Price : {{product.price}}€</p>
-            <a href="#" class="btn btn-primary">Check Product</a>
+            <a href="#" class="btn btn-primary">View</a>
         </div>
     </div>
-    {% endfor %}
+    {% endfor %} -->
 </div>
 {% endblock content %}

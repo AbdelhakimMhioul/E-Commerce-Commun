@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="box-element">
+            <a href="{% url 'home' %}" class="btn btn-outline-dark">&#8592;Continue Shopping</a>
+            <br>
+            <br>
+            <table class="table">
+                <tr>
+                    <th>
+                        <h5>Items: <strong>3</strong></h5>
+                    </th>
+                    <th>
+                        <h5>Items: <strong>$45</strong></h5>
+                    </th>
+                    <th>
+                        <a href="{% url 'checkout' %}" class="btn btn-success">Checkout</a>
+                    </th>
+                </tr>
+            </table>
+        </div>
+        <br>
+        <div class="box-element">
+            <div class="cart-row">
+                <div style="flex:2;"><strong>Image</strong></div>
+                <div style="flex:2;"><strong>Item</strong></div>
+                <div style="flex:1;"><strong>Price</strong></div>
+                <div style="flex:2;"><strong>Quantity</strong></div>
+                <div style="flex:2;"><strong>Total</strong></div>
+            </div>
+            <div class="cart-row">
+                <div style="flex:2;"><img style="width:10%;" src="{% static 'images/cart.png'%}"></div>
+                <div style="flex:2;">Item</div>
+                <div style="flex:1;">Price</div>
+                <div style="flex:2;">
+                    <p class="quantity">2</p>
+                    <div class="quantity">
+                        <img src="{% static 'images/arrow-up.png'%}" class="chg-quantity">
+                        <img src="{% static 'images/arrow-down.png'%}" class="chg-quantity">
+                    </div>
+                </div>
+                <div style="flex:2;"></div>
+            </div>
+            <div class="cart-row">
+                <div style="flex:2;"></div>
+                <div style="flex:2;">Item</div>
+                <div style="flex:1;">Price</div>
+                <div style="flex:2;">Quantity</div>
+                <div style="flex:2;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

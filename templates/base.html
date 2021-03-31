@@ -29,6 +29,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
         integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
     {% block style %}{% endblock %}
     <title>{% block title %}{% endblock title %}</title>
 </head>
@@ -37,7 +38,7 @@
     {% block body %}
     {% include "navbar.html" %}
     {% block content %}{% endblock content %}
-    {% include "footer.html" %}
+    {% include "includes/footer.html" %}
     {% endblock body %}
     {% block script %}{% endblock script %}
 </body>

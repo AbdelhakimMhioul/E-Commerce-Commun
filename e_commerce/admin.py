@@ -14,3 +14,5 @@ from .models import *
 
 # admin.site.register(Seller, SellerAdmin)
 admin.site.register(Person)
+admin.site.register(Category)
+admin.site.register(Product)

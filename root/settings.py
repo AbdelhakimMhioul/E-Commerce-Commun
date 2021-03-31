@@ -45,12 +45,12 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'fontawesome-free',
     'phone_field',
-    'crispy_forms',
     'rest_framework.authtoken',
     'rest_auth',
     'allauth',
     'allauth.account',
     'rest_auth.registration',
+    'crispy_forms',
 ]
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
