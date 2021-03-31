@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'e_commerce',
-    'products',
+    'api',
     'users',
     'rest_framework',
     'widget_tweaks',
@@ -152,3 +152,5 @@ STATICFILES_DIRS = [
 STRIPE_PUBLIC_KEY = "pk_test_51IZwEvJvlSlcLIkHlKkgCaJoks2fa72vjNvNZy5Q1nlKLr92qovuIYZE77D7kWajNDNzbkPJr2X3G0hopfQjI0vX00XNeExF9F"
 STRIPE_SECRET_KEY = "sk_test_51IZwEvJvlSlcLIkHo7RM5VAPcNZLl69So4pdNa0rP4eLjGWj3SPxPFI9DBYYJyDEQccwW1q7P3AheWdwYMrQluRl00r6utkaNN"
 STRIPE_WEBHOOK_SECRET = " "
+
+LOGIN_REDIRECT_URL = 'dashboardclient'

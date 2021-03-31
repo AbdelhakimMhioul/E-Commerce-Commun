@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from .forms import SignUpForm
-from django.contrib.auth import login as auth_login,authenticate
-from django.contrib import messages 
+from django.contrib.auth import login as auth_login, authenticate
+from django.contrib import messages
 
 
 def register(request):
@@ -14,7 +14,7 @@ def register(request):
             return redirect('home')
 
     context = {'form': form}
-    return render(request, 'register.html', context)
+    return render(request, 'accounts/register.html', context)
 
 
 def login(request):
@@ -30,3 +30,10 @@ def login(request):
             return render(request, 'login.html')
     return render(request, 'login.html')
 
+
+def showDashbordClient(request):
+    return render(request, 'accounts/dashboardClient.html')
+
+
+def showDashbordSeller(request):
+    return render(request, 'accounts/dashboardSeller.html')
