@@ -72,3 +72,6 @@ def checkout(request):
 
 def cart(request):
     return render(request,'cart.html',{})
+
+def showDashbord(request):
+    return render(request,'dashbordClient.html')
