@@ -72,15 +72,8 @@
           <div class="main_nav_menu">
             <ul class="standard_dropdown main_nav_dropdown">
               <div class="d-flex">
-                {% for supercategorie in superCategories %}
-                <li class="hassubs"><a href="#">{{supercategorie}}<i class="fas fa-chevron-down ms-2"></i></a></li>
                 {% for categorie in categories %}
-                {% if categorie.supercategory == supercategorie %}
-                <ul>
-                  <li class=""> <a href="#">{{categorie.category}}<i class="fas fa-chevron-down ms-2"></i></a>
-                </ul>
-                {% endif %}
-                {% endfor %}
+                <li class="hassubs"><a href="{% url 'categorie' categorie.category %}">{{categorie}}</a></li>
                 {% endfor %}
               </div>
             </ul>

@@ -1,5 +1,9 @@
 {% extends 'base.html'%}
 
+{% block title %}
+{{product.name}}
+{% endblock title %}
+
 {% block style %}
 <style>
     button.like {
@@ -67,14 +71,17 @@
         <i class="bi bi-star"></i>
         {% endif %}
         {{real_rate}}%
-        <button class="dislike">
-            <!-- <i class="bi bi-hand-thumbs-down"></i> -->
-            <i class="bi bi-hand-thumbs-down-fill"></i>
-        </button>
-        <button class="like">
-            <!-- <i class="bi bi-hand-thumbs-up"></i> -->
-            <i class="bi bi-hand-thumbs-up-fill"></i>
-        </button>
+        <form action="{% url 'rated' product.id %}" method="POST" id="myForm">
+            {% csrf_token %}
+            <button type="submit" class="dislike" name="Submit" value="Submit"
+                onclick='document.getElementById("myForm").innerHTML="Thank You For Rating"'>
+                <i class="bi bi-hand-thumbs-down-fill"></i>
+            </button>
+            <button type="submit" class="like" name="Submit" value="Submit"
+                onclick='document.getElementById("myForm").innerHTML="Thank You For Rating"'>
+                <i class="bi bi-hand-thumbs-up-fill"></i>
+            </button>
+        </form>
     </div>
 </div>
 {% endblock content %}

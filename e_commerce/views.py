@@ -1,5 +1,5 @@
 from .models import Category, Product, Rating
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from django.db.models import Avg
 from .forms import CheckoutForm
 from math import ceil
@@ -8,9 +8,9 @@ from math import ceil
 
 
 def home(request):
-    products = Product.objects.all()
-    categories = Category.objects.all()
-    context = {'products': products, 'categories': categories, }
+    products_9 = Product.objects.all()[:9]
+    categories = Category.objects.all()[:9]
+    context = {'products_9': products_9, 'categories': categories, }
     return render(request, 'home.html', context)
 
 
@@ -33,8 +33,26 @@ def cart(request):
 def viewProduct(request, pk):
     produit = Product.objects.get(pk=pk)
     rate_avg = ceil(Rating.objects.filter(
-        product__pk=pk).aggregate(Avg('rates'))['rates__avg'])
+        product__pk=pk).aggregate(Avg('rates'))['rates__avg']) if Rating.objects.filter(product__pk=pk).aggregate(Avg('rates'))['rates__avg'] is not None else 0
     real_rate = int(Rating.objects.filter(
-        product__pk=pk).aggregate(Avg('rates'))['rates__avg']/5*100)
-    context = {'product': produit, 'rate_avg': rate_avg,'real_rate':real_rate}
+        product__pk=pk).aggregate(Avg('rates'))['rates__avg']/5*100) if Rating.objects.filter(product__pk=pk).aggregate(Avg('rates'))['rates__avg'] is not None else 0
+    context = {'product': produit, 'rate_avg': rate_avg,
+               'real_rate': real_rate, }
     return render(request, 'viewProduct.html', context)
+
+
+def rated(request, pk):
+    submitbutton = request.POST.get('Submit')
+    print(submitbutton)
+    if submitbutton:
+        instance = get_object_or_404(Rating, product__pk=pk)
+        instance.rates += 1
+        instance.save()
+        return viewProduct(request, pk)
+    return render(request, 'home.html')
+
+
+def categorie(request, categorie):
+    products = Product.objects.filter(category__category=categorie)
+    context = {'products': products}
+    return render(request, 'categorie.html', context)
