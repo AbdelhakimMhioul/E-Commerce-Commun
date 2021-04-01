@@ -5,6 +5,13 @@ Home
 {% endblock title %}
 
 {% block content %}
+<style>
+.contact{
+    width:300px;
+    margin-left:500px;
+    margin-top:100px;
+}
+</style>
 <div class="d-flex">
     <div class="container">
         <div class="row ">
@@ -55,6 +62,8 @@ Home
             </div>
         </div>
     </div>
+    
+
     <!-- {% for product in products %}
     <div class="card" style="width: 18rem;">
         <a href="#"><img src="https://picsum.photos/200/200" class="card-img-top" alt=""></a>
@@ -66,5 +75,15 @@ Home
         </div>
     </div>
     {% endfor %} -->
+</div>
+<div class="contact">
+ <h1>Contact Us</h1>
+ <form method="POST" action="" >
+					{% csrf_token%}
+					{% include "includes/form.html" %}
+					<div class="d-flex justify-content-center mt-3 login_container">
+						<input type="submit" class="btn btn-primary">
+					</div>
+				</form>
 </div>
 {% endblock content %}
