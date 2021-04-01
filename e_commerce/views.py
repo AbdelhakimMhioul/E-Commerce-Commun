@@ -34,5 +34,7 @@ def viewProduct(request, pk):
     produit = Product.objects.get(pk=pk)
     rate_avg = ceil(Rating.objects.filter(
         product__pk=pk).aggregate(Avg('rates'))['rates__avg'])
-    context = {'product': produit, 'rate_avg': rate_avg}
+    real_rate = int(Rating.objects.filter(
+        product__pk=pk).aggregate(Avg('rates'))['rates__avg']/5*100)
+    context = {'product': produit, 'rate_avg': rate_avg,'real_rate':real_rate}
     return render(request, 'viewProduct.html', context)
