@@ -30,6 +30,10 @@
 </style>
 {% endblock style %}
 
+{% block mainNavBar %}
+{% include "includes/topNavBar.html" %}
+{% endblock mainNavBar %}
+
 {% block content %}
 <div class="container">
     <div class="">
@@ -71,13 +75,12 @@
         <i class="bi bi-star"></i>
         {% endif %}
         {{real_rate}}%
-        <form action="{% url 'rated' product.id %}" method="POST" id="myForm">
+        <form action="{% url 'rated' product.id %}" method="POST" id="myForm" novalidate>
             {% csrf_token %}
-            <button type="submit" class="dislike" name="Submit" value="Submit"
-                onclick='document.getElementById("myForm").innerHTML="Thank You For Rating"'>
+            <button type="submit" class="dislike" name="Submit">
                 <i class="bi bi-hand-thumbs-down-fill"></i>
             </button>
-            <button type="submit" class="like" name="Submit" value="Submit"
+            <button type="submit" class="like" name="Submit"
                 onclick='document.getElementById("myForm").innerHTML="Thank You For Rating"'>
                 <i class="bi bi-hand-thumbs-up-fill"></i>
             </button>

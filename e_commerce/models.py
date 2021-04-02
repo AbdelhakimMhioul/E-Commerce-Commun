@@ -63,6 +63,12 @@ class Rating(Model):
     product = ForeignKey(Product, on_delete=CASCADE)
     rates = IntegerField(choices=INTEGERS, default=0)
 
+    def increment_rate(self):
+        self.rates += 1
+    
+    def decrement_rate(self):
+        self.rates += 1
+
     def __str__(self):
         return self.product.name
 

@@ -12,7 +12,6 @@ def register(request):
             user = form.save()
             auth_login(request, user)
             return redirect('home')
-
     context = {'form': form}
     return render(request, 'accounts/register.html', context)
 
