@@ -7,8 +7,7 @@ urlpatterns = [
     path('', include("users.urls")),
     path('', include("api.urls")),
     path('', include("dashboardSeller.urls")),
-
-    path('rest-auth/', include('rest_auth.urls')),
+    path('accounts/', include('django.contrib.auth.urls')),
     path('rest-auth/', include('rest_auth.urls')),
     path('rest-auth/registration/', include('rest_auth.registration.urls')),
 ]
