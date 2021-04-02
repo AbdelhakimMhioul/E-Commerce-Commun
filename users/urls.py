@@ -8,4 +8,5 @@ urlpatterns = [
     path('login/', auth_views.LoginView.as_view(template_name='accounts/login.html'), name='login'),
     path('dashboardClient/', showDashbordClient, name='dashboardclient'),
     path('dashboardSeller/', showDashbordSeller, name='dashboardseller'),
+    path('myAccount', myAccount, name='myAccount'),
 ]

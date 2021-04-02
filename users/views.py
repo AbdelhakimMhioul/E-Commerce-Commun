@@ -30,6 +30,10 @@ def login(request):
     return render(request, 'login.html')
 
 
+def myAccount(request):
+    return render(request,'accounts/myAccount.html')
+
+
 def showDashbordClient(request):
     return render(request, 'accounts/dashboardClient.html')
 
