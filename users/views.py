@@ -31,9 +31,3 @@ def login(request):
     return render(request, 'login.html')
 
 
-def showDashbordClient(request):
-    return render(request, 'accounts/dashboardClient.html')
-
-
-def showDashbordSeller(request):
-    return render(request, 'accounts/dashboardSeller.html')
