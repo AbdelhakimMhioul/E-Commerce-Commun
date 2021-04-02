@@ -59,6 +59,7 @@ class Seller(Person):
     def __str__(self):
         return super().name
 
+
 class ContactUs(Model):
     subject = CharField(max_length=100, null=True)
     email = EmailField(max_length=100, null=True)

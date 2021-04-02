@@ -11,7 +11,9 @@ Home
             {% for product in products_9 %}
             <div class="col-lg-4">
                 <div class="card" style="width: 18rem;">
-                    <a href="#"><img src="https://nk1bd.com/wp-content/uploads/2020/07/Dell-Inspiron-15-3580-Intel-CDC-4205U-15.6-inch-HD-Laptop-with-Genuine-Windows-10.jpg" class="card-img-top" alt=""></a>
+                    <a href="#"><img
+                            src="https://nk1bd.com/wp-content/uploads/2020/07/Dell-Inspiron-15-3580-Intel-CDC-4205U-15.6-inch-HD-Laptop-with-Genuine-Windows-10.jpg"
+                            class="card-img-top" alt=""></a>
                     <div class="card-body">
                         <h5 class="card-title">{{product.name}}</h5>
                         <hr>
@@ -28,5 +30,13 @@ Home
         </div>
     </div>
 </div>
-{% include "contactUs.html" %}
+<div>
+    <form method="POST" action="">
+        {% csrf_token%}
+        {% include "includes/form.html" %}
+        <div class="d-flex justify-content-center mt-3 login_container">
+            <input class="btn login_btn" type="submit" value="Register Account">
+        </div>
+    </form>
+</div>
 {% endblock content %}

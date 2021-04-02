@@ -1,7 +1,7 @@
 from .models import Category, Product, Rating
 from django.shortcuts import get_object_or_404, render, redirect
 from django.db.models import Avg
-from .forms import CheckoutForm
+from .forms import CheckoutForm, ContactUsForm
 from math import ceil
 
 # Create your views here.
@@ -10,7 +10,9 @@ from math import ceil
 def home(request):
     products_9 = Product.objects.all()[:9]
     categories = Category.objects.all()[:9]
-    context = {'products_9': products_9, 'categories': categories, }
+    form = ContactUsForm()
+    context = {'products_9': products_9, 'categories': categories,
+               'form': form}
     return render(request, 'home.html', context)
 
 

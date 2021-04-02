@@ -10,7 +10,8 @@ STATES = (
 
 
 class CheckoutForm(forms.Form):
-    email = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Email'}))
+    email = forms.CharField(widget=forms.TextInput(
+        attrs={'placeholder': 'Email'}))
     password = forms.CharField(widget=forms.PasswordInput())
     address_1 = forms.CharField(
         label='Address',
@@ -25,7 +26,8 @@ class CheckoutForm(forms.Form):
     zip_code = forms.CharField(label='Zip')
     check_me_out = forms.BooleanField(required=False)
 
-class FormContactUs(ModelForm):
+
+class ContactUsForm(ModelForm):
     class Meta:
-        model=ContactUs
-        fields='__all__'
+        model = ContactUs
+        fields = '__all__'
