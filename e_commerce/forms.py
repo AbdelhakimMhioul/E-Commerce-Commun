@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm
-from .models import ContactUs
+
 STATES = (
     ('', 'Choose...'),
     ('MG', 'Minas Gerais'),
@@ -27,7 +27,7 @@ class CheckoutForm(forms.Form):
     check_me_out = forms.BooleanField(required=False)
 
 
-class ContactUsForm(ModelForm):
-    class Meta:
-        model = ContactUs
-        fields = '__all__'
+class ContactUsForm(forms.Form):
+    subject = forms.CharField(max_length=100)
+    email = forms.EmailField(max_length=100)
+    message = forms.CharField(max_length=300,widget=forms.Textarea)
