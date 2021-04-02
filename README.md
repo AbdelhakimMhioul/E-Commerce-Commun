@@ -4,7 +4,7 @@
 - [ ] Responsive Website (mobile-friendly)
 
 ## Ikram Tasks
-- [ ] Liaison avec compte paypal ou carte internationale pour payment
+- [ ] Liaison avec compte paypal ou carte internationale pour payment(hadi blaxx)
 - [X] Footer
 - [X] Dashbord seller
 ## Houda Tasks
