@@ -47,16 +47,13 @@ def deleteProduct(request, pk):
 
 
 def updateProduct(request, pk):
-
 	product = Product.objects.get(id=pk)
 	form = CreateProductForm(instance=product)
-
 	if request.method == 'POST':
 		form = CreateProductForm(request.POST, instance=product)
 		if form.is_valid():
 			form.save()
 			return redirect('/prod')
-
 	context = {'form': form}
 	return render(request, 'dashboardSeller/products.html', context)
 
