@@ -87,5 +87,3 @@ def showDashbordClient(request):
     return render(request, 'accounts/dashboardClient.html')
 
 
-def showDashbordSeller(request):
-    return render(request, 'accounts/dashboardSeller.html')

@@ -1,5 +1,6 @@
 from django import forms
-
+from django.forms import ModelForm
+from .models import ContactUs
 STATES = (
     ('', 'Choose...'),
     ('MG', 'Minas Gerais'),
@@ -24,3 +25,7 @@ class CheckoutForm(forms.Form):
     zip_code = forms.CharField(label='Zip')
     check_me_out = forms.BooleanField(required=False)
 
+class FormContactUs(ModelForm):
+    class Meta:
+        model=ContactUs
+        fields='__all__'

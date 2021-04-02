@@ -59,7 +59,12 @@ class Seller(Person):
     def __str__(self):
         return super().name
 
+class ContactUs(Model):
+    subject=CharField(max_length=100,null=True)
+    email=EmailField(max_length=100,null=True)
+    message=TextField(max_length=300)
 
+<<<<<<< HEAD
 class ContactUs(Model):
     subject = CharField(max_length=100, null=True)
     email = EmailField(max_length=100, null=True)
@@ -69,6 +74,10 @@ class ContactUs(Model):
         return self.subject
 
 
+=======
+    def __str__(self):
+        return self.subject
+>>>>>>> b140bbb5122c119a246cb3c5ebb4ce76d39d2ecd
 class Rating(Model):
     product = ForeignKey(Product, on_delete=CASCADE)
     rates = IntegerField(choices=INTEGERS, default=0)

@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'rest_auth.registration',
     'crispy_forms',
 ]
-
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
@@ -95,8 +94,11 @@ WSGI_APPLICATION = 'root.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+      'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'pfa',
+        'USER': 'postgres',
+        'PASSWORD': 'ikrame123',
+        'HOST': 'localhost',
     }
 }
 
