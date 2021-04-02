@@ -60,11 +60,6 @@ class Seller(Person):
         return super().name
 
 class ContactUs(Model):
-    subject=CharField(max_length=100,null=True)
-    email=EmailField(max_length=100,null=True)
-    message=TextField(max_length=300)
-
-class ContactUs(Model):
     subject = CharField(max_length=100, null=True)
     email = EmailField(max_length=100, null=True)
     message = TextField(max_length=300)
