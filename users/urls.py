@@ -8,7 +8,6 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('login/', auth_views.LoginView.as_view(), name='login'),
     path('dashboard_client/', showDashbordClient, name='dashboardclient'),
-    path('dashboard_seller/', showDashbordSeller, name='dashboardseller'),
     path('account/profile/', viewAccount, name='viewAccount'),
     path('account/profile/edit', editAccount, name='editAccount'),
     path('accounts/password_change/', auth_views.PasswordChangeView.as_view(
