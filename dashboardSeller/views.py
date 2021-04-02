@@ -28,7 +28,6 @@ def showProduct(request):
             return redirect('/prod')
         else:
             print("ERROR HADXI MAKHADAMX")
-<<<<<<< HEAD
     myFilter = ProductFilter(request.GET, queryset=products)
     products = myFilter.qs
     context = {'form': form, 'products': products,
@@ -39,23 +38,10 @@ def showProduct(request):
 
 def deleteProduct(request, pk):
 	product = Product.objects.get(id=pk)
-=======
-    myFilter=ProductFilter(request.GET,queryset=products)
-    products=myFilter.qs
-    context={'form':form,
-             'products':products,
-             'myFilter':myFilter,
-             }
-    return render(request,'dashBoardSeller/products.html',context)
-
-def deleteProduct(request, pk):
-	product = Productt.objects.get(id=pk)
->>>>>>> b140bbb5122c119a246cb3c5ebb4ce76d39d2ecd
 	if request.method == "POST":
 		product.delete()
 		return redirect('/prod')
 
-<<<<<<< HEAD
 	context = {'item': product}
 	return render(request, 'dashboardSeller/products.html', context)
 
@@ -67,23 +53,10 @@ def updateProduct(request, pk):
 
 	if request.method == 'POST':
 		form = CreateProductForm(request.POST, instance=product)
-=======
-	context = {'item':product}
-	return render(request, 'dashBoardSeller/products.html', context)
-
-def updateProduct(request, pk):
-
-	product = Productt.objects.get(id=pk)
-	form = FormProduct(instance=product)
-
-	if request.method == 'POST':
-		form = FormProduct(request.POST, instance=product)
->>>>>>> b140bbb5122c119a246cb3c5ebb4ce76d39d2ecd
 		if form.is_valid():
 			form.save()
 			return redirect('/prod')
 
-<<<<<<< HEAD
 	context = {'form': form}
 	return render(request, 'dashboardSeller/products.html', context)
 
@@ -95,16 +68,3 @@ def ResultData(request):
         dateData.append({i.name: i.quantity})
     print(dateData)
     return JsonResponse(dateData, safe=False)
-=======
-	context = {'form':form}
-	return render(request, 'dashBoardSeller/products.html', context)
-
-def ResultData(request):
-    dateData=[]
-    products=products=Productt.objects.all()
-    
-    for i in products:
-        dateData.append({i.name:i.quantity})
-    print(dateData)
-    return JsonResponse(dateData,safe=False)
->>>>>>> b140bbb5122c119a246cb3c5ebb4ce76d39d2ecd
