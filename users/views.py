@@ -12,7 +12,6 @@ def register(request):
             user = form.save()
             auth_login(request, user)
             return redirect('home')
-
     context = {'form': form}
     return render(request, 'accounts/register.html', context)
 
@@ -29,5 +28,13 @@ def login(request):
             messages.info(request, 'Username or Password incorrect')
             return render(request, 'login.html')
     return render(request, 'login.html')
+
+
+def myAccount(request):
+    return render(request,'accounts/myAccount.html')
+
+
+def showDashbordClient(request):
+    return render(request, 'accounts/dashboardClient.html')
 
 

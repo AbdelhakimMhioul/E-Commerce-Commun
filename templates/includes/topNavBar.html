@@ -1,0 +1,72 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <div class="col-lg-2 col-sm-2 col-2">
+            <div class="logo_container">
+                <div class="logo"><a class="navbar-brand ms-2" href="{% url 'home' %}">Brand</a></div>
+            </div>
+        </div>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'home' %}"><i
+                            class="fa fa-home me-3"></i></a>
+                </li>
+                {% if user.is_authenticated %}
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
+                        data-bs-toggle="dropdown" aria-expanded="false">{{user.username}}
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" href="{% url 'myAccount' %}">My Account</a></li>
+                        <li><a class="dropdown-item" href="#">Forget Password</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="#">Logout</a></li>
+                    </ul>
+                </div>
+                {% endif %}
+            </ul>
+            <form class="d-flex">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success me-2" type="submit"><i class="fas fa-search"></i></button>
+                {% if user.is_authenticated %}
+                {% else %}
+                <button class="btn btn-outline-success me-2"><a href="{% url 'register' %}"><img class="user_icon"
+                            src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1560918647/user.svg"
+                            alt="Register">Register</a></button>
+                <button class="btn btn-outline-success me-2"><a href="{% url 'login' %}"><img
+                            src="https://img.icons8.com/ios-filled/20/000000/login-rounded-right.png" />Sign-In</a></button>
+                {% endif %}
+            </form>
+            {% if user.is_authenticated %}
+            <div class="col-lg-3 col-9 order-lg-3 order-2 text-lg-left text-right">
+                <div class="wishlist_cart d-flex flex-row align-items-center justify-content-end">
+                    <div class="wishlist d-flex flex-row align-items-center justify-content-end">
+                        <div class="wishlist_icon"><img
+                                src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1560918681/heart.png" alt="">
+                        </div>
+                        <div class="wishlist_content">
+                            <div class="wishlist_text"><a href="#">Wishlist</a></div>
+                            <div class="wishlist_count">10</div>
+                        </div>
+                    </div> <!-- Cart -->
+                    <div class="cart">
+                        <div class="cart_container d-flex flex-row align-items-center justify-content-end">
+                            <div class="cart_icon"> <img
+                                    src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1560918704/cart.png" alt="">
+                                <div class="cart_count"><span>3</span></div>
+                            </div>
+                            <div class="cart_content me-2">
+                                <div class="cart_text"><a href="{% url 'cart' %}">Cart</a></div>
+                                <div class="cart_price">$185</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</nav>

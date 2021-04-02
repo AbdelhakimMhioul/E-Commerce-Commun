@@ -1,17 +1,23 @@
 {% extends "base.html" %}
 
 {% block title %}
-Home
+{{products.categorie}}
 {% endblock title %}
+
+{% block mainNavBar %}
+{% include "includes/topNavBar.html" %}
+{% endblock mainNavBar %}
 
 {% block content %}
 <div class="d-flex">
     <div class="container">
         <div class="row ">
-            {% for product in products_9 %}
+            {% for product in products %}
             <div class="col-lg-4">
                 <div class="card" style="width: 18rem;">
-                    <a href="#"><img src="https://nk1bd.com/wp-content/uploads/2020/07/Dell-Inspiron-15-3580-Intel-CDC-4205U-15.6-inch-HD-Laptop-with-Genuine-Windows-10.jpg" class="card-img-top" alt=""></a>
+                    <a href="#"><img
+                            src="https://nk1bd.com/wp-content/uploads/2020/07/Dell-Inspiron-15-3580-Intel-CDC-4205U-15.6-inch-HD-Laptop-with-Genuine-Windows-10.jpg"
+                            class="card-img-top" alt=""></a>
                     <div class="card-body">
                         <h5 class="card-title">{{product.name}}</h5>
                         <hr>
@@ -28,5 +34,4 @@ Home
         </div>
     </div>
 </div>
-{% include "contactUs.html" %}
 {% endblock content %}

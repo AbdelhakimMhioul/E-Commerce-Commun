@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block mainNavBar %}
+{% include "includes/topNavBar.html" %}
+{% endblock mainNavBar %}
+
+{% block style %}
+<style>
+    .vertical-menu {
+        width: 200px;
+    }
+
+    .vertical-menu a {
+        background-color: #eee;
+        color: black;
+        display: block;
+        padding: 12px;
+        text-decoration: none;
+    }
+
+    .vertical-menu a:hover {
+        background-color: #ccc;
+    }
+
+    .vertical-menu a.active {
+        background-color: crimson;
+        color: white;
+    }
+</style>
+{% endblock style %}
+{% block content %}
+<div class="container">
+    <div class="d-flex">
+        <div class="vertical-menu">
+            <a href="#" class="active">Settings</a>
+            <a href="#" onclick="document.getElementById('settings_content').innerHTML='Change Password'">Change
+                Password</a>
+            <a href="#" onclick="document.getElementById('settings_content').innerHTML='qsdflk'">Link 2</a>
+            <a href="#" onclick="document.getElementById('settings_content').innerHTML='qsdflk'">Link 3</a>
+            <a href="#" onclick="document.getElementById('settings_content').innerHTML='qsdflk'">Link 4</a>
+        </div>
+        <div class="container">
+            <div id="settings_content"></div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

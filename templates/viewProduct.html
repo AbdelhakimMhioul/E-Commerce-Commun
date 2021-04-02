@@ -1,5 +1,9 @@
 {% extends 'base.html'%}
 
+{% block title %}
+{{product.name}}
+{% endblock title %}
+
 {% block style %}
 <style>
     button.like {
@@ -25,6 +29,10 @@
     }
 </style>
 {% endblock style %}
+
+{% block mainNavBar %}
+{% include "includes/topNavBar.html" %}
+{% endblock mainNavBar %}
 
 {% block content %}
 <div class="container">
@@ -67,14 +75,16 @@
         <i class="bi bi-star"></i>
         {% endif %}
         {{real_rate}}%
-        <button class="dislike">
-            <!-- <i class="bi bi-hand-thumbs-down"></i> -->
-            <i class="bi bi-hand-thumbs-down-fill"></i>
-        </button>
-        <button class="like">
-            <!-- <i class="bi bi-hand-thumbs-up"></i> -->
-            <i class="bi bi-hand-thumbs-up-fill"></i>
-        </button>
+        <form action="{% url 'rated' product.id %}" method="POST" id="myForm" novalidate>
+            {% csrf_token %}
+            <button type="submit" class="dislike" name="Submit">
+                <i class="bi bi-hand-thumbs-down-fill"></i>
+            </button>
+            <button type="submit" class="like" name="Submit"
+                onclick='document.getElementById("myForm").innerHTML="<h1>Thank You For Rating</h1>"'>
+                <i class="bi bi-hand-thumbs-up-fill"></i>
+            </button>
+        </form>
     </div>
 </div>
 {% endblock content %}
