@@ -29,6 +29,7 @@ class Product(Model):
     description = TextField()
     photo = ImageField()
     price = FloatField(default=0)
+    quantity = IntegerField(null=True)
 
     def __str__(self):
         return self.name
@@ -59,15 +60,24 @@ class Seller(Person):
         return super().name
 
 
+class ContactUs(Model):
+    subject = CharField(max_length=100, null=True)
+    email = EmailField(max_length=100, null=True)
+    message = TextField(max_length=300)
+
+    def __str__(self):
+        return self.subject
+
+
 class Rating(Model):
     product = ForeignKey(Product, on_delete=CASCADE)
     rates = IntegerField(choices=INTEGERS, default=0)
 
     def increment_rate(self):
         self.rates += 1
-    
+
     def decrement_rate(self):
-        self.rates += 1
+        self.rates -= 1
 
     def __str__(self):
         return self.product.name

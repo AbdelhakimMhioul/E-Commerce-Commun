@@ -32,7 +32,8 @@ def cart(request):
 
 def viewProduct(request, pk):
     produit = Product.objects.get(pk=pk)
-    rating = Rating.objects.filter(product__pk=pk).aggregate(Avg('rates'))['rates__avg']
+    rating = Rating.objects.filter(
+        product__pk=pk).aggregate(Avg('rates'))['rates__avg']
     rate_avg = ceil(rating) if rating is not None else 0
     real_rate = int(rating/5*100) if rating is not None else 0
     context = {'product': produit, 'rate_avg': rate_avg,

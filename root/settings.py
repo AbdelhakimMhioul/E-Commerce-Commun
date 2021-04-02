@@ -29,8 +29,10 @@ INSTALLED_APPS = [
     'e_commerce',
     'api',
     'users',
+    'dashboardSeller',
     'rest_framework',
     'widget_tweaks',
+    'django_filters',
     'fontawesome-free',
     'phone_field',
     'rest_framework.authtoken',
@@ -42,6 +44,11 @@ INSTALLED_APPS = [
 ]
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'hk.mhl1975@gmail.com'
+EMAIL_HOST_PASSWORD = 'Fujitsu12345-'
+EMAIL_USE_TLS = True
 
 SITE_ID = 1
 
@@ -144,3 +151,4 @@ STRIPE_WEBHOOK_SECRET = " "
 
 LOGIN_REDIRECT_URL = 'dashboardclient'
 LOGOUT_REDIRECT_URL = 'home'
+LOGIN_URL = 'login'
