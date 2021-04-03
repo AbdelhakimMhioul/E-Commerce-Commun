@@ -31,6 +31,7 @@ class Product(Model):
     photo = ImageField()
     price = FloatField(default=0)
     quantity = PositiveBigIntegerField(null=True)
+    rates = IntegerField(choices=INTEGERS, default=0)
 
     def __str__(self):
         return self.name
@@ -61,22 +62,22 @@ class Seller(Person):
         return super().name
 
 
-class Rating(Model):
-    product = ForeignKey(Product, on_delete=CASCADE)
-    rates = IntegerField(choices=INTEGERS, default=0)
+# class Rating(Model):
+#     product = ForeignKey(Product, on_delete=CASCADE)
+#     rates = IntegerField(choices=INTEGERS, default=0)
 
-    def increment_rate(self):
-        self.rates += 1
+#     def increment_rate(self):
+#         self.rates += 1
 
-    def decrement_rate(self):
-        self.rates -= 1
+#     def decrement_rate(self):
+#         self.rates -= 1
 
-    def __str__(self):
-        return self.product.name
+#     def __str__(self):
+#         return self.product.name
 
 
 class WishlistProduct(Model):
-    product = OneToOneField(Product, on_delete=CASCADE,unique=True)
+    product = OneToOneField(Product, on_delete=CASCADE, unique=True)
 
     def __str__(self):
         return self.product.name

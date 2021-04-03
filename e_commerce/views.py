@@ -8,7 +8,7 @@ from math import ceil
 
 
 def home(request):
-    products_9 = Product.objects.all()[:9]
+    products_9 = Product.objects.all().order_by('rates')[:9]
     categories = Category.objects.all()[:9]
     form = ContactUsForm()
     context = {'products_9': products_9, 'categories': categories,
@@ -33,12 +33,11 @@ def cart(request):
 
 
 def viewProduct(request, pk):
-    produit = Product.objects.get(pk=pk)
-    rating = Rating.objects.filter(
-        product__pk=pk).aggregate(Avg('rates'))['rates__avg']
+    product = Product.objects.get(pk=pk)
+    rating = Product.objects.filter(pk=pk).aggregate(Avg('rates'))['rates__avg']
     rate_avg = ceil(rating) if rating is not None else 0
     real_rate = int(rating/5*100) if rating is not None else 0
-    context = {'product': produit, 'rate_avg': rate_avg,
+    context = {'product': product, 'rate_avg': rate_avg,
                'real_rate': real_rate, }
     return render(request, 'viewProduct.html', context)
 
@@ -47,7 +46,7 @@ def rated(request, pk):
     submitbutton = request.POST['Submit']
     if request.method == 'POST':
         if submitbutton:
-            instance = get_object_or_404(Rating, product__pk=pk)
+            instance = get_object_or_404(Product, pk=pk)
             instance.rates += 1
             instance.save()
             return viewProduct(request, pk)
@@ -61,7 +60,7 @@ def categorie(request, categorie):
 
 
 def addWishlist(request, pk):
-    product = get_object_or_404(Product, pk=pk)
+    product = Product.objects.get(pk=pk)
     if request.method == 'POST':
         WishlistProduct.objects.create(
             product=product
