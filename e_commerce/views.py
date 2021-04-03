@@ -3,6 +3,7 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.db.models import Avg
 from .forms import CheckoutForm, ContactUsForm
 from math import ceil
+from django.db.models import Q
 
 # Create your views here.
 
@@ -77,6 +78,16 @@ def viewProduct(request, pk):
     context = {'product': product, 'rate_avg': rate_avg,
                'real_rate': real_rate, 'numCart': numCart}
     return render(request, 'viewProduct.html', context)
+
+
+def search_form(request):
+    if 'search' in request.GET and request.GET['search']:
+        search_query = request.GET.get('search')
+        products = Product.objects.filter(
+            Q(name__contains=search_query) | Q(category__category__contains=search_query) | Q(description__contains=search_query))
+    else:
+        products = Product.objects.all()
+    return render(request, 'searches.html', {'products': products})
 
 
 def rated(request, pk):

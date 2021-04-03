@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}
+Home
+{% endblock title %}
+
+{% block content %}
+<div class="d-flex">
+    <div class="container">
+        <div class="row ">
+            {% for product in products %}
+            <div class="col-lg-4">
+                <div class="card" style="width: 18rem;">
+                    <a href="#"><img
+                            src="https://nk1bd.com/wp-content/uploads/2020/07/Dell-Inspiron-15-3580-Intel-CDC-4205U-15.6-inch-HD-Laptop-with-Genuine-Windows-10.jpg"
+                            class="card-img-top" alt=""></a>
+                    <div class="card-body">
+                        <h5 class="card-title">{{product.name}}</h5>
+                        <hr>
+                        <p class="card-text">{{product.description}}</p>
+                        <p class="card-text">Price : {{product.price}}€</p>
+                        <div class="d-flex">
+                            <form action="{% url 'addCart' product.id %}" method="POST">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-primary">Add To Cart</button>
+                            </form>
+                            <a href="{% url 'viewProduct' product.id %}" class="btn btn-primary">View</a>
+                            <form action="{% url 'addWishlist' product.id %}" method="POST">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-primary">Add To Wishlist</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock content%}

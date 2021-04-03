@@ -28,9 +28,13 @@
                 </div>
                 {% endif %}
             </ul>
-            <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success me-2" type="submit"><i class="fas fa-search"></i></button>
+            <div class="d-flex">
+                <form action="{% url 'search_form' %}" method="GET">
+                    {% csrf_token %}
+                    <input class="form-control me-2" type="search" name="search" placeholder="Search"
+                        aria-label="Search">
+                    <button class="btn btn-outline-success me-2" type="submit"><i class="fas fa-search"></i></button>
+                </form>
                 {% if user.is_authenticated %}
                 {% else %}
                 <button class="btn btn-outline-success me-2"><a href="{% url 'register' %}"><img class="user_icon"
@@ -39,7 +43,7 @@
                 <button class="btn btn-outline-success me-2"><a href="{% url 'login' %}"><img
                             src="https://img.icons8.com/ios-filled/20/000000/login-rounded-right.png" />Sign-In</a></button>
                 {% endif %}
-            </form>
+            </div>
             {% if user.is_authenticated %}
             <div class="col-lg-3 col-9 order-lg-3 order-2 text-lg-left text-right">
                 <div class="wishlist_cart d-flex flex-row align-items-center justify-content-end">
