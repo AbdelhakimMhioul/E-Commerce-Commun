@@ -9,5 +9,6 @@ urlpatterns = [
     path('view-product/<int:pk>', rated, name="rated"),
     path('categorie/<str:categorie>', categorie, name="categorie"),
     path('addwishlist/<int:pk>', addWishlist, name="addWishlist"),
+    path('eliminateWish/<int:pk>', eliminateWish, name="eliminateWish"),
     path('wishlist/', wishlist, name="wishlist"),
 ]

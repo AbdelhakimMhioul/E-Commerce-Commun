@@ -10,9 +10,10 @@ from math import ceil
 def home(request):
     products_9 = Product.objects.all().order_by('-rates')[:9]
     categories = Category.objects.all()[:9]
+    numWishes = WishlistProduct.objects.count()
     form = ContactUsForm()
     context = {'products_9': products_9, 'categories': categories,
-               'form': form}
+               'form': form, 'numWishes': numWishes}
     return render(request, 'home.html', context)
 
 
@@ -34,7 +35,8 @@ def cart(request):
 
 def viewProduct(request, pk):
     product = Product.objects.get(pk=pk)
-    rating = Product.objects.filter(pk=pk).aggregate(Avg('rates'))['rates__avg']
+    rating = Product.objects.filter(
+        pk=pk).aggregate(Avg('rates'))['rates__avg']
     rate_avg = ceil(rating) if rating is not None else 0
     real_rate = int(rating/5*100) if rating is not None else 0
     context = {'product': product, 'rate_avg': rate_avg,
@@ -69,7 +71,14 @@ def addWishlist(request, pk):
     return render(request, 'wishlist.html')
 
 
+def eliminateWish(request, pk):
+    wish = WishlistProduct.objects.get(pk=pk)
+    wish.delete()
+    return redirect('wishlist')
+
+
 def wishlist(request):
+    numWishes = WishlistProduct.objects.count()
     products = WishlistProduct.objects.all()
-    context = {'products': products}
+    context = {'products': products, 'numWishes': numWishes}
     return render(request, 'wishlist.html', context)
