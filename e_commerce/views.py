@@ -72,13 +72,8 @@ def eliminateCart(request, pk):
 def viewProduct(request, pk):
     numCart = Cart.objects.count()
     product = Product.objects.get(pk=pk)
-    avg_bad_rates = Product.objects.filter(
-        pk=pk).aggregate(Avg('bad_rates'))['bad_rates__avg']
-    avg_good_rates = Product.objects.filter(
-        pk=pk).aggregate(Avg('good_rates'))['good_rates__avg']
-    rate = (product.good_rates-product.bad_rates)/(product.bad_rates+product.good_rates)
-    rate_avg = ceil(rate)
-    real_rate = int(rate*100)
+    rate_avg = ceil(product.avg_rate()*5) if product.avg_rate() >= 0 else 0
+    real_rate = int(product.avg_rate()*100) if product.avg_rate() >= 0 else 0
     context = {'product': product, 'rate_avg': rate_avg,
                'real_rate': real_rate, 'numCart': numCart}
     return render(request, 'viewProduct.html', context)

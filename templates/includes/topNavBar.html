@@ -7,10 +7,11 @@
         </div>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                {% if user.is_authenticated %}
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{% url 'home' %}"><i
-                            class="fa fa-home me-3"></i></a>
+                    <a class="nav-link active" aria-current="page" href="{% url 'dashboardSeller' %}">Dashboard</a>
                 </li>
+                {% endif %}
                 {% if user.is_authenticated %}
                 <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
