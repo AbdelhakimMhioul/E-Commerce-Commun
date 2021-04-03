@@ -1,14 +1,18 @@
-{% extends "base.html" %}
+{% extends 'base.html'%}
 
 {% block title %}
-Home
+{{product.name}}
 {% endblock title %}
+
+{% block mainNavBar %}
+{% include "includes/topNavBar.html" %}
+{% endblock mainNavBar %}
 
 {% block content %}
 <div class="d-flex">
     <div class="container">
         <div class="row ">
-            {% for product in products_9 %}
+            {% for product in products %}
             <div class="col-lg-4">
                 <div class="card" style="width: 18rem;">
                     <a href="#"><img
@@ -21,11 +25,7 @@ Home
                         <p class="card-text">Price : {{product.price}}€</p>
                         <div class="d-flex">
                             <a href="#" class="btn btn-secondary me-2">Add To Cart</a>
-                            <a href="{% url 'viewProduct' product.id %}" class="btn btn-primary">View</a>
-                            <form action="{% url 'addWishlist' product.id %}" method="POST">
-                                {% csrf_token %}
-                                <button type="submit" class="btn btn-primary">Add To Wishlist</button>
-                            </form>
+                            <a href="{%url 'viewProduct' product.id %}" class="btn btn-primary">View</a>
                         </div>
                     </div>
                 </div>
@@ -33,14 +33,5 @@ Home
             {% endfor %}
         </div>
     </div>
-</div>
-<div>
-    <form method="POST" action="">
-        {% csrf_token%}
-        {% include "includes/form.html" %}
-        <div class="d-flex justify-content-center mt-3 login_container">
-            <input class="btn login_btn" type="submit" value="Register Account">
-        </div>
-    </form>
 </div>
 {% endblock content %}

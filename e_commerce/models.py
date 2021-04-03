@@ -1,4 +1,5 @@
 from django.db.models import Model, CharField, FloatField, TextField, CASCADE, ForeignKey, PositiveBigIntegerField, IntegerField
+from django.db.models.fields.related import OneToOneField
 from django.forms import ChoiceField, RadioSelect
 from django.db.models.fields import EmailField
 from django.db.models.fields.files import ImageField
@@ -25,11 +26,11 @@ class Category(Model):
 class Product(Model):
     name = CharField(max_length=100)
     category = ForeignKey(
-        Category, related_name='dcategories', on_delete=CASCADE)
+        Category, related_name='categories', on_delete=CASCADE)
     description = TextField()
     photo = ImageField()
     price = FloatField(default=0)
-    quantity = IntegerField(null=True)
+    quantity = PositiveBigIntegerField(null=True)
 
     def __str__(self):
         return self.name
@@ -72,6 +73,14 @@ class Rating(Model):
 
     def __str__(self):
         return self.product.name
+
+
+class WishlistProduct(Model):
+    product = OneToOneField(Product, on_delete=CASCADE,unique=True)
+
+    def __str__(self):
+        return self.product.name
+
 
 # class Checkout(models.Model):
 #     first_name = models.CharField(max_length=50)

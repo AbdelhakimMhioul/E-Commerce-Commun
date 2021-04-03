@@ -1,4 +1,4 @@
-from .models import Category, Product, Rating
+from .models import *
 from django.shortcuts import get_object_or_404, render, redirect
 from django.db.models import Avg
 from .forms import CheckoutForm, ContactUsForm
@@ -59,3 +59,20 @@ def categorie(request, categorie):
     products = Product.objects.filter(category__category=categorie)
     context = {'products': products}
     return render(request, 'categorie.html', context)
+
+
+def addWishlist(request, pk):
+    product = get_object_or_404(Product, pk=pk)
+    if request.method == 'GET':
+        print(product)
+        WishlistProduct.objects.create(
+            product=product
+        )
+        return redirect('home')
+    return render(request, 'wishlist.html')
+
+
+def wishlist(request):
+    products = WishlistProduct.objects.all()
+    context = {'products': products}
+    return render(request, 'wishlist.html', context)
