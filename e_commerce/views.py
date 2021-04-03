@@ -8,7 +8,7 @@ from math import ceil
 
 
 def home(request):
-    products_9 = Product.objects.all().order_by('rates')[:9]
+    products_9 = Product.objects.all().order_by('-rates')[:9]
     categories = Category.objects.all()[:9]
     form = ContactUsForm()
     context = {'products_9': products_9, 'categories': categories,
