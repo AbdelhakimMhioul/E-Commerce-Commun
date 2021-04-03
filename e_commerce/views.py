@@ -72,10 +72,13 @@ def eliminateCart(request, pk):
 def viewProduct(request, pk):
     numCart = Cart.objects.count()
     product = Product.objects.get(pk=pk)
-    rating = Product.objects.filter(
-        pk=pk).aggregate(Avg('rates'))['rates__avg']
-    rate_avg = ceil(rating) if rating is not None else 0
-    real_rate = int(rating/5*100) if rating is not None else 0
+    avg_bad_rates = Product.objects.filter(
+        pk=pk).aggregate(Avg('bad_rates'))['bad_rates__avg']
+    avg_good_rates = Product.objects.filter(
+        pk=pk).aggregate(Avg('good_rates'))['good_rates__avg']
+    rate = (product.good_rates-product.bad_rates)/(product.bad_rates+product.good_rates)
+    rate_avg = ceil(rate)
+    real_rate = int(rate*100)
     context = {'product': product, 'rate_avg': rate_avg,
                'real_rate': real_rate, 'numCart': numCart}
     return render(request, 'viewProduct.html', context)
@@ -84,16 +87,15 @@ def viewProduct(request, pk):
 def rated(request, pk):
     instance = Product.objects.get(pk=pk)
     if request.method == 'POST':
-        instance.rates += 1
         instance.good_rates += 1
         instance.save()
-    return redirect('viewProduct',pk=pk)
+    return redirect('viewProduct', pk=pk)
 
 
 def unrated(request, pk):
     instance = Product.objects.get(pk=pk)
     if request.method == 'POST':
-        instance.rates += 1
+        instance.bad_rates += 1
         instance.save()
     return redirect('viewProduct', pk=pk)
 

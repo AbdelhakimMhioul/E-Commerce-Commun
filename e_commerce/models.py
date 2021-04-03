@@ -30,8 +30,9 @@ class Product(Model):
     photo = ImageField()
     price = FloatField(default=0)
     quantity = PositiveBigIntegerField(null=True)
-    rates = IntegerField(default=0)
+    bad_rates = IntegerField(default=0)
     good_rates = IntegerField(default=0)
+
 
     def __str__(self):
         return self.name
