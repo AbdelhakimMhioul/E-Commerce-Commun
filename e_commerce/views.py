@@ -45,7 +45,6 @@ def viewProduct(request, pk):
 
 def rated(request, pk):
     submitbutton = request.POST['Submit']
-    print(submitbutton)
     if request.method == 'POST':
         if submitbutton:
             instance = get_object_or_404(Rating, product__pk=pk)
@@ -63,8 +62,7 @@ def categorie(request, categorie):
 
 def addWishlist(request, pk):
     product = get_object_or_404(Product, pk=pk)
-    if request.method == 'GET':
-        print(product)
+    if request.method == 'POST':
         WishlistProduct.objects.create(
             product=product
         )
