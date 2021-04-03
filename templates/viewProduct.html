@@ -75,16 +75,15 @@
         <i class="bi bi-star"></i>
         {% endif %}
         {{real_rate}}%
-        <form action="{% url 'rated' product.id %}" method="POST" id="myForm" novalidate>
+        <form action="{% url 'unrated' product.id %}" method="POST" novalidate>
             {% csrf_token %}
-            <button type="submit" class="dislike" name="Submit">
-                <i class="bi bi-hand-thumbs-down-fill"></i>
-            </button>
-            <button type="submit" class="like" name="Submit"
-                onclick='document.getElementById("myForm").innerHTML="<h1>Thank You For Rating</h1>"'>
-                <i class="bi bi-hand-thumbs-up-fill"></i>
-            </button>
+            <button type="submit" class="dislike"><i class="bi bi-hand-thumbs-down-fill"></i></button>
         </form>
+        <form action="{% url 'rated' product.id %}" method="POST" novalidate>
+            {% csrf_token %}
+            <button type="submit" class="like"><i class="bi bi-hand-thumbs-up-fill"></i></button>
+        </form>
+
     </div>
 </div>
 {% endblock content %}

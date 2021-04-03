@@ -20,7 +20,10 @@ Home
                         <p class="card-text">{{product.description}}</p>
                         <p class="card-text">Price : {{product.price}}€</p>
                         <div class="d-flex">
-                            <a href="#" class="btn btn-secondary me-2">Add To Cart</a>
+                            <form action="{% url 'addCart' product.id %}" method="POST">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-primary">Add To Cart</button>
+                            </form>
                             <a href="{% url 'viewProduct' product.id %}" class="btn btn-primary">View</a>
                             <form action="{% url 'addWishlist' product.id %}" method="POST">
                                 {% csrf_token %}

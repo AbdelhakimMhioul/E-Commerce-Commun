@@ -11,48 +11,91 @@ def home(request):
     products_9 = Product.objects.all().order_by('-rates')[:9]
     categories = Category.objects.all()[:9]
     numWishes = WishlistProduct.objects.count()
+    carts = Cart.objects.all()
+    total_price = 0
+    for cart in carts:
+        total_price += cart.product.price
+    numCart = Cart.objects.count()
     form = ContactUsForm()
     context = {'products_9': products_9, 'categories': categories,
-               'form': form, 'numWishes': numWishes}
+               'form': form, 'numWishes': numWishes, 'numCart': numCart, 'total_price': total_price}
     return render(request, 'home.html', context)
 
 
 def checkout(request):
     formCheckout = CheckoutForm()
+    numCart = Cart.objects.count()
     if request.method == 'POST':
         formCheckout = CheckoutForm(request.POST)
         if formCheckout.is_valid():
             formCheckout.save()
             return redirect('home')
 
-    context = {'formCheckout': formCheckout}
+    context = {'formCheckout': formCheckout, 'numCart': numCart}
     return render(request, 'checkout.html', context)
 
 
 def cart(request):
-    return render(request, 'cart.html', {})
+    numWishes = WishlistProduct.objects.count()
+    numCart = Cart.objects.count()
+    carts = Cart.objects.all()
+    total_price = 0
+    for cart in carts:
+        total_price += cart.product.price
+    context = {'numWishes': numWishes, 'carts': carts,
+               'numCart': numCart, 'total_price': total_price}
+    return render(request, 'cart.html', context)
+
+
+def addCart(request, pk):
+    numCart = Cart.objects.count()
+    numWishes = WishlistProduct.objects.count()
+    carts = Cart.objects.all()
+    total_price = 0
+    for cart in carts:
+        total_price += cart.product.price
+    product = Product.objects.get(pk=pk)
+    if request.method == 'POST':
+        Cart.objects.create(
+            product=product
+        )
+        return redirect('home')
+    return render(request, 'cart.html', {'numCart': numCart, 'numWishes': numWishes, 'total_price': total_price})
+
+
+def eliminateCart(request, pk):
+    wish = Cart.objects.get(pk=pk)
+    wish.delete()
+    return redirect('cart')
 
 
 def viewProduct(request, pk):
+    numCart = Cart.objects.count()
     product = Product.objects.get(pk=pk)
     rating = Product.objects.filter(
         pk=pk).aggregate(Avg('rates'))['rates__avg']
     rate_avg = ceil(rating) if rating is not None else 0
     real_rate = int(rating/5*100) if rating is not None else 0
     context = {'product': product, 'rate_avg': rate_avg,
-               'real_rate': real_rate, }
+               'real_rate': real_rate, 'numCart': numCart}
     return render(request, 'viewProduct.html', context)
 
 
 def rated(request, pk):
-    submitbutton = request.POST['Submit']
+    instance = Product.objects.get(pk=pk)
     if request.method == 'POST':
-        if submitbutton:
-            instance = get_object_or_404(Product, pk=pk)
-            instance.rates += 1
-            instance.save()
-            return viewProduct(request, pk)
-    return redirect('home')
+        instance.rates += 1
+        instance.good_rates += 1
+        instance.save()
+    return redirect('viewProduct',pk=pk)
+
+
+def unrated(request, pk):
+    instance = Product.objects.get(pk=pk)
+    if request.method == 'POST':
+        instance.rates += 1
+        instance.save()
+    return redirect('viewProduct', pk=pk)
 
 
 def categorie(request, categorie):
@@ -79,6 +122,20 @@ def eliminateWish(request, pk):
 
 def wishlist(request):
     numWishes = WishlistProduct.objects.count()
+    numCart = Cart.objects.count()
     products = WishlistProduct.objects.all()
-    context = {'products': products, 'numWishes': numWishes}
+    carts = Cart.objects.all()
+    total_price = 0
+    for cart in carts:
+        total_price += cart.product.price
+    context = {'products': products,
+               'numWishes': numWishes, 'numCart': numCart, 'total_price': total_price}
     return render(request, 'wishlist.html', context)
+
+
+def increaseQuantity(request):
+    pass
+
+
+def decreaseQuantity(request):
+    pass

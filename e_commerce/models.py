@@ -13,7 +13,6 @@ TRADE_ROLE = (
     (2, 'BOTH'),
 )
 
-INTEGERS = ((0, 0), (1, 1), (2, 2), (3, 3), (4, 4), (5, 5))
 
 
 class Category(Model):
@@ -31,7 +30,8 @@ class Product(Model):
     photo = ImageField()
     price = FloatField(default=0)
     quantity = PositiveBigIntegerField(null=True)
-    rates = IntegerField(choices=INTEGERS, default=0)
+    rates = IntegerField(default=0)
+    good_rates = IntegerField(default=0)
 
     def __str__(self):
         return self.name
@@ -82,6 +82,12 @@ class WishlistProduct(Model):
     def __str__(self):
         return self.product.name
 
+
+class Cart(Model):
+    product = ForeignKey(Product, on_delete=CASCADE)
+
+    def __str__(self):
+        return self.product.name
 
 # class Checkout(models.Model):
 #     first_name = models.CharField(max_length=50)
