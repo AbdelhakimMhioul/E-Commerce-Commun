@@ -1,8 +1,8 @@
 from .models import *
-from django.shortcuts import get_object_or_404, render, redirect
-from django.db.models import Avg
+from django.shortcuts import render, redirect
 from .forms import CheckoutForm, ContactUsForm
 from math import ceil
+from django.http import JsonResponse
 from django.db.models import Q
 
 # Create your views here.
@@ -81,12 +81,20 @@ def viewProduct(request, pk):
 
 
 def search_form(request):
+    if 'term' in request.GET and request.GET['term']:
+        term = request.GET.get('term')
+        qs = Product.objects.filter(name__startswith=term)
+        sources = []
+        for product in qs:
+            sources.append(
+                {"value": "/view-product/"+str(product.id)+"/", "label": product.name})
+        return JsonResponse(sources, safe=False)
     if 'search' in request.GET and request.GET['search']:
         search_query = request.GET.get('search')
         products = Product.objects.filter(
-            Q(name__contains=search_query) | Q(category__category__contains=search_query) | Q(description__contains=search_query))
+            Q(name__contains=search_query) | Q(category__category__contains=search_query) | Q(description__contains=search_query)).order_by('-rates')
     else:
-        products = Product.objects.all()
+        products = Product.objects.all().order_by('-rates')
     return render(request, 'searches.html', {'products': products})
 
 

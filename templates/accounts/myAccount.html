@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block mainNavBar %}
 {% include "includes/topNavBar.html" %}
@@ -28,13 +29,14 @@
     }
 </style>
 {% endblock style %}
+
 {% block content %}
 <div class="container">
     <div class="d-flex">
         <div class="vertical-menu">
             <a href="#" id="active" class="active">Settings</a>
             <a href="{% url 'change_password' %}" onclick="document.getElementById('settings_content').innerHTML='{{user.username}}'">Change Password</a>
-            <a href="#" onclick="document.getElementById('settings_content').innerHTML='qsdflk'">Link 2</a>
+            <a href="#" onclick="name()">Link 2</a>
             <a href="#" onclick="document.getElementById('settings_content').innerHTML='qsdflk'">Link 3</a>
             <a href="#" onclick="document.getElementById('settings_content').innerHTML='qsdflk'">Link 4</a>
         </div>
@@ -43,12 +45,9 @@
         </div>
     </div>
 </div>
-<script>
-    const generalHTML = '<p>Hello</p>';
-    document.getElementById('settings_content').innerHTML(generalHTML);
-</script>
+
 {% endblock content %}
 
 {% block script %}
-
+<script src="#" type="text/javascript"></script>
 {% endblock script %}
