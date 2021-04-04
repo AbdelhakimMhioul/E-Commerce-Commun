@@ -43,8 +43,10 @@
                 <div style="flex:2;">
                     <p class="quantity">2</p>
                     <div class="quantity">
-                        <a href="{% url 'increaseQuantity' %}"><img src="{% static 'images/arrow-up.png'%}" class="chg-quantity"></a>
-                        <a href="{% url 'decreaseQuantity' %}"><img src="{% static 'images/arrow-down.png'%}" class="chg-quantity"></a>
+                        <a href="{% url 'increaseQuantity' %}"><img src="{% static 'images/arrow-up.png'%}"
+                                class="chg-quantity"></a>
+                        <a href="{% url 'decreaseQuantity' %}"><img src="{% static 'images/arrow-down.png'%}"
+                                class="chg-quantity"></a>
                     </div>
                 </div>
                 <div style="flex:2;"></div>
@@ -54,3 +56,4 @@
     </div>
 </div>
 {% endblock content %}
+

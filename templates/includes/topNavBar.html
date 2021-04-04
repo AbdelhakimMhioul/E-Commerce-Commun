@@ -37,7 +37,6 @@
                     {% csrf_token %}
                     <input class="form-control me-2" type="search" id="search" name="search" placeholder="Search"
                         aria-label="Search">
-                    <button class="btn btn-outline-success me-2" type="submit"><i class="fas fa-search"></i></button>
                 </form>
                 {% if user.is_authenticated %}
                 {% else %}

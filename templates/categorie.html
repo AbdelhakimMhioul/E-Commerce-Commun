@@ -24,8 +24,14 @@
                         <p class="card-text">{{product.description}}</p>
                         <p class="card-text">Price : {{product.price}}€</p>
                         <div class="d-flex">
-                            <a href="#" class="btn btn-secondary me-2">Add To Cart</a>
-                            <a href="{% url 'wishlist' %}" class="btn btn-primary">Add To Wishlist</a>
+                            <form action="{% url 'addCart' product.id %}" method="POST">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-primary">Add To Cart</button>
+                            </form>
+                            <form action="{% url 'addWishlist' product.id %}" method="POST">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-primary">Add To Wishlist</button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -35,3 +41,7 @@
     </div>
 </div>
 {% endblock content %}
+
+{% block script %}
+
+{% endblock script %}
