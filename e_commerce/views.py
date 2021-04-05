@@ -4,6 +4,7 @@ from .forms import CheckoutForm, ContactUsForm
 from math import ceil
 from django.http import JsonResponse
 from django.db.models import Q
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -23,6 +24,7 @@ def home(request):
     return render(request, 'home.html', context)
 
 
+@login_required
 def checkout(request):
     formCheckout = CheckoutForm()
     numCart = Cart.objects.count()
@@ -36,6 +38,7 @@ def checkout(request):
     return render(request, 'checkout.html', context)
 
 
+@login_required
 def cart(request):
     numWishes = WishlistProduct.objects.count()
     numCart = Cart.objects.count()
@@ -48,6 +51,7 @@ def cart(request):
     return render(request, 'cart.html', context)
 
 
+@login_required
 def addCart(request, pk):
     numCart = Cart.objects.count()
     numWishes = WishlistProduct.objects.count()
@@ -63,7 +67,7 @@ def addCart(request, pk):
         return redirect('home')
     return render(request, 'cart.html', {'numCart': numCart, 'numWishes': numWishes, 'total_price': total_price})
 
-
+@login_required
 def eliminateCart(request, pk):
     wish = Cart.objects.get(pk=pk)
     wish.delete()
@@ -98,6 +102,7 @@ def search_form(request):
     return render(request, 'searches.html', {'products': products})
 
 
+@login_required
 def rated(request, pk):
     instance = Product.objects.get(pk=pk)
     if request.method == 'POST':
@@ -106,6 +111,7 @@ def rated(request, pk):
     return redirect('viewProduct', pk=pk)
 
 
+@login_required
 def unrated(request, pk):
     instance = Product.objects.get(pk=pk)
     if request.method == 'POST':
@@ -120,6 +126,7 @@ def categorie(request, categorie):
     return render(request, 'categorie.html', context)
 
 
+@login_required
 def addWishlist(request, pk):
     product = Product.objects.get(pk=pk)
     if request.method == 'POST':
@@ -130,12 +137,14 @@ def addWishlist(request, pk):
     return render(request, 'wishlist.html')
 
 
+@login_required
 def eliminateWish(request, pk):
     wish = WishlistProduct.objects.get(pk=pk)
     wish.delete()
     return redirect('wishlist')
 
 
+@login_required
 def wishlist(request):
     numWishes = WishlistProduct.objects.count()
     numCart = Cart.objects.count()
