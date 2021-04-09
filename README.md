@@ -3,11 +3,6 @@
 ## Website Requirements
 - [ ] Responsive Website (mobile-friendly)
 
-## Khadija Tasks
-- [ ] 
-## Hakim Tasks
-- [ ] 
-
 ## Commun A toutes les pages:
   ### Dark Mode  
   ### NavBar
