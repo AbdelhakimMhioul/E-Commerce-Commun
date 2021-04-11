@@ -82,7 +82,6 @@ def addWishlist(request, pk):
         produit = Product.objects.get(pk=product_id)
         m = WishlistProduct(product=produit)
         m.save()
-        print(m)
         numCart = Cart.objects.count()
         numWishes = WishlistProduct.objects.count()
         carts = Cart.objects.all()
@@ -92,7 +91,6 @@ def addWishlist(request, pk):
         data = {}
         data['numWishes'] = '<div id="numWishes" class="wishlist_count">' + \
             str(numWishes)+'</div>'
-        print(data)
         return JsonResponse(data)
     return render(request, 'wishlist.html', {'numCart': numCart, 'numWishes': numWishes, 'total_price': total_price})
 
@@ -165,8 +163,20 @@ def categorie(request, pk):
 
 @login_required
 def eliminateWish(request, pk):
-    wish = WishlistProduct.objects.get(pk=pk)
-    wish.delete()
+    if request.method == 'GET':
+        product_id = request.GET['product_id']
+        wish = WishlistProduct.objects.get(pk=pk)
+        wish.delete()
+        numCart = Cart.objects.count()
+        numWishes = WishlistProduct.objects.count()
+        carts = Cart.objects.all()
+        total_price = 0
+        for cart in carts:
+            total_price += cart.product.price
+        data = {}
+        data['numWishes'] = '<div id="numWishes" class="wishlist_count">' + \
+            str(numWishes)+'</div>'
+        return JsonResponse(data)
     return redirect('wishlist')
 
 
