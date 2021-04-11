@@ -8,7 +8,7 @@
                         <ul class="standard_dropdown main_nav_dropdown">
                             <div class="d-flex">
                                 {% for categorie in categories %}
-                                <li class="hassubs"><a href="{% url 'categorie' categorie.category %}">{{categorie}}</a>
+                                <li class="hassubs"><a href="{% url 'categorie' categorie.pk %}">{{categorie}}</a>
                                 </li>
                                 {% endfor %}
                             </div>

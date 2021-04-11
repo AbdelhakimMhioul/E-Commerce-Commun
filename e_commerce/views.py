@@ -2,7 +2,7 @@ from .models import *
 from django.shortcuts import render, redirect
 from .forms import CheckoutForm, ContactUsForm
 from math import ceil
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 
@@ -13,11 +13,11 @@ def home(request):
     products_9 = Product.objects.all().order_by('-rates')[:9]
     categories = Category.objects.all()[:9]
     numWishes = WishlistProduct.objects.count()
+    numCart = Cart.objects.count()
     carts = Cart.objects.all()
     total_price = 0
     for cart in carts:
         total_price += cart.product.price
-    numCart = Cart.objects.count()
     form = ContactUsForm()
     context = {'products_9': products_9, 'categories': categories,
                'form': form, 'numWishes': numWishes, 'numCart': numCart, 'total_price': total_price}
@@ -27,6 +27,7 @@ def home(request):
 @login_required
 def checkout(request):
     formCheckout = CheckoutForm()
+    numWishes = WishlistProduct.objects.count()
     numCart = Cart.objects.count()
     if request.method == 'POST':
         formCheckout = CheckoutForm(request.POST)
@@ -34,7 +35,8 @@ def checkout(request):
             formCheckout.save()
             return redirect('home')
 
-    context = {'formCheckout': formCheckout, 'numCart': numCart}
+    context = {'formCheckout': formCheckout,
+               'numCart': numCart, 'numWishes': numWishes}
     return render(request, 'checkout.html', context)
 
 
@@ -53,19 +55,47 @@ def cart(request):
 
 @login_required
 def addCart(request, pk):
-    numCart = Cart.objects.count()
-    numWishes = WishlistProduct.objects.count()
-    carts = Cart.objects.all()
-    total_price = 0
-    for cart in carts:
-        total_price += cart.product.price
-    product = Product.objects.get(pk=pk)
-    if request.method == 'POST':
-        Cart.objects.create(
-            product=product
-        )
-        return redirect('home')
-    return render(request, 'cart.html', {'numCart': numCart, 'numWishes': numWishes, 'total_price': total_price})
+    if request.method == 'GET':
+        product_id = request.GET['product_id']
+        produit = Product.objects.get(pk=product_id)
+        m = Cart(product=produit)
+        m.save()
+        numCart = Cart.objects.count()
+        numWishes = WishlistProduct.objects.count()
+        carts = Cart.objects.all()
+        total_price = 0
+        for cart in carts:
+            total_price += cart.product.price
+        data = {}
+        data['total_price'] = '<div id="total" class="cart_price" >$' + \
+            str(total_price) + '</div>'
+        data['numCart'] = '<div id="numCart" class="cart_count"><span>' + \
+            str(numCart)+'</span></div>'
+        return JsonResponse(data)
+    return redirect('home')
+
+
+@login_required
+def addWishlist(request, pk):
+    if request.method == 'GET':
+        product_id = request.GET['product_id']
+        produit = Product.objects.get(pk=product_id)
+        m = WishlistProduct(product=produit)
+        m.save()
+        print(m)
+        numCart = Cart.objects.count()
+        numWishes = WishlistProduct.objects.count()
+        carts = Cart.objects.all()
+        total_price = 0
+        for cart in carts:
+            total_price += cart.product.price
+        data = {}
+        data['numWishes'] = '<div id="numWishes" class="wishlist_count">' + \
+            str(numWishes)+'</div>'
+        print(data)
+        return JsonResponse(data)
+    return render(request, 'wishlist.html', {'numCart': numCart, 'numWishes': numWishes, 'total_price': total_price})
+
 
 @login_required
 def eliminateCart(request, pk):
@@ -120,21 +150,17 @@ def unrated(request, pk):
     return redirect('viewProduct', pk=pk)
 
 
-def categorie(request, categorie):
-    products = Product.objects.filter(category__category=categorie)
-    context = {'products': products}
+def categorie(request, pk):
+    numWishes = WishlistProduct.objects.count()
+    numCart = Cart.objects.count()
+    total_price = 0
+    carts = Cart.objects.all()
+    for cart in carts:
+        total_price += cart.product.price
+    products = Product.objects.filter(category__pk=pk)
+    context = {'products': products, 'numCart': numCart, 'categorie': pk,
+               'numWishes': numWishes, 'total_price': total_price}
     return render(request, 'categorie.html', context)
-
-
-@login_required
-def addWishlist(request, pk):
-    product = Product.objects.get(pk=pk)
-    if request.method == 'POST':
-        WishlistProduct.objects.create(
-            product=product
-        )
-        return redirect('home')
-    return render(request, 'wishlist.html')
 
 
 @login_required

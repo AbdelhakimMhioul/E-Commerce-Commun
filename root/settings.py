@@ -13,7 +13,7 @@ SECRET_KEY = '-$@*^(*0xyt^+(a58v)cljyt2s*-gg6l5xfc474=mkaasjo2@+'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', '0.0.0.0']
 
 
 # Application definition
@@ -140,7 +140,7 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static/')
+    os.path.join(BASE_DIR, 'static/'),
 ]
 
 STRIPE_PUBLIC_KEY = "pk_test_51IZwEvJvlSlcLIkHlKkgCaJoks2fa72vjNvNZy5Q1nlKLr92qovuIYZE77D7kWajNDNzbkPJr2X3G0hopfQjI0vX00XNeExF9F"

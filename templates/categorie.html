@@ -1,47 +1,72 @@
 {% extends "base.html" %}
 
-{% block title %}
-{{products.categorie}}
-{% endblock title %}
+{% block title %} {{categorie}} {% endblock title %}
 
 {% block mainNavBar %}
-{% include "includes/topNavBar.html" %}
+    {% include "includes/topNavBar.html" %}
 {% endblock mainNavBar %}
 
 {% block content %}
 <div class="d-flex">
-    <div class="container">
-        <div class="row ">
-            {% for product in products %}
-            <div class="col-lg-4">
-                <div class="card" style="width: 18rem;">
-                    <a href="{%url 'viewProduct' product.id %}"><img
-                            src="https://nk1bd.com/wp-content/uploads/2020/07/Dell-Inspiron-15-3580-Intel-CDC-4205U-15.6-inch-HD-Laptop-with-Genuine-Windows-10.jpg"
-                            class="card-img-top" alt=""></a>
-                    <div class="card-body">
-                        <h5 class="card-title">{{product.name}}</h5>
-                        <hr>
-                        <p class="card-text">{{product.description}}</p>
-                        <p class="card-text">Price : {{product.price}}€</p>
-                        <div class="d-flex">
-                            <form action="{% url 'addCart' product.id %}" method="POST">
-                                {% csrf_token %}
-                                <button type="submit" class="btn btn-primary">Add To Cart</button>
-                            </form>
-                            <form action="{% url 'addWishlist' product.id %}" method="POST">
-                                {% csrf_token %}
-                                <button type="submit" class="btn btn-primary">Add To Wishlist</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-    </div>
+	<div class="container">
+		<div class="row">
+			{% for product in products %}
+			<div class="col-lg-4" id="product-{{product.id}}">
+				<div class="card" style="width: 18rem">
+					<a href="{%url 'viewProduct' product.id %}"
+						><img
+							src="https://nk1bd.com/wp-content/uploads/2020/07/Dell-Inspiron-15-3580-Intel-CDC-4205U-15.6-inch-HD-Laptop-with-Genuine-Windows-10.jpg"
+							class="card-img-top"
+							alt=""
+					/></a>
+					<div class="card-body">
+						<h5 class="card-title">{{product.name}}</h5>
+						<hr />
+						<p class="card-text">{{product.description}}</p>
+						<p class="card-text">Price : {{product.price}}€</p>
+						<div class="d-flex">
+							<button class="addCart btn btn-outline-success" id="addCart{{product.id}}" data-catid="{{product.id}}" href="#">Add To Cart</button>
+							<button id="addWishlist{{product.id}}" data-catid="{{product.id}}" class="addWishlist btn btn-outline-success" href="#">Add To WishList</button>
+						</div>
+						<p id="message"></p>
+					</div>
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
 </div>
 {% endblock content %}
 
 {% block script %}
-
+<script type="text/javascript">
+	$('.addCart').click(function(){
+		var catid = $(this).attr("data-catid");
+		console.log(catid);
+		$.ajax({
+			type:'GET',
+			url: "/addCart/".concat(catid),
+			data: {
+				product_id: catid
+			},
+			success:function(data){
+				$('#total').replaceWith(data.total_price);
+				$('#numCart').replaceWith(data.numCart);
+			},
+		})
+	});
+	$('.addWishlist').click(function(){
+		var catid = $(this).attr("data-catid");
+		$.ajax({
+			type:'GET',
+			url: "/addwishlist/".concat(catid),
+			data: {
+				product_id: catid
+			},
+			success:function(data){
+				$('#numWishes').replaceWith(data.numWishes);
+			},
+		}) 
+	});
+</script>
 {% endblock script %}

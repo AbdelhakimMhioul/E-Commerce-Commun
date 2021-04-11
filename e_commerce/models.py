@@ -40,7 +40,8 @@ class Product(Model):
         return "{0:.2f}".format(self.price/10)
 
     def avg_rate(self):
-        self.rates = (self.good_rates-self.bad_rates)/(self.bad_rates+self.good_rates) if self.bad_rates+self.good_rates != 0 else 0
+        self.rates = (self.good_rates-self.bad_rates)/(self.bad_rates +
+                                                       self.good_rates) if self.bad_rates+self.good_rates != 0 else 0
         return self.rates
 
 
