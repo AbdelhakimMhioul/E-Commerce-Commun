@@ -12,10 +12,16 @@ from django.contrib.auth.decorators import login_required
 def home(request):
     products_9 = Product.objects.all().order_by('-rates')[:9]
     categories = Category.objects.all()[:9]
-    numWishes = WishlistProduct.objects.count()
-    numCart = Cart.objects.count()
-    carts = Cart.objects.all()
     total_price = 0
+    if request.user.is_authenticated:
+        owner = request.user
+        numWishes = WishlistProduct.objects.filter(user=owner).count()
+        numCart = Cart.objects.filter(user=owner).count()
+        carts = Cart.objects. filter(user=owner)
+    else:
+        numWishes = WishlistProduct.objects.count()
+        numCart = Cart.objects.count()
+        carts = Cart.objects.all()
     for cart in carts:
         total_price += cart.product.price
     form = ContactUsForm()
@@ -42,10 +48,16 @@ def checkout(request):
 
 @login_required
 def cart(request):
-    numWishes = WishlistProduct.objects.count()
-    numCart = Cart.objects.count()
-    carts = Cart.objects.all()
     total_price = 0
+    if request.user.is_authenticated:
+        owner = request.user
+        numWishes = WishlistProduct.objects.filter(user=owner).count()
+        numCart = Cart.objects.filter(user=owner).count()
+        carts = Cart.objects. filter(user=owner)
+    else:
+        numWishes = WishlistProduct.objects.count()
+        numCart = Cart.objects.count()
+        carts = Cart.objects.all()
     for cart in carts:
         total_price += cart.product.price
     context = {'numWishes': numWishes, 'carts': carts,
@@ -58,11 +70,17 @@ def addCart(request, pk):
     if request.method == 'GET':
         product_id = request.GET['product_id']
         produit = Product.objects.get(pk=product_id)
-        m = Cart(product=produit)
+        m = Cart.objects.create(user=request.user, product=produit)
         m.save()
-        numCart = Cart.objects.count()
-        numWishes = WishlistProduct.objects.count()
-        carts = Cart.objects.all()
+        if request.user.is_authenticated:
+            owner = request.user
+            numWishes = WishlistProduct.objects.filter(user=owner).count()
+            numCart = Cart.objects.filter(user=owner).count()
+            carts = Cart.objects. filter(user=owner)
+        else:
+            numWishes = WishlistProduct.objects.count()
+            numCart = Cart.objects.count()
+            carts = Cart.objects.all()
         total_price = 0
         for cart in carts:
             total_price += cart.product.price
@@ -80,11 +98,17 @@ def addWishlist(request, pk):
     if request.method == 'GET':
         product_id = request.GET['product_id']
         produit = Product.objects.get(pk=product_id)
-        m = WishlistProduct(product=produit)
+        m = WishlistProduct.objects.create(user=owner, product=produit)
         m.save()
-        numCart = Cart.objects.count()
-        numWishes = WishlistProduct.objects.count()
-        carts = Cart.objects.all()
+        if request.user.is_authenticated:
+            owner = request.user
+            numWishes = WishlistProduct.objects.filter(user=owner).count()
+            numCart = Cart.objects.filter(user=owner).count()
+            carts = Cart.objects. filter(user=owner)
+        else:
+            numWishes = WishlistProduct.objects.count()
+            numCart = Cart.objects.count()
+            carts = Cart.objects.all()
         total_price = 0
         for cart in carts:
             total_price += cart.product.price
@@ -156,8 +180,17 @@ def categorie(request, pk):
     for cart in carts:
         total_price += cart.product.price
     products = Product.objects.filter(category__pk=pk)
+    paginator = Paginator(products_list, 5)
+    try:
+        page = int(request.GET.get('page', '1'))
+    except:
+        page = 1
+    try:
+        products_list = paginator.page(page)
+    except(Emptypage, InvalidPage):
+        products_list = paginator.page(paginator.num_pages)
     context = {'products': products, 'numCart': numCart, 'categorie': pk,
-               'numWishes': numWishes, 'total_price': total_price}
+               'numWishes': numWishes, 'total_price': total_price, 'products_list': products_list}
     return render(request, 'categorie.html', context)
 
 
@@ -200,3 +233,25 @@ def increaseQuantity(request):
 
 def decreaseQuantity(request):
     pass
+
+
+def GetData(request):
+    # request.body is data sent by the client to our API.
+    data = json.loads(request.body)
+    productId = data['productId']
+    action = data['action']
+    customer = request.user.customer
+    product = Product.objects.get(id=productId)
+    try:
+        usercutomer = User_Customer.objects.get(customer=customer)
+    except:
+        usercutomer = User_Customer.objects.create(customer=customer)
+        usercutomer.save()
+    if action == 'add':
+        product.quantity = (product.quantity+1)
+    elif action == 'remove':
+        product.quantity = 0
+    elif action == 'moins':
+        product.quantity = (product.quantity-1)
+    product.save()
+    return JsonResponse("added", safe=False)

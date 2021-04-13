@@ -41,7 +41,6 @@
 <script type="text/javascript">
 	$('.addCart').click(function(){
 		var catid = $(this).attr("data-catid");
-		console.log(catid);
 		$.ajax({
 			type:'GET',
 			url: "/addCart/".concat(catid),

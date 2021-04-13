@@ -1,4 +1,4 @@
-{% extends 'dashboardSeller/dashboard.html' %}
+{% extends 'base.html' %}
 
 {% block content %}
 <div class="row">
@@ -33,3 +33,7 @@
     </div>
 </div>
 {% endblock content %}
+
+{% block mainNavBar %}
+    {% include "includes/topNavBar.html" %}
+{% endblock mainNavBar %}

@@ -1,9 +1,10 @@
-from django.db.models import Model, CharField, FloatField, TextField, CASCADE, ForeignKey, PositiveBigIntegerField, IntegerField
+from django.db.models import Model, CharField, FloatField, TextField, CASCADE, ForeignKey, IntegerField, SET_NULL
 from django.db.models.fields.related import OneToOneField
 from django.forms import ChoiceField, RadioSelect
 from django.db.models.fields import EmailField, PositiveIntegerField
 from django.db.models.fields.files import ImageField
 from phone_field import PhoneField
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -15,7 +16,7 @@ TRADE_ROLE = (
 
 
 class Category(Model):
-    category = CharField(max_length=50)
+    category = CharField(max_length=50, unique=True)
 
     def __str__(self):
         return self.category
@@ -28,7 +29,7 @@ class Product(Model):
     description = TextField()
     photo = ImageField()
     price = FloatField(default=0)
-    quantity = PositiveBigIntegerField(null=True)
+    quantity = PositiveIntegerField(null=True)
     good_rates = PositiveIntegerField(default=0)
     bad_rates = PositiveIntegerField(default=0)
     rates = PositiveIntegerField(default=0)
@@ -59,8 +60,8 @@ class Person(Model):
 class Seller(Person):
     description = TextField()
     genre = CharField(max_length=50)
-    nbElementProd = PositiveBigIntegerField()
-    resteProd = PositiveBigIntegerField()
+    nbElementProd = PositiveIntegerField()
+    resteProd = PositiveIntegerField()
     profitProd = FloatField()
 
     def __str__(self):
@@ -68,6 +69,8 @@ class Seller(Person):
 
 
 class WishlistProduct(Model):
+    user = ForeignKey(
+        User, related_name='wishlist', on_delete=CASCADE)
     product = OneToOneField(Product, on_delete=CASCADE, unique=True)
 
     def __str__(self):
@@ -75,15 +78,45 @@ class WishlistProduct(Model):
 
 
 class Cart(Model):
+    user = ForeignKey(User, related_name='cart', on_delete=CASCADE)
     product = ForeignKey(Product, on_delete=CASCADE)
 
     def __str__(self):
         return self.product.name
 
-# class Checkout(models.Model):
-#     first_name = models.CharField(max_length=50)
-#     last_name = models.CharField(max_length=50)
-#     username = models.CharField(max_length=50)
-#     email = models.EmailField(max_length=254)
-#     address1 = models.CharField(max_length=100)
-#     address2 = models.CharField(max_length=100)
+
+class Customer(Model):
+    user = OneToOneField(
+        User, on_delete=CASCADE, null=True, blank=True)
+    name = CharField(max_length=50)
+    photo = ImageField()
+    phone = PhoneField(blank=True, help_text='Contact phone number')
+    email = EmailField(max_length=254)
+    trade = ChoiceField(choices=TRADE_ROLE, widget=RadioSelect)
+
+    def __str__(self):
+        return self.name
+
+
+class User_Customer(Model):
+    customer = ForeignKey(
+        Customer, on_delete=SET_NULL, null=True, blank=True)
+
+    def __str__(self):
+        return str(self.id)
+
+    def Total_Price(self, product_total_price):
+        customerforproducts = self.customerforproduct_set.all()
+        for product in customerforproducts:
+            total = total+product.product_total_price
+        return total
+
+
+class CustomerForProduct(Model):
+    product = ForeignKey(Product, on_delete=SET_NULL, null=True)
+    usercustomer = ForeignKey(
+        User_Customer, on_delete=SET_NULL, null=True)
+
+    def product_total_price(self):
+        total = self.product.price * self.product.quantity
+        return total

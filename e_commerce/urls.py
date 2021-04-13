@@ -17,4 +17,5 @@ urlpatterns = [
     path('increaseQuantity/', increaseQuantity, name='increaseQuantity'),
     path('decreaseQuantity/', decreaseQuantity, name='decreaseQuantity'),
     path('search_form/', search_form, name="search_form"),
+    path('send_data/', GetData, name='send_data'),
 ]

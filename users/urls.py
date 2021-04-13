@@ -7,9 +7,9 @@ urlpatterns = [
     path('register/', register, name='register'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('login/', auth_views.LoginView.as_view(), name='login'),
-    path('dashboard_client/', showDashbordClient, name='dashboardclient'),
-    path('account/profile/', viewAccount, name='viewAccount'),
-    path('account/profile/edit', editAccount, name='editAccount'),
+    path('dashboard_client/', showDashboardClient, name='dashboardclient'),
+    path('accounts/profile/', viewAccount, name='viewAccount'),
+    path('accounts/profile/edit', editAccount, name='editAccount'),
     path('accounts/password_change/', auth_views.PasswordChangeView.as_view(
         template_name='accounts/change_password.html'), name="change_password"),
     path('accounts/password_change/done/', auth_views.PasswordChangeDoneView.as_view(
