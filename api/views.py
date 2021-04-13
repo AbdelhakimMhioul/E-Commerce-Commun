@@ -1,59 +1,67 @@
-# from e_commerce.models import Product
-# import stripe
-# from django.conf import settings
-# from django.views.generic import TemplateView
-# from django.http import JsonResponse
-# from django.views import View
-
-# stripe.api_key = settings.STRIPE_SECRET_KEY
+from django.shortcuts import render, redirect
+from e_commerce.models import Product
+from .forms import CreateProductForm
+from .filters import ProductFilter
+from django.http import JsonResponse
 
 
-# class SuccessView(TemplateView):
-#     template_name = "success.html"
+def showDashboard(request):
+    return render(request, 'dashboardSeller/home.html')
 
 
-# class CancelView(TemplateView):
-#     template_name = "cancel.html"
+def showStatistics(request):
+    return render(request, 'dashboardSeller/statistics.html')
 
 
-# class landingPageView(TemplateView):
-#     template_name = "landing.html"
-
-#     def get_context_data(self, **kwargs):
-#         product = Product.objects.get(name="Jellaba")
-#         context = super(landingPageView, self).get_context_data(**kwargs)
-#         context.update({
-#             "product": product,
-#             "STRIPE_PUBLIC_KEY": settings.STRIPE_PUBLIC_KEY
-#         })
-#         return context
+def showSettings(request):
+    return render(request, 'dashboardSeller/settings.html')
 
 
-# class CreateCheckoutSessionView(View):
-#     def post(self, request, *args, **kwargs):
-#         product_id = self.kwargs["pk"]
-#         product = Product.objects.get(id=product_id)
-#         print(product)
-#         YOUR_DOMAIN = "http://127.0.0.1:8000/"
-#         checkout_session = stripe.checkout.Session.create(
-#             payment_method_types=['card'],
-#             line_items=[{
-#                 'price_data': {
-#                     'currency': 'usd',
-#                     'unit_amount': product.price,
-#                     'product_data': {
-#                         'name': product.name,
-#                         # 'images': ['https://i.imgur.com/EHyR2nP.png'],
-#                     },
-#                 },
-#                 'quantity': 1,
-#             },
-#             ],
-#             mode='payment',
-#             success_url=YOUR_DOMAIN + '/success',
-#             cancel_url=YOUR_DOMAIN + '/cancel',
-#         )
-#         return JsonResponse({
-#             'id': checkout_session.id
-#         })
+def showProduct(request):
+    form = CreateProductForm()
+    products = Product.objects.all()
+    if request.method == 'POST':
+        form = CreateProductForm(request.POST)
+        if form.is_valid():
+            print("printing", request.POST)
+            form.save()
+            return redirect('/prod')
+        else:
+            print("ERROR HADXI MAKHADAMX")
+    myFilter = ProductFilter(request.GET, queryset=products)
+    products = myFilter.qs
+    context = {'form': form, 'products': products,
+               'myFilter': myFilter,
+               }
+    return render(request, 'dashboardSeller/products.html', context)
 
+
+def deleteProduct(request, pk):
+	product = Product.objects.get(id=pk)
+	if request.method == "POST":
+		product.delete()
+		return redirect('/prod')
+
+	context = {'item': product}
+	return render(request, 'dashboardSeller/products.html', context)
+
+
+def updateProduct(request, pk):
+	product = Product.objects.get(id=pk)
+	form = CreateProductForm(instance=product)
+	if request.method == 'POST':
+		form = CreateProductForm(request.POST, instance=product)
+		if form.is_valid():
+			form.save()
+			return redirect('/prod')
+	context = {'form': form}
+	return render(request, 'dashboardSeller/products.html', context)
+
+
+def ResultData(request):
+    dateData = []
+    products = Product.objects.all()
+    for i in products:
+        dateData.append({i.name: i.quantity})
+    print(dateData)
+    return JsonResponse(dateData, safe=False)

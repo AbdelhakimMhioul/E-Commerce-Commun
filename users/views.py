@@ -8,8 +8,8 @@ from django.http import HttpResponse
 from django.core.mail import send_mail, BadHeaderError
 from django.shortcuts import render, redirect
 from .forms import SignUpForm
-from django.contrib.auth import login as auth_login, authenticate
 from django.contrib import messages
+from django.contrib.auth import login as auth_login, authenticate
 from django.contrib.auth.forms import UserChangeForm, PasswordResetForm
 from e_commerce.models import WishlistProduct, Cart
 

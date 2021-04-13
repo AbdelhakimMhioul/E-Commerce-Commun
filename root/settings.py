@@ -13,7 +13,7 @@ SECRET_KEY = '-$@*^(*0xyt^+(a58v)cljyt2s*-gg6l5xfc474=mkaasjo2@+'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', '0.0.0.0']
+ALLOWED_HOSTS = ['127.0.0.1', '0.0.0.0', 'localhost']
 
 
 # Application definition
@@ -29,7 +29,6 @@ INSTALLED_APPS = [
     'e_commerce',
     'api',
     'users',
-    'dashboardSeller',
     'rest_framework',
     'widget_tweaks',
     'django_filters',
@@ -95,7 +94,7 @@ WSGI_APPLICATION = 'root.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': os.path.join(BASE_DIR / 'db.sqlite3'),
     }
 }
 

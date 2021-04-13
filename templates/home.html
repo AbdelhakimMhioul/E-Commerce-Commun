@@ -5,73 +5,105 @@ Home
 {% endblock title %}
 
 {% block content %}
+
+<div class="container w-50 mt-3">
+	
+	<!-- Carrossel -->
+	<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+		<div class="carousel-inner">
+			<div class="carousel-item active">
+				<img src="https://signal.avg.com/hubfs/Blog_Content/Avg/Signal/AVG%20Signal%20Images/9%20Ways%20to%20Boost%20Your%20Gaming%20Rig/How_to_Improve_Your_Gaming_PC_Performance-Hero.jpg"
+					class="d-block w-100" alt="...">
+			</div>
+			<div class="carousel-item">
+				<img src="https://nk1bd.com/wp-content/uploads/2020/07/Dell-Inspiron-15-3580-Intel-CDC-4205U-15.6-inch-HD-Laptop-with-Genuine-Windows-10.jpg"
+					class="d-block w-100" alt="...">
+			</div>
+			<div class="carousel-item">
+				<img src="https://nk1bd.com/wp-content/uploads/2020/07/Dell-Inspiron-15-3580-Intel-CDC-4205U-15.6-inch-HD-Laptop-with-Genuine-Windows-10.jpg"
+					class="d-block w-100" alt="...">
+			</div>
+		</div>
+		<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
+			data-bs-slide="prev">
+			<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+			<span class="visually-hidden">Previous</span>
+		</button>
+		<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
+			data-bs-slide="next">
+			<span class="carousel-control-next-icon" aria-hidden="true"></span>
+			<span class="visually-hidden">Next</span>
+		</button>
+	</div>
+</div>
+
+<!-- Products -->
 <div class="d-flex">
-    <div class="container">
-        <div class="row ">
-            {% for product in products_9 %}
-            <div class="col-lg-4" id="product-{{product.id}}">
+	<div class="container">
+		<div class="row ">
+			{% for product in products_9 %}
+			<div class="col-lg-4" id="product-{{product.id}}">
 				<div class="card" style="width: 18rem">
-					<a href="{%url 'viewProduct' product.id %}"
-						><img
+					<a href="{%url 'viewProduct' product.id %}"><img
 							src="https://nk1bd.com/wp-content/uploads/2020/07/Dell-Inspiron-15-3580-Intel-CDC-4205U-15.6-inch-HD-Laptop-with-Genuine-Windows-10.jpg"
-							class="card-img-top"
-							alt=""
-					/></a>
+							class="card-img-top" alt="" /></a>
 					<div class="card-body">
 						<h5 class="card-title">{{product.name}}</h5>
 						<hr />
 						<p class="card-text">{{product.description}}</p>
 						<p class="card-text">Price : {{product.price}}€</p>
 						<div class="d-flex">
-							<button class="addCart btn btn-outline-success" id="addCart{{product.id}}" data-catid="{{product.id}}" href="#">Add To Cart</button>
-							<button id="addWishlist{{product.id}}" data-catid="{{product.id}}" class="addWishlist btn btn-outline-success" href="#">Add To WishList</button>
+							<button class="addCart btn btn-outline-success" id="addCart{{product.id}}"
+								data-catid="{{product.id}}" href="#">Add To Cart</button>
+							<button id="addWishlist{{product.id}}" data-catid="{{product.id}}"
+								class="addWishlist btn btn-outline-success" href="#">Add To WishList</button>
 						</div>
 					</div>
 				</div>
 			</div>
-            {% endfor %}
-        </div>
-    </div>
+			{% endfor %}
+		</div>
+	</div>
 </div>
 <div>
-    <form method="POST" action="">
-        {% csrf_token%}
-        {% include "includes/form.html" %}
-        <div class="d-flex justify-content-center mt-3 login_container">
-            <input class="btn login_btn" type="submit" value="Register Account">
-        </div>
-    </form>
+	<form method="POST" action="">
+		{% csrf_token%}
+		{% include "includes/form.html" %}
+		<div class="d-flex justify-content-center mt-3 login_container">
+			<input class="btn login_btn" type="submit" value="Register Account">
+		</div>
+	</form>
 </div>
 {% endblock content %}
 
 {% block script %}
 <script type="text/javascript">
-	$('.addCart').click(function(){
+	$('.addCart').click(function () {
 		var catid = $(this).attr("data-catid");
 		$.ajax({
-			type:'GET',
+			type: 'GET',
 			url: "/addCart/".concat(catid),
 			data: {
 				product_id: catid
 			},
-			success:function(data){
+			success: function (data) {
 				$('#total').replaceWith(data.total_price);
 				$('#numCart').replaceWith(data.numCart);
 			},
 		})
 	});
-	$('.addWishlist').click(function(){
+	$('.addWishlist').click(function () {
 		var catid = $(this).attr("data-catid");
 		$.ajax({
-			type:'GET',
+			type: 'GET',
 			url: "/addwishlist/".concat(catid),
 			data: {
 				product_id: catid
 			},
-			success:function(data){
+			success: function (data) {
 				$('#numWishes').replaceWith(data.numWishes);
 			},
-		}) 
+		})
 	});
 </script>
 {% endblock script %}
