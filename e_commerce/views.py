@@ -11,18 +11,17 @@ from django.core.paginator import Paginator
 
 
 def home(request):
-    products_9 = Product.objects.all().order_by('-rates')[:9]
+    products_9 = Product.objects.order_by('-rates')[:9]
     categories = Category.objects.all()[:9]
     total_price = 0
+    numWishes = WishlistProduct.objects.count()
+    orders = Order.objects.all()
+    numOrders = orders.count()
     if request.user.is_authenticated:
         owner = request.user
         numWishes = WishlistProduct.objects.filter(user=owner).count()
-        numOrders = Order.objects.filter(user=owner).count()
         orders = Order.objects.filter(user=owner)
-    else:
-        numWishes = WishlistProduct.objects.count()
-        numOrders = Order.objects.count()
-        orders = Order.objects.all()
+        numOrders = orders.count()
     for order in orders:
         total_price += order.order_total_price()
     form = ContactUsForm()
@@ -81,19 +80,16 @@ def addCart(request, pk):
             myOrder = Order.objects.create(
                 user=request.user, product=produit, quantity_ordered=1)
             myOrder.save()
+        numWishes = WishlistProduct.objects.count()
+        orders = Order.objects.all()
+        numOrders = orders.count()
         if request.user.is_authenticated:
             owner = request.user
             numWishes = WishlistProduct.objects.filter(user=owner).count()
             orders = Order.objects.filter(user=owner)
             numOrders = orders.count()
-            for order in orders:
-                total_price += order.order_total_price()
-        else:
-            numWishes = WishlistProduct.objects.count()
-            orders = Order.objects.all()
-            numOrders = orders.count()
-            for order_item in orders:
-                total_price += order_item.order_total_price()
+        for order in orders:
+            total_price += order.order_total_price()
         data = {}
         data['total_price'] = '<div id="total" class="cart_price" >$' + \
             str(total_price) + '</div>'
@@ -115,18 +111,17 @@ def addWishlist(request, pk):
     if request.method == 'GET':
         product_id = request.GET['product_id']
         produit = Product.objects.get(pk=product_id)
+        total_price = 0
+        numWishes = WishlistProduct.objects.count()
+        orders = Order.objects.all()
+        numOrders = orders.count()
         if request.user.is_authenticated:
             owner = request.user
             m = WishlistProduct.objects.create(user=owner, product=produit)
             m.save()
             numWishes = WishlistProduct.objects.filter(user=owner).count()
-            numOrders = Order.objects.filter(user=owner).count()
             orders = Order.objects.filter(user=owner)
-        else:
-            numWishes = WishlistProduct.objects.count()
-            numOrders = Order.objects.count()
-            orders = Order.objects.all()
-        total_price = 0
+            numOrders = orders.count()
         for order in orders:
             total_price += order.order_total_price()
         data = {}
@@ -232,13 +227,12 @@ def wishlist(request):
     total_price = 0
     for order in orders:
         total_price += order.order_total_price()
-    context = {'products': wishes,
-               'numWishes': numWishes, 'numOrders': numOrders, 'total_price': total_price}
+    context = {'products': wishes, 'numWishes': numWishes,
+               'numOrders': numOrders, 'total_price': total_price}
     return render(request, 'wishlist.html', context)
 
 
 def increaseQuantity(request, pk):
-    print("sdfjlk")
     order = Order.objects.get(pk=pk)
     order.quantity_ordered += 1
     order.save()

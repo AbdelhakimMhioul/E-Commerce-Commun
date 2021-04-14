@@ -14,15 +14,9 @@
             <br>
             <table class="table">
                 <tr>
-                    <th>
-                        <h5>Items: <strong>{{numOrders}}</strong></h5>
-                    </th>
-                    <th>
-                        <h5>Total: <strong>${{total_price}}</strong></h5>
-                    </th>
-                    <th>
-                        <a href="{% url 'checkout' %}" class="btn btn-success">Checkout</a>
-                    </th>
+                    <th><h5>Items: <strong>{{numOrders}}</strong></h5></th>
+                    <th><h5>Total: <strong>${{total_price}}</strong></h5></th>
+                    <th><a href="{% url 'checkout' %}" class="btn btn-success">Checkout</a></th>
                 </tr>
             </table>
         </div>
@@ -43,7 +37,7 @@
                         </div>
                     </div>
                     <div>
-                        <p style="flex:1" class="price">${{order.product.price|floatformat:2}}</p>
+                        <p style="flex:1" class="price">${{order.product.price|floatformat:1}}</p>
                     </div>
                     <div style="flex:2;">
                         <p class="quantity">{{order.quantity_ordered}}</p>
@@ -53,10 +47,9 @@
                         </div>
                     </div>
                     <div>
-                        <p style="flex:1" class="total">${{order.product_total_price}}</p>
+                        <p style="flex:1" class="total">${{order.order_total_price}}</p>
                     </div>
-                    <div><a id="remove" href="{% url 'deleteOrder' order.id %}" class="btn btn-outline-danger mb-2 update-cart"
-                            data-product={{cart.product.id}} data-action="remove"></a></div>
+                    <div><a id="remove" href="{% url 'deleteOrder' order.id %}" class="btn btn-outline-danger mb-2 update-cart" data-product={{cart.product.id}} data-action="remove"></a></div>
                 </div>
             </div>
             {% endfor %}
