@@ -30,7 +30,7 @@
                 <div style="flex:2;"><strong>Total</strong></div>
             </div>
             {%for order in orders %}
-            <div class="row" id='{{cart.product.id}}'>
+            <div class="row" id='{{order.product.id}}'>
                 <div class="d-flex justify-content-between align-items-center mt-3 p-2 items rounded">
                     <div class="d-flex flex-row"><img class="rounded" src="../{{cart.product.photo}}" width="40">
                         <div class="ml-2"><span class="font-weight-bold d-block">{{order.product.name}}</span>
@@ -49,7 +49,7 @@
                     <div>
                         <p style="flex:1" class="total">${{order.order_total_price}}</p>
                     </div>
-                    <div><a id="remove" href="{% url 'deleteOrder' order.id %}" class="btn btn-outline-danger mb-2 update-cart" data-product={{cart.product.id}} data-action="remove"></a></div>
+                    <div><a id="remove" href="{% url 'deleteOrder' order.id %}" class="btn btn-outline-danger mb-2 update-cart"></a></div>
                 </div>
             </div>
             {% endfor %}

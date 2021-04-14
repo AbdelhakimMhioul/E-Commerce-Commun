@@ -12,16 +12,20 @@ from django.contrib import messages
 from django.contrib.auth import login as auth_login, authenticate
 from django.contrib.auth.forms import UserChangeForm, PasswordResetForm
 from e_commerce.models import WishlistProduct, Order
+from django.contrib.auth.decorators import login_required
 
 
-def register(request):  
+def register(request):
     form = SignUpForm()
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         if form.is_valid():
             user = form.save()
             auth_login(request, user)
-            return redirect('home')
+            if form.cleaned_data['choice'] == 'CLIENT':  
+                return redirect('home')
+            if form.cleaned_data['choice'] == 'SELLER':
+                return redirect('dashboardSeller')
     context = {'form': form}
     return render(request, 'accounts/register.html', context)
 
@@ -40,6 +44,7 @@ def login(request):
     return render(request, 'login.html')
 
 
+@login_required
 def viewAccount(request):
     numWishes = WishlistProduct.objects.count()
     numOrder = Order.objects.count()
@@ -52,6 +57,7 @@ def viewAccount(request):
     return render(request, 'accounts/myAccount.html', context)
 
 
+@login_required
 def editAccount(request):
     if request.method == 'POST':
         form = UserChangeForm(request.POST, instance=request.user)
@@ -61,6 +67,7 @@ def editAccount(request):
     return render(request, 'accounts/myAccount.html')
 
 
+@login_required
 def password_reset_request(request):
     if request.method == "POST":
         password_reset_form = PasswordResetForm(request.POST)
@@ -91,6 +98,7 @@ def password_reset_request(request):
     return render(request=request, template_name="accounts/password_reset/password_reset.html", context={"password_reset_form": password_reset_form})
 
 
+@login_required
 def showDashboardClient(request):
     numWishes = WishlistProduct.objects.count()
     numOrder = Order.objects.count()
@@ -101,3 +109,16 @@ def showDashboardClient(request):
     context = {'numOrder': numOrder, 'numWishes': numWishes,
                'total_price': total_price}
     return render(request, 'accounts/dashboardClient.html', context)
+
+
+@login_required
+def showDashboardSeller(request):
+    numWishes = WishlistProduct.objects.count()
+    numOrder = Order.objects.count()
+    total_price = 0
+    orders = Order.objects.all()
+    for order in orders:
+        total_price += order.order_total_price()
+    context = {'numOrder': numOrder, 'numWishes': numWishes,
+               'total_price': total_price}
+    return render(request, 'accounts/dashboardSeller.html', context)

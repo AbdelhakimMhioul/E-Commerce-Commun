@@ -128,7 +128,7 @@ def addWishlist(request, pk):
         data['numWishes'] = '<div id="numWishes" class="wishlist_count">' + \
             str(numWishes)+'</div>'
         return JsonResponse(data)
-    return render(request, 'wishlist.html', {'numOrders': numOrders, 'numWishes': numWishes, 'total_price': total_price})
+    return render(request, 'wishlist.html')
 
 
 def viewProduct(request, pk):

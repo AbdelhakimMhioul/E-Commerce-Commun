@@ -86,7 +86,6 @@ Home
 				product_id: catid
 			},
 			success: function (data) {
-				alert("Added Successfully")
 				$('#total').replaceWith(data.total_price);
 				$('#numOrders').replaceWith(data.numOrders);
 			},
