@@ -25,7 +25,7 @@ def register(request):
             if form.cleaned_data['choice'] == 'CLIENT':  
                 return redirect('home')
             if form.cleaned_data['choice'] == 'SELLER':
-                return redirect('dashboardSeller')
+                return redirect('prod')
     context = {'form': form}
     return render(request, 'accounts/register.html', context)
 

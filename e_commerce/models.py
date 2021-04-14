@@ -64,7 +64,7 @@ class Person(models.Model):
         return self.name
 
 
-class Seller(Person):
+class Seller(User):
     description = models.TextField()
     genre = models.CharField(max_length=50)
     nbElementProd = models.PositiveIntegerField()
