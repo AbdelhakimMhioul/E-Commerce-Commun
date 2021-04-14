@@ -11,10 +11,10 @@ from .forms import SignUpForm
 from django.contrib import messages
 from django.contrib.auth import login as auth_login, authenticate
 from django.contrib.auth.forms import UserChangeForm, PasswordResetForm
-from e_commerce.models import WishlistProduct, Cart
+from e_commerce.models import WishlistProduct, Order
 
 
-def register(request):
+def register(request):  
     form = SignUpForm()
     if request.method == 'POST':
         form = SignUpForm(request.POST)
@@ -42,12 +42,12 @@ def login(request):
 
 def viewAccount(request):
     numWishes = WishlistProduct.objects.count()
-    numCart = Cart.objects.count()
+    numOrder = Order.objects.count()
     total_price = 0
-    carts = Cart.objects.all()
-    for cart in carts:
-        total_price += cart.product.price
-    context = {'user': request.user, 'numCart': numCart,
+    orders = Order.objects.all()
+    for order in orders:
+        total_price += order.order_total_price()
+    context = {'user': request.user, 'numOrder': numOrder,
                'numWishes': numWishes, 'total_price': total_price}
     return render(request, 'accounts/myAccount.html', context)
 
@@ -93,11 +93,11 @@ def password_reset_request(request):
 
 def showDashboardClient(request):
     numWishes = WishlistProduct.objects.count()
-    numCart = Cart.objects.count()
+    numOrder = Order.objects.count()
     total_price = 0
-    carts = Cart.objects.all()
-    for cart in carts:
-        total_price += cart.product.price
-    context = {'numCart': numCart, 'numWishes': numWishes,
+    orders = Order.objects.all()
+    for order in orders:
+        total_price += order.order_total_price()
+    context = {'numOrder': numOrder, 'numWishes': numWishes,
                'total_price': total_price}
     return render(request, 'accounts/dashboardClient.html', context)

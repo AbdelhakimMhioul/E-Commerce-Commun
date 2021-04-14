@@ -10,6 +10,4 @@ class ProductAdmin(admin.ModelAdmin):
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Person)
 admin.site.register(Category)
-admin.site.register(Customer)
-admin.site.register(User_Customer)
-admin.site.register(CustomerForProduct)
+admin.site.register(Order)

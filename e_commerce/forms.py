@@ -1,32 +1,15 @@
 from django import forms
-
-STATES = (
-    ('', 'Choose...'),
-    ('MG', 'Minas Gerais'),
-    ('SP', 'Sao Paulo'),
-    ('RJ', 'Rio de Janeiro')
-)
+from .models import Checkout
 
 
 class CheckoutForm(forms.Form):
-    email = forms.CharField(widget=forms.TextInput(
-        attrs={'placeholder': 'Email'}))
-    password = forms.CharField(widget=forms.PasswordInput())
-    address_1 = forms.CharField(
-        label='Address',
-        widget=forms.TextInput(attrs={'placeholder': '1234 Main St'})
-    )
-    address_2 = forms.CharField(
-        widget=forms.TextInput(
-            attrs={'placeholder': 'Apartment, studio, or floor'})
-    )
-    city = forms.CharField()
-    state = forms.ChoiceField(choices=STATES)
-    zip_code = forms.CharField(label='Zip')
-    check_me_out = forms.BooleanField(required=False)
+    class Meta:
+        model = Checkout
+        fields = ['address_1', 'address_2', 'city',
+                  'state', 'zip_code', 'check_me_out']
 
 
 class ContactUsForm(forms.Form):
     subject = forms.CharField(max_length=100)
     email = forms.EmailField(max_length=100)
-    message = forms.CharField(max_length=300,widget=forms.Textarea)
+    message = forms.CharField(max_length=300, widget=forms.Textarea)

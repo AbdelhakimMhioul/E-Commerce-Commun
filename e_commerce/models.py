@@ -1,4 +1,4 @@
-from django.db.models import Model, CharField, FloatField, TextField, CASCADE, ForeignKey, IntegerField, SET_NULL
+from django.db import models
 from django.db.models.fields.related import OneToOneField
 from django.forms import ChoiceField, RadioSelect
 from django.db.models.fields import EmailField, PositiveIntegerField
@@ -6,7 +6,7 @@ from django.db.models.fields.files import ImageField
 from phone_field import PhoneField
 from django.contrib.auth.models import User
 
-# Create your models here.
+# Create your models here
 
 TRADE_ROLE = (
     (0, 'SELLER'),
@@ -14,25 +14,32 @@ TRADE_ROLE = (
     (2, 'BOTH'),
 )
 
+STATES = (
+    ('', 'Choose...'),
+    ('MG', 'Minas Gerais'),
+    ('SP', 'Sao Paulo'),
+    ('RJ', 'Rio de Janeiro')
+)
 
-class Category(Model):
-    category = CharField(max_length=50, unique=True)
+
+class Category(models.Model):
+    category = models.CharField(max_length=50, unique=True)
 
     def __str__(self):
         return self.category
 
 
-class Product(Model):
-    name = CharField(max_length=100)
-    category = ForeignKey(
-        Category, related_name='categories', on_delete=CASCADE)
-    description = TextField()
-    photo = ImageField()
-    price = FloatField(default=0)
-    quantity = PositiveIntegerField(null=True)
-    good_rates = PositiveIntegerField(default=0)
-    bad_rates = PositiveIntegerField(default=0)
-    rates = PositiveIntegerField(default=0)
+class Product(models.Model):
+    name = models.CharField(max_length=100)
+    category = models.ForeignKey(
+        Category, related_name='categories', on_delete=models.CASCADE)
+    description = models.TextField()
+    photo = models.ImageField()
+    price = models.FloatField(default=0)
+    quantity = models.PositiveIntegerField(null=True)
+    good_rates = models.PositiveIntegerField(default=0)
+    bad_rates = models.PositiveIntegerField(default=0)
+    rates = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return self.name
@@ -46,11 +53,11 @@ class Product(Model):
         return self.rates
 
 
-class Person(Model):
-    name = CharField(max_length=50)
-    photo = ImageField()
+class Person(models.Model):
+    name = models.CharField(max_length=50)
+    photo = models.ImageField()
     phone = PhoneField(blank=True, help_text='Contact phone number')
-    email = EmailField(max_length=254)
+    email = models.EmailField(max_length=254)
     trade = ChoiceField(choices=TRADE_ROLE, widget=RadioSelect)
 
     def __str__(self):
@@ -58,65 +65,45 @@ class Person(Model):
 
 
 class Seller(Person):
-    description = TextField()
-    genre = CharField(max_length=50)
-    nbElementProd = PositiveIntegerField()
-    resteProd = PositiveIntegerField()
-    profitProd = FloatField()
+    description = models.TextField()
+    genre = models.CharField(max_length=50)
+    nbElementProd = models.PositiveIntegerField()
+    resteProd = models.PositiveIntegerField()
+    profitProd = models.FloatField()
 
     def __str__(self):
         return super().name
 
 
-class WishlistProduct(Model):
-    user = ForeignKey(
-        User, related_name='wishlist', on_delete=CASCADE)
-    product = OneToOneField(Product, on_delete=CASCADE, unique=True)
+class WishlistProduct(models.Model):
+    user = models.ForeignKey(
+        User, related_name='wishlist', on_delete=models.CASCADE)
+    product = models.OneToOneField(
+        Product, on_delete=models.CASCADE, unique=True)
 
     def __str__(self):
         return self.product.name
 
 
-class Cart(Model):
-    user = ForeignKey(User, related_name='cart', on_delete=CASCADE)
-    product = ForeignKey(Product, on_delete=CASCADE)
+class Order(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    quantity_ordered = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return self.product.name
 
-
-class Customer(Model):
-    user = OneToOneField(
-        User, on_delete=CASCADE, null=True, blank=True)
-    name = CharField(max_length=50)
-    photo = ImageField()
-    phone = PhoneField(blank=True, help_text='Contact phone number')
-    email = EmailField(max_length=254)
-    trade = ChoiceField(choices=TRADE_ROLE, widget=RadioSelect)
-
-    def __str__(self):
-        return self.name
+    def order_total_price(self):
+        total_order = self.quantity_ordered*self.product.price
+        return total_order
 
 
-class User_Customer(Model):
-    customer = ForeignKey(
-        Customer, on_delete=SET_NULL, null=True, blank=True)
-
-    def __str__(self):
-        return str(self.id)
-
-    def Total_Price(self, product_total_price):
-        customerforproducts = self.customerforproduct_set.all()
-        for product in customerforproducts:
-            total = total+product.product_total_price
-        return total
-
-
-class CustomerForProduct(Model):
-    product = ForeignKey(Product, on_delete=SET_NULL, null=True)
-    usercustomer = ForeignKey(
-        User_Customer, on_delete=SET_NULL, null=True)
-
-    def product_total_price(self):
-        total = self.product.price * self.product.quantity
-        return total
+class Checkout(models.Model):
+    user = models.OneToOneField(
+        User, on_delete=models.CASCADE, null=True, blank=True)
+    address_1 = models.CharField(max_length=100)
+    address_2 = models.CharField(max_length=100, blank=True)
+    city = models.CharField(max_length=100)
+    state = ChoiceField(choices=STATES)
+    zip_code = models.CharField(max_length=100)
+    check_me_out = models.BooleanField()

@@ -15,7 +15,7 @@
             <table class="table">
                 <tr>
                     <th>
-                        <h5>Items: <strong>{{numCart}}</strong></h5>
+                        <h5>Items: <strong>{{numOrders}}</strong></h5>
                     </th>
                     <th>
                         <h5>Total: <strong>${{total_price}}</strong></h5>
@@ -35,25 +35,32 @@
                 <div style="flex:2;"><strong>Quantity</strong></div>
                 <div style="flex:2;"><strong>Total</strong></div>
             </div>
-            {% for cart in carts %}
-            <div class="cart-row">
-                <div style="flex:2;"><img style="width:10%;" src="{% static 'images/cart.png'%}"></div>
-                <div style="flex:2;">Item</div>
-                <div style="flex:1;">Price</div>
-                <div style="flex:2;">
-                    <p class="quantity">2</p>
-                    <div class="quantity">
-                        <a href="{% url 'increaseQuantity' %}"><img src="{% static 'images/arrow-up.png'%}"
-                                class="chg-quantity"></a>
-                        <a href="{% url 'decreaseQuantity' %}"><img src="{% static 'images/arrow-down.png'%}"
-                                class="chg-quantity"></a>
+            {%for order in orders %}
+            <div class="row" id='{{cart.product.id}}'>
+                <div class="d-flex justify-content-between align-items-center mt-3 p-2 items rounded">
+                    <div class="d-flex flex-row"><img class="rounded" src="../{{cart.product.photo}}" width="40">
+                        <div class="ml-2"><span class="font-weight-bold d-block">{{order.product.name}}</span>
+                        </div>
                     </div>
+                    <div>
+                        <p style="flex:1" class="price">${{order.product.price|floatformat:2}}</p>
+                    </div>
+                    <div style="flex:2;">
+                        <p class="quantity">{{order.quantity_ordered}}</p>
+                        <div class="quantity">
+                            <a href="{% url 'increaseQuantity' order.pk %}"><img src="{% static 'images/arrow-up.png'%}" class="chg-quantity"></a>
+                            <a href="{% url 'decreaseQuantity' order.pk %}"><img src="{% static 'images/arrow-down.png'%}" class="chg-quantity"></a>
+                        </div>
+                    </div>
+                    <div>
+                        <p style="flex:1" class="total">${{order.product_total_price}}</p>
+                    </div>
+                    <div><a id="remove" href="{% url 'deleteOrder' order.id %}" class="btn btn-outline-danger mb-2 update-cart"
+                            data-product={{cart.product.id}} data-action="remove"></a></div>
                 </div>
-                <div style="flex:2;"></div>
             </div>
             {% endfor %}
         </div>
     </div>
 </div>
 {% endblock content %}
-

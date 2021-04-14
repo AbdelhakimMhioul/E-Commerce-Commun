@@ -7,7 +7,6 @@ Home
 {% block content %}
 
 <div class="container w-50 mt-3">
-	
 	<!-- Carrossel -->
 	<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
 		<div class="carousel-inner">
@@ -87,8 +86,9 @@ Home
 				product_id: catid
 			},
 			success: function (data) {
+				alert("hi")
 				$('#total').replaceWith(data.total_price);
-				$('#numCart').replaceWith(data.numCart);
+				$('#numOrders').replaceWith(data.numOrders);
 			},
 		})
 	});

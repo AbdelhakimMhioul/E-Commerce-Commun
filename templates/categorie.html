@@ -1,9 +1,11 @@
 {% extends "base.html" %}
 
-{% block title %} {{categorie}} {% endblock title %}
+{% block title %}
+{{categorie}}
+{% endblock title %}
 
 {% block mainNavBar %}
-    {% include "includes/topNavBar.html" %}
+{% include "includes/topNavBar.html" %}
 {% endblock mainNavBar %}
 
 {% block content %}
@@ -32,6 +34,23 @@
 				</div>
 			</div>
 			{% endfor %}
+			<div class="pagination">
+                <ul>
+                    {% if products_list.has_previous %}
+                    	<li><a href="?page={{products_list.previous_page_number}}">Previous</a></li>
+                    {% endif %}
+                    {% for pg in products_list.paginator.page_range %}
+						{% if products_list.number == pg %}
+							<li class="active"><a href="?page={{ pg }}">{{pg}}</a></li>
+						{% else %}
+							<li><a href="?page={{ pg }}">{{pg}}</a></li>
+						{% endif%}
+                    {% endfor %}
+                    {% if products_list.has_next %}
+                    	<li><a href="?page={{products_list.next_page_number}}">Next</a></li>
+                    {% endif %}
+                </ul>
+            </div>
 		</div>
 	</div>
 </div>

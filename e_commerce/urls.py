@@ -12,10 +12,9 @@ urlpatterns = [
     path('eliminateWish/<int:pk>', eliminateWish, name="eliminateWish"),
     path('wishlist/', wishlist, name="wishlist"),
     path('addCart/<int:pk>', addCart, name="addCart"),
-    path('eliminateCart/<int:pk>', eliminateCart, name="eliminateCart"),
+    path('deleteOrder/<int:pk>', deleteOrder, name="deleteOrder"),
     path('cart/', cart, name="cart"),
-    path('increaseQuantity/', increaseQuantity, name='increaseQuantity'),
-    path('decreaseQuantity/', decreaseQuantity, name='decreaseQuantity'),
+    path('increaseQuantity/<int:pk>', increaseQuantity, name='increaseQuantity'),
+    path('decreaseQuantity/<int:pk>', decreaseQuantity, name='decreaseQuantity'),
     path('search_form/', search_form, name="search_form"),
-    path('send_data/', GetData, name='send_data'),
 ]

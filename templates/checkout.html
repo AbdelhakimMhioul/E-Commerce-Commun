@@ -1,90 +1,73 @@
-{% extends 'base.html' %}
-
-{% block style %}
-
-{% endblock style %}
-
-{% block mainNavBar %}
-{% include "includes/topNavBar.html" %}
-{% endblock mainNavBar %}
+{% extends "base.html" %}
+{% block title %}
+Home
+{% endblock title %}
 
 {% block content %}
-<div class="row">
-    <div class="col-lg-6">
-        <div class="box-element" id="form-wrapper">
-            <form id="form">
-                <div id="user-info">
-                    <div class="form-field">
-                        <input required class="form-control" type="text" name="name" placeholder="Name..">
-                </div>
-                    <div class="form-field">
-                        <input required class="form-control" type="email" name="email" placeholder="Email..">
+<link rel="stylesheet" type="text/css" href="/static/css/stylecheckout.css">
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="card my-4 p-3">
+           
+            <form class="form-card">
+             <div class="row">
+                
+                    <div class="col-12">
+                        <div class="form-group"> <input type="text" class="form-control p-0" id="number" required><label class="form-control-placeholder p-0" for="number">Client Name</label> </div>
                     </div>
                 </div>
-
-                <div id="shipping-info">
-                    <hr>
-                    <p>Shipping Information:</p>
-                    <hr>
-                    <div class="form-field">
-                        <input class="form-control" type="text" name="address" placeholder="Address..">
-                    </div>
-                    <div class="form-field">
-                        <input class="form-control" type="text" name="city" placeholder="City..">
-                    </div>
-                    <div class="form-field">
-                        <input class="form-control" type="text" name="state" placeholder="State..">
-                    </div>
-                    <div class="form-field">
-                        <input class="form-control" type="text" name="zipcode" placeholder="Zip code..">
-                    </div>
-                    <div class="form-field">
-                        <input class="form-control" type="text" name="country" placeholder="Zip code..">
+                 <div class="row">
+                
+                    <div class="col-12">
+                        <div class="form-group"> <input type="text" class="form-control p-0" id="number" required><label class="form-control-placeholder p-0" for="number">Email</label> </div>
                     </div>
                 </div>
-
-                <hr>
-                <input id="form-button" class="btn btn-success btn-block" type="submit" value="Continue">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group"> <input type="text" class="form-control p-0" id="number" required><label class="form-control-placeholder p-0" for="number">CardNumber</label> </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group"> <input type="text" class="form-control p-0" id="name" required><label class="form-control-placeholder p-0" for="name">Cardholder'sName</label> </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4 col-12">
+                        <div class="form-group"> <input type="text" class="form-control p-0" id="sdate" required><label class="form-control-placeholder p-0" for="sdate">StartDate</label> </div>
+                    </div>
+                    <div class="col-sm-4 col-12">
+                        <div class="form-group"> <input type="text" class="form-control p-0" id="expdate" required><label class="form-control-placeholder p-0" for="expdate">ExpirationDate</label> </div>
+                    </div>
+                    <div class="col-sm-4 col-12">
+                        <div class="form-group"> <input type="password" class="form-control p-0" id="passw" required><label class="form-control-placeholder p-0" for="passw">CVV</label> </div>
+                    </div>
+                    <h4 class="mb-3">Payment</h4>
+                <div class="d-block my-3">
+                    <div class="custom-control custom-radio">
+                        <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked="" required="">
+                        <label class="custom-control-label" for="credit">Credit card</label>
+                    </div>
+                    <div class="custom-control custom-radio">
+                        <input id="debit" name="paymentMethod" type="radio" class="custom-control-input" required="">
+                        <label class="custom-control-label" for="debit">Debit card</label>
+                    </div>
+                    <div class="custom-control custom-radio">
+                        <input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" required="">
+                        <label class="custom-control-label" for="paypal">PayPal</label>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center flex-fill my-1" id="total">
+                    <p class="pt-2">Total:</p>
+                    <input type="text" class="form-control" id="totalapayer" placeholder="189$">
+                </div>
+                <div class="d-flex justify-content-between text-center mt-4" id="btns">
+                    <button type="button" id="btn" class="btn btn-primary btn-block pr-6">Back To Your Cart</button> 
+                   <button type="button" class="btn btn-primary btn-block" id="btn">Pay</button>
+                </div>
             </form>
-        </div>
-
-        <br>
-        <div class="box-element hidden" id="payment-info">
-            <small>Paypal Options</small>
-            <!--<button id="make-payment">Make payment</button>-->
-            <div id="paypal-button-container"></div>
-        </div>
-
-    </div>
-
-    <div class="col-lg-6">
-        <div class="box-element">
-            <a class="btn btn-outline-dark" href="{% url 'cart' %}">&#x2190; Back to Cart</a>
-            <hr>
-            <h3>Order Summary</h3>
-            <hr>
-            {% for item in items %}
-            <div class="cart-row">
-                <div style="flex:2"><img class="row-image" src="{{item.product.imageURL}}"></div>
-                <div style="flex:2">
-                    <p>{{item.product.name}}</p>
-                </div>
-                <div style="flex:1">
-                    <p>${{item.product.price|floatformat:2}}</p>
-                </div>
-                <div style="flex:1">
-                    <p>x{{item.quantity}}</p>
-                </div>
-            </div>
-            {% endfor %}
-            <h5>Items: {{order.get_cart_items}}</h5>
-            <h5>Total: ${{order.get_cart_total|floatformat:2}}</h5>
         </div>
     </div>
 </div>
 
-{% endblock content%}
-
-{% block script %}
-
-{% endblock script %}
+{% endblock content %}
