@@ -244,3 +244,6 @@ def decreaseQuantity(request, pk):
     order.quantity_ordered -= 1
     order.save()
     return redirect('cart')
+
+
+
