@@ -1,24 +1,9 @@
 from django.contrib import admin
-from .models import Customer,Product,Orders,Feedback,Seller
-# Register your models here.
-class CustomerAdmin(admin.ModelAdmin):
-    pass
-admin.site.register(Customer, CustomerAdmin)
-
-class ProductAdmin(admin.ModelAdmin):
-    pass
-admin.site.register(Product, ProductAdmin)
+from .models import *
 
 
-class SellerAdmin(admin.ModelAdmin):
-    pass
-admin.site.register(Seller, SellerAdmin)
-
-class OrderAdmin(admin.ModelAdmin):
-    pass
-admin.site.register(Orders, OrderAdmin)
-
-class FeedbackAdmin(admin.ModelAdmin):
-    pass
-admin.site.register(Feedback, FeedbackAdmin)
-# Register your models here.
+admin.site.register(Customer)
+admin.site.register(Product)
+admin.site.register(Seller)
+admin.site.register(Order)
+admin.site.register(Feedback)

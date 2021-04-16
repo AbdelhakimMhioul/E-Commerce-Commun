@@ -1,4 +1,4 @@
-{% extends 'dashboard_admin/admin_base.html' %}
+{% extends 'dashboardAdmin/admin_base.html' %}
 {% load widget_tweaks %}
 {% block content %}
 
@@ -53,7 +53,7 @@
   <div class="container register-form">
     <div class="form">
       <div class="note">
-        <p>ADD SELLERS</p>
+        <p>Update Seller Details</p>
       </div>
       <div class="form-content">
         <div class="row">
@@ -64,7 +64,6 @@
             <div class="form-group">
               {% render_field SellerForm.description class="form-control" placeholder="Description" %}
             </div>
-
           </div>
           <div class="col-md-6">
             <div class="form-group">
@@ -77,7 +76,7 @@
 
           </div>
         </div>
-        <button type="submit" class="btnSubmit">ADD</button>
+        <button type="submit" class="btnSubmit">Update</button>
       </div>
     </div>
   </div>

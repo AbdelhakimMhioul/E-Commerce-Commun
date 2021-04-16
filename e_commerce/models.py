@@ -64,7 +64,7 @@ class Person(models.Model):
         return self.name
 
 
-class Seller(User):
+class Seller(Person):
     description = models.TextField()
     genre = models.CharField(max_length=50)
     nbElementProd = models.PositiveIntegerField()
@@ -98,12 +98,12 @@ class Order(models.Model):
         return total_order
 
 
-class Checkout(models.Model):
-    user = models.OneToOneField(
-        User, on_delete=models.CASCADE, null=True, blank=True)
-    address_1 = models.CharField(max_length=100)
-    address_2 = models.CharField(max_length=100, blank=True)
-    city = models.CharField(max_length=100)
-    state = ChoiceField(choices=STATES)
-    zip_code = models.CharField(max_length=100)
-    check_me_out = models.BooleanField()
+# class Checkout(models.Model):
+#     user = models.OneToOneField(
+#         User, on_delete=models.CASCADE, null=True, blank=True)
+#     address_1 = models.CharField(max_length=100)
+#     address_2 = models.CharField(max_length=100, blank=True)
+#     city = models.CharField(max_length=100)
+#     state = ChoiceField(choices=STATES)
+#     zip_code = models.CharField(max_length=100)
+#     check_me_out = models.BooleanField()

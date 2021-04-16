@@ -1,4 +1,4 @@
-{% extends 'dashboard_admin/admin_base.html' %}
+{% extends 'dashboardAdmin/admin_base.html' %}
 {% load widget_tweaks %}
 {% block content %}
 
@@ -35,6 +35,7 @@
       cursor: pointer;
       background: #0062cc;
       color: #fff;
+      margin-left:100px;
     }
 
     .menu {
@@ -48,38 +49,22 @@
 </head>
 <br><br><br><br><br><br>
 <!------ update page for doctor by admin(sumit)  ---------->
-<form method="post" enctype="multipart/form-data">
+<form method="post">
   {% csrf_token %}
   <div class="container register-form">
     <div class="form">
       <div class="note">
-        <p>Update Product Details</p>
+        <p>Update Status Of Order</p>
       </div>
       <div class="form-content">
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group">
-              {% render_field productForm.name class="form-control" placeholder="Product Name" %}
-            </div>
-            <div class="form-group">
-              {% render_field productForm.description class="form-control" placeholder="Description" %}
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="form-group">
-              {% render_field productForm.price class="form-control" placeholder="Price" %}
-            </div>
-            <div class="form-group">
-              {% render_field productForm.product_image class="form-control" placeholder="product_image" %}
-            </div>
 
+              {% render_field orderForm.status class="form-control" placeholder="Address" %}
+            </div>
 
           </div>
         </div>
         <button type="submit" class="btnSubmit">Update</button>
-      </div>
-    </div>
-  </div>
+
 </form>
 
 

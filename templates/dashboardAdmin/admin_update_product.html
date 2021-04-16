@@ -1,4 +1,4 @@
-{% extends 'dashboard_admin/admin_base.html' %}
+{% extends 'dashboardAdmin/admin_base.html' %}
 {% load widget_tweaks %}
 {% block content %}
 
@@ -53,36 +53,26 @@
   <div class="container register-form">
     <div class="form">
       <div class="note">
-        <p>Update Customer Details</p>
+        <p>Update Product Details</p>
       </div>
       <div class="form-content">
         <div class="row">
           <div class="col-md-6">
             <div class="form-group">
-              {% render_field userForm.first_name class="form-control" placeholder="First Name" %}
+              {% render_field productForm.name class="form-control" placeholder="Product Name" %}
             </div>
             <div class="form-group">
-              {% render_field userForm.username class="form-control" placeholder="Username" %}
-            </div>
-            <div class="form-group">
-              {% render_field customerForm.mobile class="form-control" placeholder="Mobile" %}
-            </div>
-            <div class="form-group">
-                {% if profile_pic.image %}
-          {% render_field customerForm.profile_pic class="form-control" placeholder="Profile Picture" %}
-         {% endif %}
+              {% render_field productForm.description class="form-control" placeholder="Description" %}
             </div>
           </div>
           <div class="col-md-6">
             <div class="form-group">
-              {% render_field userForm.last_name class="form-control" placeholder="Last Name" %}
+              {% render_field productForm.price class="form-control" placeholder="Price" %}
             </div>
             <div class="form-group">
-              {% render_field userForm.password class="form-control" placeholder="Password" %}
+              {% render_field productForm.product_image class="form-control" placeholder="product_image" %}
             </div>
-            <div class="form-group">
-              {% render_field customerForm.address class="form-control" placeholder="Address" %}
-            </div>
+
 
           </div>
         </div>

@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from . import models
+from .models import *
 
 
 class CustomerUserForm(forms.ModelForm):
@@ -13,19 +13,18 @@ class CustomerUserForm(forms.ModelForm):
         
 class CustomerForm(forms.ModelForm):
     class Meta:
-        model=models.Customer
-        #fields=['address','mobile','profile_pic']
+        model=Customer
         fields=['address','mobile']
 
 class ProductForm(forms.ModelForm):
     class Meta:
-        model=models.Product
+        model=Product
         fields=['name','price','description','product_image']
 
 
 class SellerForm(forms.ModelForm):
     class Meta:
-        model=models.Seller
+        model=Seller
         fields=['name','genre','description','profile_pic']        
 
 #address of shipment
@@ -36,13 +35,13 @@ class AddressForm(forms.Form):
 
 class FeedbackForm(forms.ModelForm):
     class Meta:
-        model=models.Feedback
+        model=Feedback
         fields=['name','feedback']
 
 #for updating status of order
 class OrderForm(forms.ModelForm):
     class Meta:
-        model=models.Orders
+        model=Order
         fields=['status']
 
 #for contact us page

@@ -1,4 +1,4 @@
-{% extends 'dashboard_admin/admin_base.html' %}
+{% extends 'dashboardAdmin/admin_base.html' %}
 {% load widget_tweaks %}
 {% block content %}
 
@@ -53,30 +53,31 @@
   <div class="container register-form">
     <div class="form">
       <div class="note">
-        <p>Update Seller Details</p>
+        <p>ADD PRODUCTS</p>
       </div>
       <div class="form-content">
         <div class="row">
           <div class="col-md-6">
             <div class="form-group">
-              {% render_field SellerForm.name class="form-control" placeholder="Seller Name" %}
+              {% render_field productForm.name class="form-control" placeholder="Product Name" %}
             </div>
             <div class="form-group">
-              {% render_field SellerForm.description class="form-control" placeholder="Description" %}
+              {% render_field productForm.description class="form-control" placeholder="Description" %}
             </div>
+
           </div>
           <div class="col-md-6">
             <div class="form-group">
-              {% render_field SellerForm.genre class="form-control" placeholder="genre" %}
+              {% render_field productForm.price class="form-control" placeholder="Price" %}
             </div>
             <div class="form-group">
-              {% render_field SellerForm.profile_pic class="form-control" placeholder="profile_pic" %}
+              {% render_field productForm.product_image class="form-control" placeholder="product_image" %}
             </div>
 
 
           </div>
         </div>
-        <button type="submit" class="btnSubmit">Update</button>
+        <button type="submit" class="btnSubmit">ADD</button>
       </div>
     </div>
   </div>

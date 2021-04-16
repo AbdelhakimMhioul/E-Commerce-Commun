@@ -1,12 +1,12 @@
 from django import forms
-from .models import Checkout
+# from .models import Checkout
 
 
-class CheckoutForm(forms.Form):
-    class Meta:
-        model = Checkout
-        fields = ['address_1', 'address_2', 'city',
-                  'state', 'zip_code', 'check_me_out']
+# class CheckoutForm(forms.ModelForm):
+#     class Meta:
+#         model = Checkout
+#         fields = ['address_1', 'address_2', 'city',
+#                   'state', 'zip_code', 'check_me_out']
 
 
 class ContactUsForm(forms.Form):

@@ -1,6 +1,6 @@
 from .models import *
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import CheckoutForm, ContactUsForm
+from .forms import ContactUsForm
 from math import ceil
 from django.http import JsonResponse, HttpResponse
 from django.db.models import Q

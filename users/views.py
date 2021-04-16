@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.core.mail import send_mail, BadHeaderError
 from django.shortcuts import render, redirect
-from .forms import SignUpForm
+from .forms import SignUpForm, ChoiceForm, SignUpSellerForm
 from django.contrib import messages
 from django.contrib.auth import login as auth_login, authenticate
 from django.contrib.auth.forms import UserChangeForm, PasswordResetForm
@@ -16,18 +16,41 @@ from django.contrib.auth.decorators import login_required
 
 
 def register(request):
+    form = ChoiceForm()
+    if request.method == 'POST':
+        form = ChoiceForm(request.POST)
+        if form.is_valid():
+            form.save()
+            if form.cleaned_data['choice'] == 'CLIENT':
+                return redirect('registerClient')
+            if form.cleaned_data['choice'] == 'SELLER':
+                return redirect('registerSeller')
+    context = {'form': form}
+    return render(request, 'accounts/register.html', context)
+
+
+def registerClient(request):
     form = SignUpForm()
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         if form.is_valid():
             user = form.save()
             auth_login(request, user)
-            if form.cleaned_data['choice'] == 'CLIENT':  
-                return redirect('home')
-            if form.cleaned_data['choice'] == 'SELLER':
-                return redirect('prod')
+            return redirect('home')
     context = {'form': form}
-    return render(request, 'accounts/register.html', context)
+    return render(request,  'accounts/register.html', context)
+
+
+def registerSeller(request):
+    form = SignUpSellerForm()
+    if request.method == 'POST':
+        form = SignUpSellerForm (request.POST)
+        if form.is_valid():
+            user = form.save()
+            auth_login(request, user)
+            return redirect('prod')
+    context = {'form': form}
+    return render(request, 'registration/registerSeller.html', context)
 
 
 def login(request):

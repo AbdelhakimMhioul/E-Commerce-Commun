@@ -43,7 +43,7 @@ class Product(models.Model):
         return self.name
 
 
-class Orders(models.Model):
+class Order(models.Model):
     STATUS =(
         ('Pending','Pending'),
         ('Order Confirmed','Order Confirmed'),

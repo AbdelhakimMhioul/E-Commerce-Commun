@@ -1,25 +1,33 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, PasswordResetForm
 from django.contrib.auth.models import User
+from .models import Choice
 
-USERS = (
-    ('SELLER', 'SELLER'),
-    ('CLIENT', 'CLIENT'),
-)
+
+class ChoiceForm(forms.ModelForm):
+    class Meta:
+        model = Choice
+        fields = ['choice']
 
 
 class SignUpForm(UserCreationForm):
     email = forms.CharField(max_length=255, required=True,
                             widget=forms.EmailInput())
-    choice = forms.ChoiceField(
-        label="Enter Your Choice", choices=USERS, required=True)
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'password1', 'password2', 'choice']
+        fields = ['username', 'email', 'password1', 'password2']
 
-    def getChoice(self):
-        return self.choice
+
+class SignUpSellerForm(UserCreationForm):
+    email = forms.CharField(max_length=255, required=True,
+                            widget=forms.EmailInput())
+    description = forms.CharField(max_length=255, required=True)
+
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'password1',
+                  'password2', 'description']
 
 
 class UserForgotPasswordForm(PasswordResetForm):
