@@ -15,7 +15,8 @@ class CustomerForm(forms.ModelForm):
     class Meta:
         model=models.Customer
         #fields=['address','mobile','profile_pic']
-        fields=['address','mobile']
+        fields=['name','address','mobile','email']
+        
 
 class ProductForm(forms.ModelForm):
     class Meta:

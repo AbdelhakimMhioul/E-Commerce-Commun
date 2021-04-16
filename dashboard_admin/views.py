@@ -47,8 +47,8 @@ def view_customer_view(request):
 #@login_required(login_url='login')
 def delete_customer_view(request,pk):
     customer=models.Customer.objects.get(id=pk)
-    user=models.User.objects.get(id=customer.user_id)
-    user.delete()
+    #user=models.User.objects.get(id=customer.user_id)
+    #user.delete()
     customer.delete()
     return redirect('view-customer')
 
@@ -56,20 +56,14 @@ def delete_customer_view(request,pk):
 #@login_required(login_url='login')
 def update_customer_view(request,pk):
     customer=models.Customer.objects.get(id=pk)
-    user=models.User.objects.get(id=customer.user_id)
-    userForm=forms.CustomerUserForm(instance=user)
-    customerForm=forms.CustomerForm(request.FILES,instance=customer)
-    mydict={'userForm':userForm,'customerForm':customerForm}
+    customerForm=forms.CustomerForm(instance=customer)
+    
     if request.method=='POST':
-        userForm=forms.CustomerUserForm(request.POST,instance=user)
-        customerForm=forms.CustomerForm(request.POST,instance=customer)
-        if userForm.is_valid() and customerForm.is_valid():
-            user=userForm.save()
-            user.set_password(user.password)
-            user.save()
+        customerForm=forms.CustomerForm(request.POST,request.FILES,instance=customer)
+        if  customerForm.is_valid():
             customerForm.save()
             return redirect('view-customer')
-    return render(request,'dashboard_admin/admin_update_customer.html',context=mydict)
+    return render(request,'dashboard_admin/admin_update_customer.html',{'customerForm':customerForm})
 
 
 
