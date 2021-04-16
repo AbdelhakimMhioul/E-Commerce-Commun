@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'e_commerce',
     'api',
     'users',
+    'dashboard_admin',
+    'allauth.socialaccount',
     'rest_framework',
     'widget_tweaks',
     'django_filters',
@@ -158,3 +160,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGOUT_REDIRECT_URL = 'home'
 LOGIN_REDIRECT_URL = 'home'
 LOGIN_URL = 'login'
+
+
