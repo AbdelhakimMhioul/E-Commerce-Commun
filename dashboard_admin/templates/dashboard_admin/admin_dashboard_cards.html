@@ -4,8 +4,13 @@
 <head>
   <meta charset="utf-8">
   <title></title>
-
+	
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <style media="screen">
+    
+    .col-md-4{
+		width:25%
+	}
     
     .market-update-block {
       padding: 2em 2em;
@@ -130,13 +135,13 @@
       padding: 0px;
     }
   </style>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
+
   <div class="market-updates">
     <div class="col-md-4 market-update-gd">
       <div class="market-update-block clr-block-1">
@@ -186,14 +191,12 @@
       </div>
     </div>
 
-
-
       
-    <div class="row align-items-center">
+    
     
     <div class="col-md-4 market-update-gd">
       <div class="market-update-block clr-block-3" >
-        <div class="col-md-8 market-update-left">
+        <div class="col-md-8 market-update-center">
           <h3>{{ordercount}}</h3>
           <h4 >Total Orders</h4>
 
@@ -206,9 +209,10 @@
        </div>
       </div>
     </div>
-    </div>
+    
 
   </div>
+  
   <br><br>
 </body>
 

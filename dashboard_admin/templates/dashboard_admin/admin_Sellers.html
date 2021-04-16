@@ -52,26 +52,29 @@
           <th>Name</th>
           <th>Image</th>
           <th>Genre</th>
+          <th>Email</th>
           <th>Description</th>
           <th>Update</th>
           <th>Delete</th>
         </tr>
       </thead>
-      {% for p in Sellers %}
-  {% if p %}
+      {% for s in Sellers %}
+  {% if s %}
 
       <tr>
-        <td> {{p.name}}</td>
-        <td> <img src="{% static p.profile_pic.url %}" alt="Profile Pic" height="40px" width="40px" /></td>
-        <td>{{p.price}}</td>
-        <td>{{p.description}}</td>
-        <td><a class="btn btn-primary btn-xs" href="{% url 'update-Seller' p.id  %}"><span class="glyphicon glyphicon-edit"></span></a></td>
-        <td><a class="btn btn-danger btn-xs" href="{% url 'delete-Seller' p.id  %}"><span class="glyphicon glyphicon-trash"></span></a></td>
+        <td> {{s.name}}</td>
+        
+        <td>{{s.profile_pic}}</td>
+        <td>{{s.description}}</td>
+        <td>{{s.email}}</td>
+        <td>{{s.genre}}</td>
+        <td><a class="btn btn-primary btn-xs" href="{% url 'update-Seller' s.id  %}"><span class="glyphicon glyphicon-edit"></span></a></td>
+        <td><a class="btn btn-danger btn-xs" href="{% url 'delete-Seller' s.id  %}"><span class="glyphicon glyphicon-trash"></span></a></td>
 
       </tr>
       {%else%}
       <br><br><br>
-      <h1>no Sellers</h1>
+      <h1>No Sellers</h1>
       {% endif %}
       {% endfor %}
     </table>

@@ -15,7 +15,7 @@ def admin_dashboard_view(request):
     customercount=models.Customer.objects.all().count()
     productcount=models.Product.objects.all().count()
     ordercount=models.Orders.objects.all().count()
-    Sellercount=models.Orders.objects.all().count()
+    Sellercount=models.Seller.objects.all().count()
 
     # for recent order tables
     orders=models.Orders.objects.all()
