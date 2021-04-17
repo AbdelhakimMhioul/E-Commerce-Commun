@@ -58,31 +58,27 @@
       <div class="form-content">
         <div class="row">
           <div class="col-md-6">
+           
+
+
             <div class="form-group">
-              {% render_field userForm.first_name class="form-control" placeholder="First Name" %}
+              {% render_field customerForm.name class="form-control" placeholder=" Name" %}
             </div>
             <div class="form-group">
-              {% render_field userForm.username class="form-control" placeholder="Username" %}
+              {% render_field customerForm.address class="form-control" placeholder="Adress" %}
+            </div>
+            
+            
+          </div>
+          <div class="col-md-6">
+            
+            <div class="form-group">
+              {% render_field customerForm.email class="form-control" placeholder="email" %}
             </div>
             <div class="form-group">
               {% render_field customerForm.mobile class="form-control" placeholder="Mobile" %}
             </div>
-            <div class="form-group">
-                {% if profile_pic.image %}
-          {% render_field customerForm.profile_pic class="form-control" placeholder="Profile Picture" %}
-         {% endif %}
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="form-group">
-              {% render_field userForm.last_name class="form-control" placeholder="Last Name" %}
-            </div>
-            <div class="form-group">
-              {% render_field userForm.password class="form-control" placeholder="Password" %}
-            </div>
-            <div class="form-group">
-              {% render_field customerForm.address class="form-control" placeholder="Address" %}
-            </div>
+            
 
           </div>
         </div>

@@ -65,8 +65,9 @@
         <td> {{p.name}}</td>
          {% if product_image.image %}
           <td> <img src="{% static p.product_image.url %}" alt="Profile Pic" height="40px" width="40px" /></td>
-          {% endif %}
-      
+          {% else %}
+          <td>without Picture</td>
+        {% endif %}
         <td>{{p.price}}</td>
         <td>{{p.description}}</td>
         <td><a class="btn btn-primary btn-xs" href="{% url 'update-product' p.id  %}"><span class="glyphicon glyphicon-edit"></span></a></td>
@@ -75,7 +76,7 @@
       </tr>
       {%else%}
       <br><br><br>
-      <h1>no products</h1>
+      <h1>No products</h1>
       {% endif %}
       {% endfor %}
     </table>

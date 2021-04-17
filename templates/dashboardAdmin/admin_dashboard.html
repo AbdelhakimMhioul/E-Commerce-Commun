@@ -27,10 +27,10 @@
         {% for product,customer,order in data %}
         <tr>
           {% for c in customer %}
-          <td> {{c.get_name}}</td>
+          <td> {{c.name}}</td>
           <td>{{c.mobile}}</td>
-          
           <td>{{order.address}}</td>
+          
 
           {% endfor %}
           {% for p in product %}
@@ -38,6 +38,8 @@
 
           {% if product_image.image %}
           <td> <img src="{% static p.product_image.url %}" alt="Profile Pic" height="40px" width="40px" /></td>
+          {%else%}
+          <td>-1</td>
           {% endif %}
 
           {% if order.status == 'Pending'%}

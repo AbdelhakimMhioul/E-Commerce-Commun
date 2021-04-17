@@ -31,8 +31,8 @@
     <table class="table table-hover" id="dev-table">
       <thead>
         <tr>
-          <th>Name</th>
-          <th>Profile Picture</th>
+          <th>Name</th>  
+          <th>Email</th>  
           <th>Mobile</th>
           <th>Address</th>
           <th>Update</th>
@@ -41,11 +41,8 @@
       </thead>
       {% for c in customers %}
       <tr>
-        <td> {{c.get_name}}</td>
-        {% if profile_pic.image %}
-          <td> <img src="{% static c.profile_pic.url %}" alt="Profile Pic" height="40px" width="40px" /></td>
-         {% endif %}
-        
+        <td> {{c.name}}</td>
+        <td> {{c.email}}</td>
         <td>{{c.mobile}}</td>
         <td>{{c.address}}</td>
         <td><a class="btn btn-primary btn-xs" href="{% url 'update-customer' c.id  %}"><span class="glyphicon glyphicon-edit"></span></a></td>

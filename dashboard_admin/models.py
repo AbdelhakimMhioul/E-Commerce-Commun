@@ -1,31 +1,30 @@
 from django.db import models
+from django import forms
 from django.contrib.auth.models import User    #the User object is pretty much set by django.contrib.auth
 # Create your models here.
 
 
 class Customer(models.Model):
-    user=models.OneToOneField(User,on_delete=models.CASCADE)
-    
+    #user=models.OneToOneField(User,on_delete=models.CASCADE)
+    name=models.CharField(max_length=40)
     address = models.CharField(max_length=40)
+    email = models.CharField(max_length=50,null=True)
     mobile = models.CharField(max_length=20,null=False)
-    @property
-    def get_name(self):
-        return self.user.first_name+" "+self.user.last_name
-    @property
-    def get_id(self):
-        return self.user.id
+    
     def __str__(self):
-        return self.user.first_name
+        return self.name
 
 
 class Seller(models.Model):
     name=models.CharField(max_length=40)
+    #password = forms.CharField(widget=forms.PasswordInput)
     profile_pic= models.ImageField(upload_to='profile_pic/CustomerProfilePic/',null=True,blank=True)
     description = models.TextField()
+    email = models.CharField(max_length=50,null=True)
     genre = models.CharField(max_length=50)
-    nbElementProd = models.PositiveIntegerField()
-    resteProd = models.PositiveIntegerField()
-    profitProd = models.FloatField()
+    
+    #nbElementProd = models.PositiveIntegerField()
+    
 
     def __str__(self):
         return self.name

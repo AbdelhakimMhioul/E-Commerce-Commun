@@ -13,10 +13,11 @@ from e_commerce.decorators import admin_only
 @admin_only
 def admin_dashboard_view(request):
     # for cards on dashboard
-    customercount = models.Customer.objects.count()
-    productcount = models.Product.objects.count()
-    ordercount = models.Order.objects.count()
-    Sellercount = models.Order.objects.count()
+    customercount=models.Customer.objects.all().count()
+    productcount=models.Product.objects.all().count()
+    ordercount=models.Orders.objects.all().count()
+    Sellercount=models.Seller.objects.all().count()
+
     # for recent order tables
     orders = models.Order.objects.all()
     ordered_products = []
@@ -44,34 +45,29 @@ def view_customer_view(request):
     return render(request, 'dashboardAdmin/view_customer.html', {'customers': customers})
 
 # admin delete customer
-# @login_required(login_url='login')
-
-
-def delete_customer_view(request, pk):
-    customer = models.Customer.objects.get(id=pk)
-    user = models.User.objects.get(id=customer.user_id)
-    user.delete()
+#@login_required(login_url='login')
+def delete_customer_view(request,pk):
+    customer=models.Customer.objects.get(id=pk)
+    #user=models.User.objects.get(id=customer.user_id)
+    #user.delete()
     customer.delete()
     return redirect('view-customer')
 
 
-# @login_required(login_url='login')
-def update_customer_view(request, pk):
-    customer = models.Customer.objects.get(id=pk)
-    user = models.User.objects.get(id=customer.user_id)
-    userForm = forms.CustomerUserForm(instance=user)
-    customerForm = forms.CustomerForm(request.FILES, instance=customer)
-    mydict = {'userForm': userForm, 'customerForm': customerForm}
-    if request.method == 'POST':
-        userForm = forms.CustomerUserForm(request.POST, instance=user)
-        customerForm = forms.CustomerForm(request.POST, instance=customer)
-        if userForm.is_valid() and customerForm.is_valid():
-            user = userForm.save()
-            user.set_password(user.password)
-            user.save()
+#@login_required(login_url='login')
+def update_customer_view(request,pk):
+    customer=models.Customer.objects.get(id=pk)
+    customerForm=forms.CustomerForm(instance=customer)
+    
+    if request.method=='POST':
+        customerForm=forms.CustomerForm(request.POST,request.FILES,instance=customer)
+        if  customerForm.is_valid():
             customerForm.save()
             return redirect('view-customer')
-    return render(request, 'dashboardAdmin/admin_update_customer.html', context=mydict)
+    return render(request,'dashboard_admin/admin_update_customer.html',{'customerForm':customerForm})
+
+
+
 
 # admin view the product
 # @login_required(login_url='login')
