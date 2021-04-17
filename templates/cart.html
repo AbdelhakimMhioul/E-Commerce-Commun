@@ -40,7 +40,7 @@
                         <p style="flex:1" class="price">${{order.product.price|floatformat:1}}</p>
                     </div>
                     <div style="flex:2;">
-                        <p class="quantity">{{order.quantity_ordered}}</p>
+                        <p class="quantity">{{order.quantity_carted}}</p>
                         <div class="quantity">
                             <a href="{% url 'increaseQuantity' order.pk %}"><img src="{% static 'images/arrow-up.png'%}" class="chg-quantity"></a>
                             <a href="{% url 'decreaseQuantity' order.pk %}"><img src="{% static 'images/arrow-down.png'%}" class="chg-quantity"></a>

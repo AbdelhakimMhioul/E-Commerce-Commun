@@ -6,16 +6,17 @@ from django.contrib.auth.models import Group
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib import messages
 from django.conf import settings
+from e_commerce.decorators import admin_only
 
 
-# @login_required(login_url='login')
+@login_required
+@admin_only
 def admin_dashboard_view(request):
     # for cards on dashboard
     customercount = models.Customer.objects.count()
     productcount = models.Product.objects.count()
     ordercount = models.Order.objects.count()
     Sellercount = models.Order.objects.count()
-
     # for recent order tables
     orders = models.Order.objects.all()
     ordered_products = []

@@ -3,56 +3,41 @@ from django.contrib.auth.tokens import default_token_generator
 from django.utils.http import urlsafe_base64_encode
 from django.db.models.query_utils import Q
 from django.template.loader import render_to_string
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django.http import HttpResponse
 from django.core.mail import send_mail, BadHeaderError
 from django.shortcuts import render, redirect
-from .forms import SignUpForm, ChoiceForm, SignUpSellerForm
+from .forms import CreateUserForm
 from django.contrib import messages
 from django.contrib.auth import login as auth_login, authenticate
 from django.contrib.auth.forms import UserChangeForm, PasswordResetForm
-from e_commerce.models import WishlistProduct, Order
+from e_commerce.models import WishlistProduct, Cart
 from django.contrib.auth.decorators import login_required
+from .decorators import unauthenticated_user, allowed_users
 
 
+@unauthenticated_user
 def register(request):
-    form = ChoiceForm()
+    form = CreateUserForm()
     if request.method == 'POST':
-        form = ChoiceForm(request.POST)
+        form = CreateUserForm(request.POST)
         if form.is_valid():
-            form.save()
-            if form.cleaned_data['choice'] == 'CLIENT':
-                return redirect('registerClient')
-            if form.cleaned_data['choice'] == 'SELLER':
-                return redirect('registerSeller')
+            user = form.save()
+            userType = form.cleaned_data.get('choice')
+            if userType == 'BOTH':
+                group1 = Group.objects.get(name='SELLER')
+                user.groups.add(group1)
+                group2 = Group.objects.get(name='CLIENT')
+                user.groups.add(group2)
+            else:
+                group = Group.objects.get(name=userType)
+                user.groups.add(group)
+            return redirect('login')
     context = {'form': form}
     return render(request, 'accounts/register.html', context)
 
 
-def registerClient(request):
-    form = SignUpForm()
-    if request.method == 'POST':
-        form = SignUpForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            auth_login(request, user)
-            return redirect('home')
-    context = {'form': form}
-    return render(request,  'accounts/register.html', context)
-
-
-def registerSeller(request):
-    form = SignUpSellerForm()
-    if request.method == 'POST':
-        form = SignUpSellerForm (request.POST)
-        if form.is_valid():
-            user = form.save()
-            auth_login(request, user)
-            return redirect('prod')
-    context = {'form': form}
-    return render(request, 'registration/registerSeller.html', context)
-
-
+@unauthenticated_user
 def login(request):
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -60,22 +45,22 @@ def login(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             auth_login(request, user)
-            return redirect('register.html')
+            return redirect('home')
         else:
-            messages.info(request, 'Username or Password incorrect')
-            return render(request, 'login.html')
-    return render(request, 'login.html')
+            messages.info(request, 'Username OR password is incorrect')
+    context = {}
+    return render(request, 'accounts/login.html', context)
 
 
 @login_required
 def viewAccount(request):
     numWishes = WishlistProduct.objects.count()
-    numOrder = Order.objects.count()
+    numCart = Cart.objects.count()
     total_price = 0
-    orders = Order.objects.all()
-    for order in orders:
+    carts = Cart.objects.all()
+    for order in carts:
         total_price += order.order_total_price()
-    context = {'user': request.user, 'numOrder': numOrder,
+    context = {'user': request.user, 'numCart': numCart,
                'numWishes': numWishes, 'total_price': total_price}
     return render(request, 'accounts/myAccount.html', context)
 
@@ -122,26 +107,28 @@ def password_reset_request(request):
 
 
 @login_required
+@allowed_users(allowed_roles=['ADMIN', 'CLIENT'])
 def showDashboardClient(request):
     numWishes = WishlistProduct.objects.count()
-    numOrder = Order.objects.count()
+    numCart = Cart.objects.count()
     total_price = 0
-    orders = Order.objects.all()
-    for order in orders:
+    carts = Cart.objects.all()
+    for order in carts:
         total_price += order.order_total_price()
-    context = {'numOrder': numOrder, 'numWishes': numWishes,
+    context = {'numCart': numCart, 'numWishes': numWishes,
                'total_price': total_price}
     return render(request, 'accounts/dashboardClient.html', context)
 
 
 @login_required
+@allowed_users(allowed_roles=['ADMIN', 'SELLER'])
 def showDashboardSeller(request):
     numWishes = WishlistProduct.objects.count()
-    numOrder = Order.objects.count()
+    numCart = Cart.objects.count()
     total_price = 0
-    orders = Order.objects.all()
-    for order in orders:
+    carts = Cart.objects.all()
+    for order in carts:
         total_price += order.order_total_price()
-    context = {'numOrder': numOrder, 'numWishes': numWishes,
+    context = {'numCart': numCart, 'numWishes': numWishes,
                'total_price': total_price}
     return render(request, 'accounts/dashboardSeller.html', context)

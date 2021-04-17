@@ -5,6 +5,7 @@ from django.db.models.fields import EmailField, PositiveIntegerField
 from django.db.models.fields.files import ImageField
 from phone_field import PhoneField
 from django.contrib.auth.models import User
+from users.models import Client, Seller
 
 # Create your models here
 
@@ -53,28 +54,6 @@ class Product(models.Model):
         return self.rates
 
 
-class Person(models.Model):
-    name = models.CharField(max_length=50)
-    photo = models.ImageField()
-    phone = PhoneField(blank=True, help_text='Contact phone number')
-    email = models.EmailField(max_length=254)
-    trade = ChoiceField(choices=TRADE_ROLE, widget=RadioSelect)
-
-    def __str__(self):
-        return self.name
-
-
-class Seller(Person):
-    description = models.TextField()
-    genre = models.CharField(max_length=50)
-    nbElementProd = models.PositiveIntegerField()
-    resteProd = models.PositiveIntegerField()
-    profitProd = models.FloatField()
-
-    def __str__(self):
-        return super().name
-
-
 class WishlistProduct(models.Model):
     user = models.ForeignKey(
         User, related_name='wishlist', on_delete=models.CASCADE)
@@ -85,17 +64,32 @@ class WishlistProduct(models.Model):
         return self.product.name
 
 
-class Order(models.Model):
+class Cart(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    quantity_ordered = models.PositiveIntegerField(default=0)
+    quantity_carted = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return self.product.name
 
-    def order_total_price(self):
-        total_order = self.quantity_ordered*self.product.price
-        return total_order
+    def cart_total_price(self):
+        total_cart = self.quantity_carted*self.product.price
+        return total_cart
+
+
+class Order(models.Model):
+    STATUS = (
+        ('Pending', 'Pending'),
+        ('Delivered', 'Delivered'),
+        ('in progress', 'in progress'),
+        ('out of order', 'out of order')
+    )
+    client = models.ForeignKey(
+        Client, null=True, on_delete=models.SET_NULL)
+    product = models.ForeignKey(
+        Product(), null=True, on_delete=models.SET_NULL)
+    date_created = models.DateTimeField(auto_now_add=True, null=True)
+    status = models.CharField(max_length=200, null=True, choices=STATUS)
 
 
 # class Checkout(models.Model):

@@ -5,12 +5,9 @@ from .forms import UserForgotPasswordForm
 
 urlpatterns = [
     path('register/', register, name='register'),
-    path('registerClient/', registerClient, name='registerClient'),
-    path('registerSeller/', registerSeller, name='registerSeller'),
-
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
-    path('login/', auth_views.LoginView.as_view(), name='login'),
-    path('dashboard_client/', showDashboardClient, name='dashboardclient'),
+    path('login/', login, name='login'),
+    path('dashboard_seller/', showDashboardSeller, name='dashboardseller'),
     path('accounts/profile/', viewAccount, name='viewAccount'),
     path('accounts/profile/edit', editAccount, name='editAccount'),
     path('accounts/password_change/', auth_views.PasswordChangeView.as_view(
