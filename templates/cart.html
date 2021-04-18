@@ -29,27 +29,27 @@
                 <div style="flex:2;"><strong>Quantity</strong></div>
                 <div style="flex:2;"><strong>Total</strong></div>
             </div>
-            {%for order in orders %}
+            {%for cart in carts %}
             <div class="row" id='{{order.product.id}}'>
                 <div class="d-flex justify-content-between align-items-center mt-3 p-2 items rounded">
                     <div class="d-flex flex-row"><img class="rounded" src="../{{cart.product.photo}}" width="40">
-                        <div class="ml-2"><span class="font-weight-bold d-block">{{order.product.name}}</span>
+                        <div class="ml-2"><span class="font-weight-bold d-block">{{cart.product.name}}</span>
                         </div>
                     </div>
                     <div>
-                        <p style="flex:1" class="price">${{order.product.price|floatformat:1}}</p>
+                        <p style="flex:1" class="price">${{cart.product.price|floatformat:1}}</p>
                     </div>
                     <div style="flex:2;">
-                        <p class="quantity">{{order.quantity_carted}}</p>
+                        <p class="quantity">{{cart.quantity_carted}}</p>
                         <div class="quantity">
-                            <a href="{% url 'increaseQuantity' order.pk %}"><img src="{% static 'images/arrow-up.png'%}" class="chg-quantity"></a>
-                            <a href="{% url 'decreaseQuantity' order.pk %}"><img src="{% static 'images/arrow-down.png'%}" class="chg-quantity"></a>
+                            <a href="{% url 'increase_quantity' cart.pk %}"><img src="{% static 'images/arrow-up.png'%}" class="chg-quantity"></a>
+                            <a href="{% url 'decrease_quantity' cart.pk %}"><img src="{% static 'images/arrow-down.png'%}" class="chg-quantity"></a>
                         </div>
                     </div>
                     <div>
-                        <p style="flex:1" class="total">${{order.order_total_price}}</p>
+                        <p style="flex:1" class="total">${{cart.cart_total_price}}</p>
                     </div>
-                    <div><a id="remove" href="{% url 'deleteOrder' order.id %}" class="btn btn-outline-danger mb-2 update-cart"></a></div>
+                    <div><a id="remove" href="{% url 'delete_cart' cart.id %}" class="btn btn-outline-danger mb-2 update-cart"></a></div>
                 </div>
             </div>
             {% endfor %}

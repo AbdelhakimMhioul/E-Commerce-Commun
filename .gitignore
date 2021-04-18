@@ -1,5 +1,5 @@
-/*.png
+*.png
 
-/venv
+venv
 
-/db.sqlite3
+db.sqlite3

@@ -11,7 +11,7 @@ Home
             {% for product in products %}
             <div class="col-lg-4">
                 <div class="card" style="width: 18rem;">
-                    <a href="{%url 'viewProduct' product.id %}"><img
+                    <a href="{%url 'view_product' product.id %}"><img
                             src="https://nk1bd.com/wp-content/uploads/2020/07/Dell-Inspiron-15-3580-Intel-CDC-4205U-15.6-inch-HD-Laptop-with-Genuine-Windows-10.jpg"
                             class="card-img-top" alt=""></a>
                     <div class="card-body">
@@ -20,11 +20,11 @@ Home
                         <p class="card-text">{{product.description}}</p>
                         <p class="card-text">Price : {{product.price}}€</p>
                         <div class="d-flex">
-                            <form action="{% url 'addCart' product.id %}" method="POST">
+                            <form action="{% url 'add_cart' product.id %}" method="POST">
                                 {% csrf_token %}
                                 <button type="submit" class="btn btn-primary">Add To Cart</button>
                             </form>
-                            <form action="{% url 'addWishlist' product.id %}" method="POST">
+                            <form action="{% url 'add_wishlist' product.id %}" method="POST">
                                 {% csrf_token %}
                                 <button type="submit" class="btn btn-primary">Add To Wishlist</button>
                             </form>
