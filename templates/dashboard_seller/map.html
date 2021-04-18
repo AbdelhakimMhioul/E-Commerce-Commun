@@ -1,0 +1,168 @@
+{% extends 'dashboard_seller/dashboard.html' %}
+{% block content %}
+
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>ZingSoft Demo</title>
+  <script src="https://cdn.zingchart.com/zingchart.min.js"></script>
+  <style>
+    .zc-body {
+      background: #fff;
+    }
+
+    .chart--container {
+      height: 100%;
+      width: 100%;
+      min-height: 530px;
+    }
+
+    .zc-ref {
+      display: none;
+    }
+  </style>
+</head>
+
+<body class="zc-body">
+<h1>Check your clients </h1>
+  <div id="myChart" class="chart--container">
+    <a href="https://www.zingchart.com/" rel="noopener" class="zc-ref">Powered by ZingChart</a>
+  </div>
+
+  <script>
+    ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9", "b55b025e438fa8a98e32482b5f768ff5"]; // INIT
+    // -----------------------------
+    // Define Module Location
+    zingchart.MODULESDIR = "https://cdn.zingchart.com/modules/";
+    ZC.LICENSE = ["bab21d016b2dadc18447d2a055f061e3"];
+
+    // must load maps and first map we are going to render
+    zingchart.loadModules('maps,maps-world-countries');
+
+    // initial config for first chart
+    var myConfig = {
+      shapes: [{
+        type: 'zingchart.maps',
+        options: {
+          name: 'world.countries',
+          style: { //style all countries
+            backgroundColor: '#cccccc',
+            label: {
+              visible: false
+            },
+            hoverState: {
+              alpha: .32,
+            },
+            items: { //include specific shape regions with unique styles
+              USA: {
+                backgroundColor: '#0D47A1',
+                cursor: 'pointer',
+                label: {
+                  visible: true,
+                  fontColor: '#ffffff'
+                },
+                tooltip: {
+                  text: 'Click on USA to drilldown into states'
+                }
+              },
+              BRA: {
+                backgroundColor: '#4CAF50',
+                cursor: 'pointer',
+                label: {
+                  visible: true,
+                  fontColor: '#ffffff'
+                },
+                tooltip: {
+                  text: 'Click on Brazil to drilldown into states'
+                }
+              },
+              IND: {
+                backgroundColor: '#FF6F00',
+                cursor: 'pointer',
+                label: {
+                  visible: true,
+                  fontColor: '#ffffff'
+                },
+                tooltip: {
+                  text: 'Click on India to drilldown into states'
+                }
+              }
+
+            }
+          }
+        }
+      }]
+    };
+
+    zingchart.render({
+      id: 'myChart',
+      data: myConfig,
+    });
+
+    //drilldown chart configuration
+    var drilldownConfig = {
+      shapes: [{
+          type: 'zingchart.maps',
+          options: {
+            name: '',
+          }
+        },
+        {
+          x: 100,
+          y: 20,
+          type: 'rectangle',
+          height: 25,
+          width: 155,
+          backgroundColor: '#C4C4C4',
+          padding: 5,
+          cursor: 'hand',
+          id: 'back_button',
+          label: {
+            text: 'Back To World Countries'
+          },
+          hoverState: {
+            borderWidth: 1,
+            borderColor: '#000'
+          }
+        }
+      ]
+    };
+
+    // for maps that exist in our library. Pre-load them later on
+    zingchart.loadModules('maps-usa, maps-bra, maps-ind');
+    zingchart.bind('myChart', 'shape_click', function(e) {
+      var newMapId = String(e.shapeid).toLowerCase();
+
+      // if shape is our back button and not the map
+      if (newMapId == 'back_button') {
+        console.log('here')
+        // since we are using setdata, reload will reload the original chartJSON
+        zingchart.exec('myChart', 'reload');
+        return;
+      }
+
+      if (hasDrilldownData(newMapId)) {
+        drilldownConfig.shapes[0].options.name = newMapId;
+        zingchart.exec('myChart', 'setdata', {
+          data: drilldownConfig
+        });
+      }
+    });
+
+    // used in the shape_click event to determine if we should drilldown
+    function hasDrilldownData(newMapId) {
+      var drillDownCountries = ['usa', 'bra', 'ind'];
+      for (var i = 0; i < drillDownCountries.length; i++) {
+        if (newMapId === drillDownCountries[i])
+          return true;
+      }
+      return false;
+    }
+  </script>
+</body>
+
+</html>
+
+
+{% endblock %}

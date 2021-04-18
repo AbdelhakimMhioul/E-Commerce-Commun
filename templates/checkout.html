@@ -8,63 +8,74 @@ Home
 <div class="container-fluid">
     <div class="row justify-content-center">
         <div class="card my-4 p-3">
-           
+
             <form class="form-card">
-             <div class="row">
-                
+                <div class="row">
+
                     <div class="col-12">
-                        <div class="form-group"> <input type="text" class="form-control p-0" id="number" required><label class="form-control-placeholder p-0" for="number">Client Name</label> </div>
+                        <div class="form-group"> <input type="text" class="form-control p-0" id="number" required><label
+                                class="form-control-placeholder p-0" for="number">Client Name</label> </div>
                     </div>
                 </div>
-                 <div class="row">
-                
+                <div class="row">
+
                     <div class="col-12">
-                        <div class="form-group"> <input type="text" class="form-control p-0" id="number" required><label class="form-control-placeholder p-0" for="number">Email</label> </div>
+                        <div class="form-group"> <input type="text" class="form-control p-0" id="number" required><label
+                                class="form-control-placeholder p-0" for="number">Email</label> </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        <div class="form-group"> <input type="text" class="form-control p-0" id="number" required><label class="form-control-placeholder p-0" for="number">CardNumber</label> </div>
+                        <div class="form-group"> <input type="text" class="form-control p-0" id="number" required><label
+                                class="form-control-placeholder p-0" for="number">CardNumber</label> </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        <div class="form-group"> <input type="text" class="form-control p-0" id="name" required><label class="form-control-placeholder p-0" for="name">Cardholder'sName</label> </div>
+                        <div class="form-group"> <input type="text" class="form-control p-0" id="name" required><label
+                                class="form-control-placeholder p-0" for="name">Cardholder'sName</label> </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-4 col-12">
-                        <div class="form-group"> <input type="text" class="form-control p-0" id="sdate" required><label class="form-control-placeholder p-0" for="sdate">StartDate</label> </div>
+                        <div class="form-group"> <input type="text" class="form-control p-0" id="sdate" required><label
+                                class="form-control-placeholder p-0" for="sdate">StartDate</label> </div>
                     </div>
                     <div class="col-sm-4 col-12">
-                        <div class="form-group"> <input type="text" class="form-control p-0" id="expdate" required><label class="form-control-placeholder p-0" for="expdate">ExpirationDate</label> </div>
+                        <div class="form-group"> <input type="text" class="form-control p-0" id="expdate"
+                                required><label class="form-control-placeholder p-0"
+                                for="expdate">ExpirationDate</label> </div>
                     </div>
                     <div class="col-sm-4 col-12">
-                        <div class="form-group"> <input type="password" class="form-control p-0" id="passw" required><label class="form-control-placeholder p-0" for="passw">CVV</label> </div>
+                        <div class="form-group"> <input type="password" class="form-control p-0" id="passw" required>
+                            <label class="form-control-placeholder p-0" for="passw">CVV</label>
+                        </div>
                     </div>
                     <h4 class="mb-3">Payment</h4>
-                <div class="d-block my-3">
-                    <div class="custom-control custom-radio">
-                        <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked="" required="">
-                        <label class="custom-control-label" for="credit">Credit card</label>
+                    <div class="d-block my-3">
+                        <div class="custom-control custom-radio">
+                            <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked="" required="">
+                            <label class="custom-control-label" for="credit">Credit card</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input id="debit" name="paymentMethod" type="radio" class="custom-control-input"
+                                required="">
+                            <label class="custom-control-label" for="debit">Debit card</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input id="paypal" name="paymentMethod" type="radio" class="custom-control-input"
+                                required="">
+                            <label class="custom-control-label" for="paypal">PayPal</label>
+                        </div>
                     </div>
-                    <div class="custom-control custom-radio">
-                        <input id="debit" name="paymentMethod" type="radio" class="custom-control-input" required="">
-                        <label class="custom-control-label" for="debit">Debit card</label>
+                    <div class="d-flex align-items-center flex-fill my-1" id="total">
+                        <p class="pt-2">Total:</p>
+                        <input type="text" class="form-control" id="totalapayer" placeholder="189$">
                     </div>
-                    <div class="custom-control custom-radio">
-                        <input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" required="">
-                        <label class="custom-control-label" for="paypal">PayPal</label>
+                    <div class="d-flex justify-content-between text-center mt-4" id="btns">
+                        <button type="button" id="btn" class="btn btn-primary btn-block pr-6">Back To Your Cart</button>
+                        <button type="button" class="btn btn-primary btn-block" id="btn">Pay</button>
                     </div>
-                </div>
-                <div class="d-flex align-items-center flex-fill my-1" id="total">
-                    <p class="pt-2">Total:</p>
-                    <input type="text" class="form-control" id="totalapayer" placeholder="189$">
-                </div>
-                <div class="d-flex justify-content-between text-center mt-4" id="btns">
-                    <button type="button" id="btn" class="btn btn-primary btn-block pr-6">Back To Your Cart</button> 
-                   <button type="button" class="btn btn-primary btn-block" id="btn">Pay</button>
-                </div>
             </form>
         </div>
     </div>

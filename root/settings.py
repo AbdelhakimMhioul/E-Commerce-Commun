@@ -9,7 +9,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-$nts6x^t%2+chftr@sool&7yu0=^7)91948oh7p3t2#z07!k2+'
+SECRET_KEY = 'django-insecure-&7kr1+!4topb)mvmv%x4rdff7-h4t^nw2&%qnqv%h6*6h)v4jc'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -26,24 +26,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.sites',
-    'e_commerce',
-    'api',
-    'users',
+    'accounts',
     'dashboard_admin',
-    'allauth.socialaccount',
-    'rest_framework',
+    'dashboard_seller',
+    'main',
     'widget_tweaks',
-    'django_filters',
-    'fontawesome-free',
-    'phone_field',
-    'rest_framework.authtoken',
-    'rest_auth',
-    'allauth',
-    'allauth.account',
-    'rest_auth.registration',
-    'crispy_forms',
 ]
+
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
@@ -69,7 +58,7 @@ ROOT_URLCONF = 'root.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates'],
+        'DIRS': [os.path.join(BASE_DIR,'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -139,6 +128,7 @@ MEDIA_URL = '/media/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static/media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -148,5 +138,3 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGOUT_REDIRECT_URL = 'home'
 LOGIN_REDIRECT_URL = 'home'
 LOGIN_URL = 'login'
-
-

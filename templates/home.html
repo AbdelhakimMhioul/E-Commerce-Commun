@@ -6,6 +6,16 @@ Home
 
 {% block content %}
 
+{% if group == 'ADMIN' %}
+
+<h1>Welcome to Admin Page</h1>
+
+{% elif group == 'SELLER' %}
+
+<h1>Welcome to Seller Page</h1>
+
+{% else %}
+
 <div class="container w-50 mt-3">
 	<!-- Carrossel -->
 	<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
@@ -43,7 +53,7 @@ Home
 			{% for product in products_9 %}
 			<div class="col-lg-4" id="product-{{product.id}}">
 				<div class="card" style="width: 18rem">
-					<a href="{%url 'viewProduct' product.id %}"><img
+					<a href="{%url 'view_product' product.id %}"><img
 							src="https://nk1bd.com/wp-content/uploads/2020/07/Dell-Inspiron-15-3580-Intel-CDC-4205U-15.6-inch-HD-Laptop-with-Genuine-Windows-10.jpg"
 							class="card-img-top" alt="" /></a>
 					<div class="card-body">
@@ -73,6 +83,10 @@ Home
 		</div>
 	</form>
 </div>
+
+{% endif %}
+
+
 {% endblock content %}
 
 {% block script %}
@@ -81,13 +95,13 @@ Home
 		var catid = $(this).attr("data-catid");
 		$.ajax({
 			type: 'GET',
-			url: "/addCart/".concat(catid),
+			url: "/add_cart/".concat(catid),
 			data: {
 				product_id: catid
 			},
 			success: function (data) {
 				$('#total').replaceWith(data.total_price);
-				$('#numCarts').replaceWith(data.numCarts);
+				$('#numCarts').replaceWith(data.num_carts);
 			},
 		})
 	});
@@ -95,12 +109,12 @@ Home
 		var catid = $(this).attr("data-catid");
 		$.ajax({
 			type: 'GET',
-			url: "/addwishlist/".concat(catid),
+			url: "/add_wishlist/".concat(catid),
 			data: {
 				product_id: catid
 			},
 			success: function (data) {
-				$('#numWishes').replaceWith(data.numWishes);
+				$('#numWishes').replaceWith(data.num_wishes);
 			},
 		})
 	});

@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% block head %}
-        {% include 'css.html' %}
+        {% include 'static/css.html' %}
         {% block style %}{% endblock style %}
         <title>{% block title %}{% endblock title %}</title>
     {% endblock head %}
@@ -13,14 +13,14 @@
 
 <body id="body">
     {% block body %}
-    {% block mainNavBar %}
+    {% block main_navbar %}
         {% include "includes/navbar.html" %}
-    {% endblock mainNavBar %}
+    {% endblock main_navbar %}
     {% block content %}{% endblock content %}
     {% include "includes/footer.html" %}
     {% endblock body %}
     {% block script %}{% endblock script %}
-    {% include 'js.html' %}
+    {% include 'static/js.html' %}
 </body>
 
 </html>
