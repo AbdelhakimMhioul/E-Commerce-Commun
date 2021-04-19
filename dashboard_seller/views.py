@@ -45,7 +45,7 @@ def show_product(request):
         if form.is_valid():
             print("printing", request.POST)
             form.save()
-            return redirect('/prod')
+            return redirect('prod')
         else:
             print("ERROR HADXI MAKHADAMX")
     myFilter = ProductFilter(request.GET, queryset=products)

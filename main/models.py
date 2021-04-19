@@ -4,6 +4,8 @@ from django.forms import ChoiceField, RadioSelect
 from django.db.models.fields import EmailField, PositiveIntegerField
 from django.db.models.fields.files import ImageField
 from django.contrib.auth.models import User
+from django_countries.fields import CountryField
+from django_countries.widgets import CountrySelectWidget
 
 from phone_field import PhoneField
 
@@ -20,6 +22,12 @@ STATES = (
     ('MG', 'Minas Gerais'),
     ('SP', 'Sao Paulo'),
     ('RJ', 'Rio de Janeiro')
+)
+
+COLORS = (
+    ('RED', 'RED'),
+    ('BLUE', 'BLUE'),
+    ('BLACK', 'BLACK'),
 )
 
 
@@ -41,6 +49,7 @@ class Product(models.Model):
     good_rates = models.PositiveIntegerField(default=0)
     bad_rates = models.PositiveIntegerField(default=0)
     rates = models.PositiveIntegerField(default=0)
+    color = models.CharField(max_length=50, choices=COLORS, blank=True)
 
     def __str__(self):
         return self.name
@@ -97,3 +106,13 @@ class Order(models.Model):
     product = models.ForeignKey(Product, null=True, on_delete=models.SET_NULL)
     date_created = models.DateTimeField(auto_now_add=True, null=True)
     status = models.CharField(max_length=200, null=True, choices=STATUS)
+
+
+class Checkout(models.Model):
+    user = models.OneToOneField(
+        User, on_delete=models.CASCADE, null=True, blank=True)
+    adress_1 = models.CharField(max_length=100)
+    adress_2 = models.CharField(max_length=100, blank=True)
+    country = CountryField(multiple=False)
+    zip_code = models.CharField(max_length=100)
+    check_me_out = models.BooleanField()

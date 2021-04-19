@@ -31,6 +31,8 @@ INSTALLED_APPS = [
     'dashboard_seller',
     'main',
     'widget_tweaks',
+    'django_countries',
+    'crispy_forms',
 ]
 
 

@@ -16,7 +16,7 @@ def admin_dashboard_view(request):
     customercount = models.Customer.objects.all().count()
     productcount = models.Product.objects.all().count()
     ordercount = models.Order.objects.all().count()
-    Sellercount = models.Seller.objects.all().count()
+    seller_count = models.Seller.objects.all().count()
 
     # for recent order tables
     orders = models.Order.objects.all()
@@ -32,7 +32,7 @@ def admin_dashboard_view(request):
         'customercount': customercount,
         'productcount': productcount,
         'ordercount': ordercount,
-        'Sellercount': Sellercount,
+        'seller_count': seller_count,
         'data': zip(ordered_products, ordered_bys, orders),
     }
     return render(request, 'dashboard_admin/admin_dashboard.html', context=mydict)

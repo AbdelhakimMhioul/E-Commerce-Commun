@@ -6,6 +6,8 @@ from ..models import *
 @login_required
 def rated(request, pk):
     instance = Product.objects.get(pk=pk)
+    if request.user.groups.filter(name='SELLER'):
+        return render(request, 'rate_unauthorised.html')
     if request.method == 'POST':
         instance.good_rates += 1
         instance.save()
@@ -15,6 +17,8 @@ def rated(request, pk):
 @login_required
 def unrated(request, pk):
     instance = Product.objects.get(pk=pk)
+    if request.user.groups.filter(name='SELLER'):
+        return render(request, 'rate_unauthorised.html')
     if request.method == 'POST':
         instance.bad_rates += 1
         instance.save()

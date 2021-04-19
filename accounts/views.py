@@ -59,8 +59,8 @@ def view_account(request):
     num_carts = Cart.objects.count()
     total_price = 0
     carts = Cart.objects.all()
-    for order in carts:
-        total_price += order.order_total_price()
+    for cart in carts:
+        total_price += cart.cart_total_price()
     context = {'user': request.user, 'num_carts': num_carts,
                'numWishes': numWishes, 'total_price': total_price}
     return render(request, 'accounts/myAccount.html', context)

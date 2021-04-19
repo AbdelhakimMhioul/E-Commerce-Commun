@@ -1,7 +1,7 @@
 <!-- prettier-ignore -->
 {% extends 'base.html'%}
-{% block title %}{{product.name}}{% endblock title %}
-{% block mainNavBar %}{% include "includes/top_navbar.html" %}{% endblock mainNavBar %}
+{% block title %}Wishlist{% endblock title %}
+{% block main_navbar %}{% include "includes/top_navbar.html" %}{% endblock main_navbar %}
 {% block content %}
 
 <div class="d-flex">
@@ -10,18 +10,15 @@
 			{% for product in products %}
 			<div id="myWish-{{product.id}}" class="col-lg-4">
 				<div class="card" style="width: 18rem">
-					<a href="#"
-						><img
-							src="https://nk1bd.com/wp-content/uploads/2020/07/Dell-Inspiron-15-3580-Intel-CDC-4205U-15.6-inch-HD-Laptop-with-Genuine-Windows-10.jpg"
-							class="card-img-top"
-							alt=""
+					<a href="{% url 'view_product' product.product.id %}"
+						><img src="https://nk1bd.com/wp-content/uploads/2020/07/Dell-Inspiron-15-3580-Intel-CDC-4205U-15.6-inch-HD-Laptop-with-Genuine-Windows-10.jpg"
+							class="card-img-top" alt=""
 					/></a>
 					<div class="card-body">
 						<h5 class="card-title">{{product}}</h5>
 						<hr />
 						<div class="d-flex">
-							<button id="addCart" data-catid="{{product.id}}" href="#" class="addCart btn btn-secondary me-2" >Add To Cart</button>
-							<button id="viewProduct" data-catid="{{product.id}}" href="#" class="btn btn-primary" >View</button>
+							<button class="addCart btn btn-outline-success" id="addCart{{product.product.id}}" data-catid="{{product.product.id}}" href="#">Add To Cart</button>
 							<button id="eliminateWish" href="#" data-catid="{{product.id}}" class="eliminateWish btn btn-primary">Eliminate</button>
 						</div>
 					</div>
@@ -36,17 +33,17 @@
 
 {% block script %}
 <script type="text/javascript">
-	$('.addCart').click(function(){
+	$('.addCart').click(function () {
 		var catid = $(this).attr("data-catid");
 		$.ajax({
-			type:'GET',
+			type: 'GET',
 			url: "/add_cart/".concat(catid),
 			data: {
 				product_id: catid
 			},
-			success:function(data){
+			success: function (data) {
 				$('#total').replaceWith(data.total_price);
-				$('#numCart').replaceWith(data.num_carts);
+				$('#numCarts').replaceWith(data.num_carts);
 			},
 		})
 	});

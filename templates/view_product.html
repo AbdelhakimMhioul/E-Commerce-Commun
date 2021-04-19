@@ -261,9 +261,7 @@
 </style>
 {% endblock style %}
 
-{% block mainNavBar %}
-{% include "includes/topNavBar.html" %}
-{% endblock mainNavBar %}
+{% block main_navbar %}{% include "includes/top_navbar.html" %}{% endblock main_navbar %}
 
 {% block content %}
 
@@ -289,13 +287,9 @@
             <div class="container-fliud">
                 <div class="wrapper row">
                     <div class="preview col-md-6">
-
                         <div class="preview-pic tab-content">
                             <div class="tab-pane active" id="pic-1"><img src="{{product.photoURL}}" /></div>
-
                         </div>
-
-
                     </div>
                     <div class="details col-md-6">
                         <h3 class="product-title">{{product.name}}</h3>
@@ -352,12 +346,11 @@
                         <p><strong>Category :</strong>{{product.category}}</p>
                         <p class="product-description">{{product.description}}</p>
                         <h4 class="price">current price: <span>{{product.price}}</span></h4>
-                        <p class="vote"><strong>91%</strong> of buyers enjoyed this product! <strong>(87 votes)</strong>
+                        <p class="vote"><strong>{{real_rate}}%</strong> of buyers enjoyed this product! <strong>({{all_rates}} votes)</strong>
                         </p>
-
                         <div class="action">
                             <button class="addCart btn btn-outline-success" id="addCart{{product.id}}"
-                                data-catid="{{product.id}}" href="#">Add To Cart</button>
+									data-catid="{{product.id}}" href="#">Add To Cart</button>
                             <button id="addWishlist{{product.id}}" data-catid="{{product.id}}"
                                 class="addWishlist btn btn-outline-success" href="#">Add To WishList</button>
                         </div>
@@ -370,5 +363,36 @@
 
 </html>
 
-
 {% endblock content %}
+
+{% block script %}
+<script type="text/javascript">
+	$('.addCart').click(function () {
+		var catid = $(this).attr("data-catid");
+		$.ajax({
+			type: 'GET',
+			url: "/add_cart/".concat(catid),
+			data: {
+				product_id: catid
+			},
+			success: function (data) {
+				$('#total').replaceWith(data.total_price);
+				$('#numCarts').replaceWith(data.num_carts);
+			},
+		})
+	});
+	$('.addWishlist').click(function () {
+		var catid = $(this).attr("data-catid");
+		$.ajax({
+			type: 'GET',
+			url: "/add_wishlist/".concat(catid),
+			data: {
+				product_id: catid
+			},
+			success: function (data) {
+				$('#numWishes').replaceWith(data.num_wishes);
+			},
+		})
+	});
+</script>
+{% endblock script %}

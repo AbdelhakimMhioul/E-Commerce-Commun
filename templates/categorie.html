@@ -4,9 +4,9 @@
 {{categorie}}
 {% endblock title %}
 
-{% block mainNavBar %}
-{% include "includes/topNavBar.html" %}
-{% endblock mainNavBar %}
+{% block main_navbar %}
+{% include "includes/top_navbar.html" %}
+{% endblock main_navbar %}
 
 {% block content %}
 <div class="d-flex">
@@ -15,7 +15,7 @@
 			{% for product in products %}
 			<div class="col-lg-4" id="product-{{product.id}}">
 				<div class="card" style="width: 18rem">
-					<a href="{%url 'viewProduct' product.id %}"
+					<a href="{%url 'view_product' product.id %}"
 						><img
 							src="https://nk1bd.com/wp-content/uploads/2020/07/Dell-Inspiron-15-3580-Intel-CDC-4205U-15.6-inch-HD-Laptop-with-Genuine-Windows-10.jpg"
 							class="card-img-top"
@@ -62,13 +62,13 @@
 		var catid = $(this).attr("data-catid");
 		$.ajax({
 			type:'GET',
-			url: "/addCart/".concat(catid),
+			url: "/add_cart/".concat(catid),
 			data: {
 				product_id: catid
 			},
 			success:function(data){
 				$('#total').replaceWith(data.total_price);
-				$('#numCart').replaceWith(data.numCart);
+				$('#numCart').replaceWith(data.num_carts);
 			},
 		})
 	});
@@ -76,12 +76,12 @@
 		var catid = $(this).attr("data-catid");
 		$.ajax({
 			type:'GET',
-			url: "/addwishlist/".concat(catid),
+			url: "/add_wishlist/".concat(catid),
 			data: {
 				product_id: catid
 			},
 			success:function(data){
-				$('#numWishes').replaceWith(data.numWishes);
+				$('#numWishes').replaceWith(data.num_wishes);
 			},
 		}) 
 	});

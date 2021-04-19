@@ -1,19 +1,23 @@
 {% extends "base.html" %}
 
-{% block title %}
-Home
-{% endblock title %}
+{% block main_navbar %}
+
+{% if group == 'ADMIN' %}
+	{% include "includes/top_navbar.html" %}
+{% else %}
+	{% include "includes/navbar.html" %}
+{% endif %}
+
+{% endblock main_navbar %}
+
+{% block title %}Home{% endblock title %}
 
 {% block content %}
 
 {% if group == 'ADMIN' %}
-
-<h1>Welcome to Admin Page</h1>
-
+	<h1>Welcome to Admin Page</h1>
 {% elif group == 'SELLER' %}
-
-<h1>Welcome to Seller Page</h1>
-
+	<h1>Welcome to Seller Page</h1>
 {% else %}
 
 <div class="container w-50 mt-3">
@@ -45,43 +49,45 @@ Home
 		</button>
 	</div>
 </div>
+<!-- Filter Form -->
+{% include 'includes/filter_form.html' %}
 
 <!-- Products -->
 <div class="d-flex">
 	<div class="container">
 		<div class="row ">
-			{% for product in products_9 %}
-			<div class="col-lg-4" id="product-{{product.id}}">
-				<div class="card" style="width: 18rem">
-					<a href="{%url 'view_product' product.id %}"><img
-							src="https://nk1bd.com/wp-content/uploads/2020/07/Dell-Inspiron-15-3580-Intel-CDC-4205U-15.6-inch-HD-Laptop-with-Genuine-Windows-10.jpg"
-							class="card-img-top" alt="" /></a>
-					<div class="card-body">
-						<h5 class="card-title">{{product.name}}</h5>
-						<hr />
-						<p class="card-text">{{product.description}}</p>
-						<p class="card-text">Price : {{product.price}}€</p>
-						<div class="d-flex">
-							<button class="addCart btn btn-outline-success" id="addCart{{product.id}}"
-								data-catid="{{product.id}}" href="#">Add To Cart</button>
-							<button id="addWishlist{{product.id}}" data-catid="{{product.id}}"
-								class="addWishlist btn btn-outline-success" href="#">Add To WishList</button>
+			{% if products_9 %}
+				{% for product in products_9 %}
+				<div class="col-lg-4" id="product-{{product.id}}">
+					<div class="card" style="width: 18rem">
+						<a href="{%url 'view_product' product.id %}"><img
+								src="https://nk1bd.com/wp-content/uploads/2020/07/Dell-Inspiron-15-3580-Intel-CDC-4205U-15.6-inch-HD-Laptop-with-Genuine-Windows-10.jpg"
+								class="card-img-top" alt="" /></a>
+						<div class="card-body">
+							<h5 class="card-title">{{product.name}}</h5>
+							<hr />
+							<p class="card-text">{{product.description}}</p>
+							<p class="card-text">Price : {{product.price}}€</p>
+							<div class="d-flex">
+								{% if user.is_authenticated %}
+									<button class="addCart btn btn-outline-success" id="addCart{{product.id}}"
+										data-catid="{{product.id}}" href="#">Add To Cart</button>
+									<button id="addWishlist{{product.id}}" data-catid="{{product.id}}"
+										class="addWishlist btn btn-outline-success" href="#">Add To WishList</button>
+								{% else %}
+									<a class="btn btn-outline-success" href="{% url 'add_cart' product.id%}">Add To Cart</a>
+									<a class="btn btn-outline-success" href="{% url 'add_wishlist' product.id%}">Add To WishList</a>
+								{% endif %}
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-			{% endfor %}
+				{% endfor %}
+			{% else %}
+			<img src="https://cdn.dribbble.com/users/3512533/screenshots/14168376/web_1280___8_4x.jpg"/>
+			{% endif %}
 		</div>
 	</div>
-</div>
-<div>
-	<form method="POST" action="">
-		{% csrf_token%}
-		{% include "includes/form.html" %}
-		<div class="d-flex justify-content-center mt-3 login_container">
-			<input class="btn login_btn" type="submit" value="Register Account">
-		</div>
-	</form>
 </div>
 
 {% endif %}

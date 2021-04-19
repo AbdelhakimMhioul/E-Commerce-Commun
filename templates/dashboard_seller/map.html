@@ -25,7 +25,7 @@
 </head>
 
 <body class="zc-body">
-<h1>Check your clients </h1>
+  <h1>Check your clients </h1>
   <div id="myChart" class="chart--container">
     <a href="https://www.zingchart.com/" rel="noopener" class="zc-ref">Powered by ZingChart</a>
   </div>
@@ -103,35 +103,35 @@
     //drilldown chart configuration
     var drilldownConfig = {
       shapes: [{
-          type: 'zingchart.maps',
-          options: {
-            name: '',
-          }
-        },
-        {
-          x: 100,
-          y: 20,
-          type: 'rectangle',
-          height: 25,
-          width: 155,
-          backgroundColor: '#C4C4C4',
-          padding: 5,
-          cursor: 'hand',
-          id: 'back_button',
-          label: {
-            text: 'Back To World Countries'
-          },
-          hoverState: {
-            borderWidth: 1,
-            borderColor: '#000'
-          }
+        type: 'zingchart.maps',
+        options: {
+          name: '',
         }
+      },
+      {
+        x: 100,
+        y: 20,
+        type: 'rectangle',
+        height: 25,
+        width: 155,
+        backgroundColor: '#C4C4C4',
+        padding: 5,
+        cursor: 'hand',
+        id: 'back_button',
+        label: {
+          text: 'Back To World Countries'
+        },
+        hoverState: {
+          borderWidth: 1,
+          borderColor: '#000'
+        }
+      }
       ]
     };
 
     // for maps that exist in our library. Pre-load them later on
     zingchart.loadModules('maps-usa, maps-bra, maps-ind');
-    zingchart.bind('myChart', 'shape_click', function(e) {
+    zingchart.bind('myChart', 'shape_click', function (e) {
       var newMapId = String(e.shapeid).toLowerCase();
 
       // if shape is our back button and not the map

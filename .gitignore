@@ -1,5 +1,0 @@
-*.png
-
-venv
-
-db.sqlite3

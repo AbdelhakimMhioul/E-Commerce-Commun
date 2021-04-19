@@ -8,17 +8,34 @@ from accounts.decorators import allowed_users
 from ..models import *
 
 
-@allowed_users(allowed_roles=['CLIENT'])
 def view_product(request, pk):
-    num_carts = Cart.objects.count()
     product = Product.objects.get(pk=pk)
     rate_avg = ceil(product.avg_rate()*5) if product.avg_rate() >= 0 else 0
     real_rate = int(product.avg_rate()*100) if product.avg_rate() >= 0 else 0
-    context = {'product': product, 'rate_avg': rate_avg,
-               'real_rate': real_rate, 'num_carts': num_carts}
+    wishes = WishlistProduct.objects.all()
+    num_wishes = wishes.count()
+    carts = Cart.objects.filter(user=request.user)
+    num_carts = carts.count()
+    total_price = 0
+    for cart in carts:
+        total_price += cart.cart_total_price()
+    group = ""
+    if request.user.groups.filter(name='CLIENT'):
+        group = 'CLIENT'
+    if request.user.groups.filter(name='ADMIN'):
+        group = 'ADMIN'
+    if request.user.groups.filter(name='SELLER'):
+        group = 'SELLER'
+    all_rates = product.good_rates + product.bad_rates
+    context = {'product': product, 'rate_avg': rate_avg, 
+               'num_wishes': num_wishes, 'group': group,
+               'num_carts': num_carts, 'all_rates': all_rates,
+               'real_rate': real_rate, 'num_carts': num_carts,
+               'total_price': total_price}
     return render(request, 'view_product.html', context)
 
 
+@allowed_users(allowed_roles=['ADMIN', 'CLIENT', 'SELLER'])
 def search_form(request):
     products = Product.objects.all().order_by('-rates')
     if 'term' in request.GET and request.GET['term']:
@@ -36,7 +53,7 @@ def search_form(request):
     return render(request, 'searches.html', {'products': products})
 
 
-@allowed_users(allowed_roles=['ADMIN', 'CLIENT'])
+@allowed_users(allowed_roles=['ADMIN', 'CLIENT', 'SELLER'])
 def categorie(request, pk):
     total_price = 0
     num_wishes = WishlistProduct.objects.count()
@@ -45,6 +62,10 @@ def categorie(request, pk):
     for cart in carts:
         total_price += cart.cart_total_price()
     products = Product.objects.filter(category__pk=pk)
+    if products.first():
+        cat = products.first().category
+    else:
+        cat = "Category"
     paginator = Paginator(products, 5)
     try:
         page = int(request.GET.get('page', '1'))
@@ -54,6 +75,13 @@ def categorie(request, pk):
         products_list = paginator.page(page)
     except(Emptypage, InvalidPage):
         products_list = paginator.page(paginator.num_pages)
-    context = {'products': products, 'num_carts': num_carts, 'categorie': pk,
+    group = ""
+    if request.user.groups.filter(name='CLIENT'):
+        group = 'CLIENT'
+    if request.user.groups.filter(name='ADMIN'):
+        group = 'ADMIN'
+    if request.user.groups.filter(name='SELLER'):
+        group = 'SELLER'
+    context = {'products': products, 'num_carts': num_carts, 'categorie': cat, 'group': group,
                'num_wishes': num_wishes, 'total_price': total_price, 'products_list': products_list}
     return render(request, 'categorie.html', context)
