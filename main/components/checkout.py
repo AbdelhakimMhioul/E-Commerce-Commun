@@ -8,13 +8,13 @@ from ..forms import CheckoutForm
 @login_required
 def checkout(request):
     form = CheckoutForm()
-    numWishes = WishlistProduct.objects.count()
-    numOrders = Cart.objects.count()
-    total = 0
+    num_wishes = WishlistProduct.objects.count()
+    num_carts = Cart.objects.count()
+    total_price = 0
     if request.user.is_authenticated:
         carts = Cart.objects.filter(user=request.user)
         for cart in carts:
-            total += cart.cart_total_price()
+            total_price += cart.cart_total_price()
     if request.method == 'POST':
         form = CheckoutForm(request.POST)
         try:
@@ -33,11 +33,17 @@ def checkout(request):
                 )
                 checkout_adress.save()
                 #cart.checkout_adress= checkout_adress
-                #cart.save()
+                # cart.save()
                 return redirect('home')
         except:
             return redirect('home')
-
-    context = {'form': form,
-               'numOrders': numOrders, 'numWishes': numWishes, 'total': total}
+    group = ""
+    if request.user.groups.filter(name='CLIENT'):
+        group = 'CLIENT'
+    if request.user.groups.filter(name='ADMIN'):
+        group = 'ADMIN'
+    if request.user.groups.filter(name='SELLER'):
+        group = 'SELLER'
+    context = {'form': form, 'group': group,
+               'num_carts': num_carts, 'num_wishes': num_wishes, 'total_price': total_price}
     return render(request, 'checkout.html', context)

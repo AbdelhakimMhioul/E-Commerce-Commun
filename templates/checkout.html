@@ -1,6 +1,12 @@
 {% extends "base.html" %}
+
 {% load static %}
 {% load crispy_forms_tags %}
+
+{% block main_navbar %}
+{% include "includes/top_navbar.html" %}
+{% endblock main_navbar %}
+
 <link rel="stylesheet" type="text/css" href="{% static 'css/stylecheckout.css' %}">
 {% block title %}Home{% endblock title %}
 
