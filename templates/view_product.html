@@ -359,6 +359,14 @@
             </div>
         </div>
     </div>
+    <form action="{% url 'add_feedback' product.id %}" method='POST' novalidate>
+        {% csrf_token %}
+        {{form.as_p}}
+        <button type="submit" class="btn btn-outline-success">Submit Feedback</button>
+    </form>
+    {% for feed in product_feedbacks %}
+        {{feed.message}}
+    {% endfor %}
 </body>
 
 </html>

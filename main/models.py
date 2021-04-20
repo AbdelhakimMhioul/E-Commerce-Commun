@@ -116,3 +116,12 @@ class Checkout(models.Model):
     country = CountryField(multiple=False)
     zip_code = models.CharField(max_length=100)
     check_me_out = models.BooleanField()
+
+
+class ProductsFeedBacks(models.Model):
+    product = models.ForeignKey(Product, null=True, on_delete=models.CASCADE, unique=False)
+    user = models.ForeignKey(User, on_delete=models.CASCADE,unique=False)
+    message = models.TextField()
+
+    def __str__(self):
+        return self.product.name

@@ -3,7 +3,7 @@ from django import forms
 from django_countries.fields import CountryField
 from django_countries.widgets import CountrySelectWidget
 
-from .models import Product
+from .models import Product, ProductsFeedBacks
 
 
 class CreateProductForm(forms.ModelForm):
@@ -39,3 +39,8 @@ class CheckoutForm(forms.Form):
     )
     payment_option = forms.ChoiceField(
         widget=forms.RadioSelect, choices=PAYMENT_CHOICES)
+
+class FeedBackForm(forms.ModelForm):
+    class Meta:
+        model = ProductsFeedBacks
+        fields = ['message']

@@ -20,10 +20,10 @@ def checkout(request):
         try:
             cart = Cart.objects.get(user=request.user)
             if form.is_valid():
-                adress_1 = form.cleand_data.get(' adress_1 ')
-                adress_2 = form.cleand_data.get(' adress_2 ')
-                zip_code = form.cleand_data.get(' zip_code ')
-                country = form.cleand_data.get(' country')
+                adress_1 = form.cleaned_data.get(' adress_1 ')
+                adress_2 = form.cleaned_data.get(' adress_2 ')
+                zip_code = form.cleaned_data.get(' zip_code ')
+                country = form.cleaned_data.get(' country')
                 checkout_adress = Checkout(
                     user=request.user,
                     adress_1=adress_1,

@@ -6,6 +6,7 @@ from django.core.paginator import Paginator
 from math import ceil
 from accounts.decorators import allowed_users
 from ..models import *
+from ..forms import FeedBackForm
 
 
 def view_product(request, pk):
@@ -26,13 +27,32 @@ def view_product(request, pk):
         group = 'ADMIN'
     if request.user.groups.filter(name='SELLER'):
         group = 'SELLER'
+    form = FeedBackForm()
     all_rates = product.good_rates + product.bad_rates
+    product_feedbacks = ProductsFeedBacks.objects.filter(product=product)
     context = {'product': product, 'rate_avg': rate_avg,
                'num_wishes': num_wishes, 'group': group,
                'num_carts': num_carts, 'all_rates': all_rates,
                'real_rate': real_rate, 'num_carts': num_carts,
-               'total_price': total_price}
+               'total_price': total_price, 'product_feedbacks': product_feedbacks,
+               'form':form}
     return render(request, 'view_product.html', context)
+
+def add_feedback(request,pk):
+    product = Product.objects.get(pk=pk)
+    form = FeedBackForm()
+    if request.method == 'POST':
+        form = FeedBackForm(request.POST)
+        if form.is_valid():
+            message = form.cleaned_data.get('message')
+            feedback = ProductsFeedBacks.objects.create(
+                user=request.user,
+                product=product,
+                message=message,
+            )
+            feedback.save()
+            return redirect('view_product',pk=pk)
+    return redirect('view_product',pk=pk)
 
 
 @allowed_users(allowed_roles=['ADMIN', 'CLIENT', 'SELLER'])
