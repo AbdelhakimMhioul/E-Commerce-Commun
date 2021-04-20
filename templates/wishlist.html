@@ -43,7 +43,7 @@
 			},
 			success: function (data) {
 				$('#total').replaceWith(data.total_price);
-				$('#numCarts').replaceWith(data.num_carts);
+				$('#num_carts').replaceWith(data.num_carts);
 			},
 		})
 	});
@@ -56,7 +56,7 @@
 				product_id: catid
 			},
 			success:function(data){
-				$('#numWishes').replaceWith(data.num_wishes);
+				$('#num_wishes').replaceWith(data.num_wishes);
 				$('#myWish-'.concat(catid)).replaceWith("");
 			},
 		}) 

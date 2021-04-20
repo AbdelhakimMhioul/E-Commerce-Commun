@@ -27,7 +27,7 @@ def view_product(request, pk):
     if request.user.groups.filter(name='SELLER'):
         group = 'SELLER'
     all_rates = product.good_rates + product.bad_rates
-    context = {'product': product, 'rate_avg': rate_avg, 
+    context = {'product': product, 'rate_avg': rate_avg,
                'num_wishes': num_wishes, 'group': group,
                'num_carts': num_carts, 'all_rates': all_rates,
                'real_rate': real_rate, 'num_carts': num_carts,
@@ -37,6 +37,13 @@ def view_product(request, pk):
 
 @allowed_users(allowed_roles=['ADMIN', 'CLIENT', 'SELLER'])
 def search_form(request):
+    wishes = WishlistProduct.objects.all()
+    num_wishes = wishes.count()
+    carts = Cart.objects.filter(user=request.user)
+    num_carts = carts.count()
+    total_price = 0
+    for cart in carts:
+        total_price += cart.cart_total_price()
     products = Product.objects.all().order_by('-rates')
     if 'term' in request.GET and request.GET['term']:
         term = request.GET.get('term')
@@ -50,7 +57,15 @@ def search_form(request):
         search_query = request.GET.get('search')
         products = Product.objects.filter(
             Q(name__contains=search_query) | Q(category__category__contains=search_query) | Q(description__contains=search_query)).order_by('-rates')
-    return render(request, 'searches.html', {'products': products})
+    group = ""
+    if request.user.groups.filter(name='CLIENT'):
+        group = 'CLIENT'
+    if request.user.groups.filter(name='ADMIN'):
+        group = 'ADMIN'
+    if request.user.groups.filter(name='SELLER'):
+        group = 'SELLER'
+    return render(request, 'searches.html', {'products': products, 'num_wishes': num_wishes, 'group': group,
+                                             'num_carts': num_carts, 'total_price': total_price})
 
 
 @allowed_users(allowed_roles=['ADMIN', 'CLIENT', 'SELLER'])

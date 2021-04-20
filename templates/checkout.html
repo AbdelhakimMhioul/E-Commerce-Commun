@@ -18,9 +18,7 @@
 
             <form method="POST" class="form-card">
             {% csrf_token %}
-
                  <div class="row">
-
                     <div class="col-12">
                         <div class="form-group"> 
                         <input type="text" class="form-control p-0" id="number" required value="{{ user.username }}" >
@@ -35,14 +33,12 @@
                         </div>
                     </div>
                 </div>
-
                       <div class="col-12">
                         <div class="form-group"> 
                         {{ form.adress_1 }}
                         <label class="form-control-placeholder p-0" for="passw">Adress 1 </label>
                          </div>
                     </div>
-
                 <div class="row">
                     <div class="col-12">
                         <div class="form-group"> 
@@ -50,9 +46,6 @@
                         <label class="form-control-placeholder p-0" for="name">Adress 2 (optional)</label> </div>
                     </div>
                 </div>
-
-
-
                 <div class="col-sm-4 col-12">
                         <div class="form-group">
                          {{ form.country }}
@@ -74,11 +67,9 @@
                 </div>
                 {% endfor %}
               </div>
-
-
                 <div class="d-flex align-items-center flex-fill my-1" id="total">
                     <p class="pt-2">Total:</p>
-                    <input type="text" class="form-control" id="totalapayer" value="{{total}}">
+                    <input type="text" class="form-control" id="totalapayer" value="{{total_price}}">
                 </div>
                 <div class="d-flex justify-content-between text-center mt-4" id="btns">
                     <button href="#" type="button" id="btn" class="btn-block pr-6"><a href="{% url 'cart' %}" class="btn btn-outline-success">Back To Your Cart</a></button> 

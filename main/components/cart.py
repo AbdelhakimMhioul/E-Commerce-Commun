@@ -36,27 +36,43 @@ def cart(request):
 
 @login_required
 @allowed_users(allowed_roles=['ADMIN', 'CLIENT'])
-def add_cart(request, pk):
-    if request.method == 'GET':
-        product_id = request.GET['product_id']
-        produit = Product.objects.get(pk=product_id)
-        total_price = 0
+def addToCart(request):
+    data = json.loads(request.body)
+    productId = data['productId']
+    action = data['action']
+    produit = Product.objects.get(id=productId)
+    total_price = 0
+    if action == 'add':
         try:
-            cart = get_object_or_404(Cart, product=produit)
+            cart = Cart.objects.get(product=produit, user=request.user)
             cart.quantity_carted += 1
-            cart.save()
         except:
-            myCart = Cart.objects.create(
+            cart = Cart.objects.create(
                 user=request.user, product=produit, quantity_carted=1)
-            myCart.save()
-        num_wishes = WishlistProduct.objects.count()
+        cart.save()
+        if request.user.is_authenticated:
+            numWishes = WishlistProduct.objects.filter(
+                user=request.user).count()
+            carts = Cart.objects.filter(user=request.user)
+            numOrders = carts.count()
+            for cart in carts:
+                total_price += cart.cart_total_price()
+        print(productId)
+        print(action)
+    return JsonResponse("added", safe=False)
+
+
+@login_required
+@allowed_users(allowed_roles=['ADMIN', 'CLIENT'])
+def delete_cart(request, pk):
+    if request.method == 'GET':
+        cart_id = request.GET['cartid']
+        cart = get_object_or_404(Cart, pk=cart_id)
+        cart.delete()
         carts = Cart.objects.all()
         num_carts = carts.count()
-        if request.user.is_authenticated:
-            owner = request.user
-            num_wishes = WishlistProduct.objects.filter(user=owner).count()
-            carts = Cart.objects.filter(user=owner)
-            num_carts = carts.count()
+        num_wishes = WishlistProduct.objects.count()
+        total_price = 0
         for cart in carts:
             total_price += cart.cart_total_price()
         data = {}
@@ -64,29 +80,35 @@ def add_cart(request, pk):
             str(total_price) + '</div>'
         data['num_carts'] = '<div id="num_carts" class="cart_count"><span>' + \
             str(num_carts)+'</span></div>'
+        data['num_wishes'] = '<div id="num_wishes" class="wishlist_count">' + \
+            str(num_wishes)+'</div>'
+        print(data)
         return JsonResponse(data)
-    return redirect('home')
-
-
-@login_required
-@allowed_users(allowed_roles=['ADMIN', 'CLIENT'])
-def delete_cart(request, pk):
-    cart = get_object_or_404(Cart, pk=pk)
-    cart.delete()
     return redirect('cart')
 
 
 @allowed_users(allowed_roles=['ADMIN', 'CLIENT'])
 def increase_quantity(request, pk):
-    cart = Cart.objects.get(pk=pk)
-    cart.quantity_carted += 1
-    cart.save()
+    if request.method == 'GET':
+        cart_id = request.GET['cartid']
+        cart = get_object_or_404(Cart, pk=cart_id)
+        cart.quantity_carted += 1
+        cart.save()
+        data = {}
+        data['quantity_carted'] = '<p id="quantity_carted">'+str(cart.quantity_carted)+'</p>'
+        return JsonResponse(data)
     return redirect('cart')
 
 
 @allowed_users(allowed_roles=['ADMIN', 'CLIENT'])
 def decrease_quantity(request, pk):
-    cart = Cart.objects.get(pk=pk)
-    cart.quantity_carted -= 1
-    cart.save()
+    if request.method == 'GET':
+        cart_id = request.GET['cartid']
+        cart = get_object_or_404(Cart, pk=cart_id)
+        cart.quantity_carted -= 1
+        cart.save()
+        data = {}
+        data['quantity_carted'] = '<p id="quantity_carted">' + \
+            str(cart.quantity_carted)+'</p>'
+        return JsonResponse(data)
     return redirect('cart')
