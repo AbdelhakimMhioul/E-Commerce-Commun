@@ -32,34 +32,31 @@
           <th>Customer Name</th>
           <th>Customer Mobile</th>
           <th>Shipment Address</th>
-          <th>Product Name</th>
-          <th>Product Picture</th>
           <th>Status</th>
-          <th>Update Status</th>
-          <th>Delete</th>
         </tr>
       </thead>
       <!-- p for product, c for customer-->
-      {% for product,customer,order in data %}
-      <tr>
-        {% for c in customer %}
-        <td> {{c.name}}</td>
-        <td>{{c.mobile}}</td>
-        <td>{{order.address}}</td>
+     {% for order in data %}
+        <tr>
+          
+         
+          <td> {{order.user.username}}</td>
+          <td> {{order.id}}</td>
+          <td> {{order.address}}</td>
+
+
+          {% if order.status == 'Pending'%}
+          <td> <span class="label label-info">{{order.status}}</span></td>
+          {% elif order.status == 'Delivered' %}
+          <td> <span class="label label-success">{{order.status}}</span></td>
+          {% elif order.status == 'Out for Delivery' %}
+          <td> <span class="label label-warning">{{order.status}}</span></td>
+          {%else%}
+            <td> <span class="label label-primary">{{order.status}}</span></td>
+          {%endif%}
+          
+        </tr>
         {% endfor %}
-        {% for p in product %}
-        <td> {{p.name}}</td>
-         {% if product_image.image %}
-          <td> <img src="{% static p.product_image.url %}" alt="Profile Pic" height="40px" width="40px" /></td>
-        {% else %}
-          <td>without Picture</td>
-        {% endif %}
-        <td>{{order.status}}</td>
-        <td><a class="btn btn-primary btn-xs" href="{% url 'update_order' order.id  %}"><span class="glyphicon glyphicon-edit"></span></a></td>
-        <td><a class="btn btn-danger btn-xs" href="{% url 'delete_order' order.id  %}"><span class="glyphicon glyphicon-trash"></span></a></td>
-        {% endfor %}
-      </tr>
-      {% endfor %}
     </table>
   </div>
 </div>

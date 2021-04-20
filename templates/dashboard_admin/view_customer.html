@@ -35,19 +35,16 @@
           <th>Email</th>  
           <th>Mobile</th>
           <th>Address</th>
-          <th>Update</th>
-          <th>Delete</th>
+          
         </tr>
       </thead>
       {% for c in customers %}
       <tr>
-        <td> {{c.name}}</td>
+        <td> {{c.username}}</td>
         <td> {{c.email}}</td>
         <td>{{c.mobile}}</td>
         <td>{{c.address}}</td>
-        <td><a class="btn btn-primary btn-xs" href="{% url 'update_customer' c.id  %}"><span class="glyphicon glyphicon-edit"></span></a></td>
-        <td><a class="btn btn-danger btn-xs" href="{% url 'delete_customer' c.id  %}"><span class="glyphicon glyphicon-trash"></span></a></td>
-
+        
       </tr>
       {% endfor %}
     </table>

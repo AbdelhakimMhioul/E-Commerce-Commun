@@ -91,11 +91,11 @@
           <a href="{% url 'admin_view_booking' %}" class="nav-item nav-link">Booking</a>
           <a href="{% url 'admin_products' %}" class="nav-item nav-link">Products</a>
           <a href="{% url 'admin_sellers' %}" class="nav-item nav-link">Sellers</a>
-          <a href="{% url 'view_feedback' %}" class="nav-item nav-link">Feedback</a>
+          
         </div>
 
         <div class="navbar-nav navbar-right">
-          <a href="/logout" class="nav-item nav-link">LOGOUT</a>
+          <a href="{% url 'logout' %}" class="nav-item nav-link">LOGOUT</a>
         </div>
 
       </div>

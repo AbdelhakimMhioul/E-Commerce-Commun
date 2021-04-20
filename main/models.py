@@ -6,9 +6,12 @@ from django.db.models.fields.files import ImageField
 from django.contrib.auth.models import User
 from django_countries.fields import CountryField
 from django_countries.widgets import CountrySelectWidget
-
+from django.contrib.auth.models import Group
 from phone_field import PhoneField
 
+from django import forms
+# the User object is pretty much set by django.contrib.auth
+from django.contrib.auth.models import User
 # Create your models here
 
 TRADE_ROLE = (
@@ -40,8 +43,7 @@ class Category(models.Model):
 
 class Product(models.Model):
     name = models.CharField(max_length=100)
-    category = models.ForeignKey(
-        Category, related_name='categories', on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, related_name='categories', on_delete=models.CASCADE)
     description = models.TextField()
     photo = models.ImageField()
     price = models.FloatField(default=0)
@@ -103,7 +105,9 @@ class Order(models.Model):
         ('in progress', 'in progress'),
         ('out of order', 'out of order')
     )
+    user = models.ForeignKey(User, on_delete=models.CASCADE ,null=True)
     product = models.ForeignKey(Product, null=True, on_delete=models.SET_NULL)
+    address = models.CharField(max_length=500, null=True)
     date_created = models.DateTimeField(auto_now_add=True, null=True)
     status = models.CharField(max_length=200, null=True, choices=STATUS)
 
@@ -117,11 +121,13 @@ class Checkout(models.Model):
     zip_code = models.CharField(max_length=100)
     check_me_out = models.BooleanField()
 
-
 class ProductsFeedBacks(models.Model):
     product = models.ForeignKey(Product, null=True, on_delete=models.CASCADE, unique=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE,unique=False)
     message = models.TextField()
+    date_created = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__(self):
         return self.product.name
+
+

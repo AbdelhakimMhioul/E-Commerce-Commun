@@ -51,8 +51,7 @@
           <th>Image</th>
           <th>Price</th>
           <th>Description</th>
-          <th>Update</th>
-          <th>Delete</th>
+        
         </tr>
       </thead>
       {% for p in products %}
@@ -67,9 +66,7 @@
         {% endif %}
         <td>{{p.price}}</td>
         <td>{{p.description}}</td>
-        <td><a class="btn btn-primary btn-xs" href="{% url 'update_product' p.id  %}"><span class="glyphicon glyphicon-edit"></span></a></td>
-        <td><a class="btn btn-danger btn-xs" href="{% url 'delete_product' p.id  %}"><span class="glyphicon glyphicon-trash"></span></a></td>
-
+        
       </tr>
       {%else%}
       <br><br><br>
@@ -80,7 +77,7 @@
   </div>
 </div>
 <!-- add product floating button -->
-<a href="{% url 'admin_add_product' %}" class="float">
+
 <i class="fa fa-plus my-float"></i>
 </a>
 
