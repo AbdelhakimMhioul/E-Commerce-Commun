@@ -115,7 +115,18 @@ class Order(models.Model):
     address = models.CharField(max_length=500, null=True)
     date_created = models.DateTimeField(auto_now_add=True, null=True)
     status = models.CharField(max_length=200, null=True, choices=STATUS)
+   
 
+class OrderItem(models.Model):
+    order = models.ForeignKey(Order, related_name='items', on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, related_name='items', on_delete=models.CASCADE)
+    user = models.ForeignKey(User, related_name='items', on_delete=models.CASCADE)
+    vendor_paid = models.BooleanField(default=False)
+    price = models.DecimalField(max_digits=8, decimal_places=2)
+    quantity = models.IntegerField(default=1)
+    
+    def __str__(self):
+        return '%s' % self.id
 
 class Checkout(models.Model):
     user = models.OneToOneField(

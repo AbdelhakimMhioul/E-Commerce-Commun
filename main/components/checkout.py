@@ -32,6 +32,11 @@ def checkout(request):
                     country=country
                 )
                 checkout_adress.save()
+                for item in cart:
+                    OrderItem.objects.create(order=order, product=item['product'], user=item['product'].user, price=item['product'].price, quantity=item['quantity'])
+    
+                    order.users.add(item['product'].user)
+
                 #cart.checkout_adress= checkout_adress
                 # cart.save()
                 return redirect('home')

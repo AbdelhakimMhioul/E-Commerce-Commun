@@ -6,7 +6,7 @@ from main.models import Product
 from main.forms import CreateProductForm
 from main.filters import ProductFilter
 from accounts.decorators import allowed_users
-from main.models import WishlistProduct, Cart
+from main.models import WishlistProduct, Cart,OrderItem
 from accounts.forms import CreateUserForm
 from django.contrib.auth.models import User
 
@@ -15,7 +15,22 @@ from django.contrib.auth.models import User
 def show_dashboard(request):
     products = Product.objects.filter(user=request.user)
     nb_products=products.count()
-    context={'nb_products':nb_products}
+ 
+    orders =  OrderItem.objects.filter(user=request.user)
+    products_ordered= 0
+    paid_amount = 0
+    total_order=0
+    for item in orders:
+
+        products_ordered+= item.quantity
+        paid_amount+=item.price *item.quantity
+
+        
+
+    context={'nb_products':nb_products,
+    'products_ordered':products_ordered,
+    ' paid_amount': paid_amount,
+    'total_order':total_order,}
     return render(request, 'dashboard_seller/home.html',context)
 
 
