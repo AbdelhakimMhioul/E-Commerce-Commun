@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <!--  This file has been downloaded from bootdey.com    @bootdey on twitter -->
     <!--  All snippets are MIT license http://bootdey.com/license -->
-    <title>Bootdey.com</title>
+    <title>panel dashboard widget - Bootdey.com</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
     <style type="text/css">
@@ -47,9 +47,13 @@
   color: #fff;
 }
 
+
+
 .panel hr {
   border-color: rgba(0,0,0,0.1);
 }
+
+
 
 h2, .h2 {
   font-size: 28px;
@@ -79,11 +83,10 @@ h2, .h2 {
         <div class="col-md-3 col-sm-4 col-xs-12">
             <div class="panel panel-dark panel-colorful">
                 <div class="panel-body text-center">
-                	<p class="text-uppercase mar-btm text-sm">Total Clients</p>
+                	<p class="text-uppercase mar-btm text-sm">Total products</p>
                 	<i class="fa fa-users fa-5x"></i>
                 	<hr>
-                	<p class="h2 text-thin">254,487</p>
-                	<small><span class="text-semibold">7%</span> Higher than yesterday</small>
+                	<p class="h2 text-thin">{{nb_products}}</p>
                 </div>
             </div>
         </div>

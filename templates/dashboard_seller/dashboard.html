@@ -14,6 +14,7 @@
         height: 100%;
     }
     @media screen and (max-width: 992px) {
+
         .row-offcanvas {
             position: relative;
             -webkit-transition: all 0.25s ease-out;
@@ -88,14 +89,18 @@
     <div class="row row-offcanvas row-offcanvas-left">
         <div class="col-md-3 col-lg-2 sidebar-offcanvas bg-light pl-0" id="sidebar" role="navigation">
             <ul class="nav flex-column sticky-top pl-0 pt-5 mt-3">
-                <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'dashboard_seller' %}">Home</a></li>
+
                 <li class="nav-item"><a class="nav-link" href="{% url 'prod' %}">Products</a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'statistics' %}">Statistics</a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'map' %}">Map</a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'calendar' %}">Calendar</a></li>
+
                 <li class="nav-item"><a class="nav-link" href="{% url 'settings' %}">Settings</a></li>
+                 <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">logout</a></li>
             </ul>
         </div>
+        <!--/col-->
         <div class="col main pt-5 mt-3">
             {% block content %}{% endblock content %}
         </div>

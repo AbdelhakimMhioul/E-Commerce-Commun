@@ -32,20 +32,25 @@ COLORS = (
     ('BLUE', 'BLUE'),
     ('BLACK', 'BLACK'),
 )
-
+category=(
+    ('Vetement','Vetement'),
+)
 
 class Category(models.Model):
-    category = models.CharField(max_length=50, unique=True)
-
+  
+    category=models.CharField(max_length=200,null=True,choices=category)
     def __str__(self):
         return self.category
 
 
 class Product(models.Model):
+    user=models.ForeignKey(
+        User,on_delete=models.CASCADE
+    )
     name = models.CharField(max_length=100)
-    category = models.ForeignKey(Category, related_name='categories', on_delete=models.CASCADE)
+    category=models.CharField(max_length=200,null=True,choices=category)
     description = models.TextField()
-    photo = models.ImageField()
+    photo = models.ImageField(blank=True,)
     price = models.FloatField(default=0)
     quantity = models.PositiveIntegerField(null=True)
     good_rates = models.PositiveIntegerField(default=0)

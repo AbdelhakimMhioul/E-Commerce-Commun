@@ -1,50 +1,67 @@
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
-
+from accounts.decorators import allowed_users
 from main.models import Product
 from main.forms import CreateProductForm
 from main.filters import ProductFilter
 from accounts.decorators import allowed_users
 from main.models import WishlistProduct, Cart
+from accounts.forms import CreateUserForm
+from django.contrib.auth.models import User
 
-
+@allowed_users(allowed_roles=['SELLER'])
+@login_required
 def show_dashboard(request):
-    return render(request, 'dashboard_seller/home.html')
+    products = Product.objects.filter(user=request.user)
+    nb_products=products.count()
+    context={'nb_products':nb_products}
+    return render(request, 'dashboard_seller/home.html',context)
 
 
+@login_required
 def show_statistics(request):
     return render(request, 'dashboard_seller/statistics.html')
 
-
+@login_required
 def show_map(request):
     return render(request, 'dashboard_seller/map.html')
 
-
+@login_required
 def show_calendar(request):
     return render(request, 'dashboard_seller/cc.html')
 
-
+@login_required
 def show_settings(request):
     return render(request, 'dashboard_seller/settings/base.html')
 
 
 def show_general(request):
-    return render(request, 'dashboard_seller/settings/general.html')
+    userform = User.objects.get(id=request.user.id)
+    form = CreateUserForm(instance=userform)
+    if request.method == 'POST':
+        form = CreateUserForm(request.POST, instance=userform)
+        if form.is_valid():
+            form.save()
+            return redirect('general')
+    context = {'form': form}
+    return render(request, 'dashboard_seller/settings/general.html',context)
 
 
 def show_change_password(request):
     return render(request, 'dashboard_seller/settings/changePassword.html')
 
-
+@allowed_users(allowed_roles=['SELLER'])
+@login_required
 def show_product(request):
     form = CreateProductForm()
-    products = Product.objects.all()
+    products = Product.objects.filter(user=request.user)
     if request.method == 'POST':
-        form = CreateProductForm(request.POST)
+        form = CreateProductForm(request.POST, request.FILES)
         if form.is_valid():
-            print("printing", request.POST)
-            form.save()
+            product=form.save(commit=False)
+            product.user=request.user
+            product.save()
             return redirect('prod')
         else:
             print("ERROR HADXI MAKHADAMX")
@@ -55,7 +72,7 @@ def show_product(request):
                }
     return render(request, 'dashboard_seller/products.html', context)
 
-
+@login_required
 def delete_product(request, pk):
     product = Product.objects.get(id=pk)
     if request.method == "POST":
@@ -64,7 +81,7 @@ def delete_product(request, pk):
     context = {'item': product}
     return render(request, 'dashboard_seller/delete_product.html', context)
 
-
+@login_required
 def update_product(request, pk):
     product = Product.objects.get(id=pk)
     form = CreateProductForm(instance=product)
@@ -76,25 +93,11 @@ def update_product(request, pk):
     context = {'form': form}
     return render(request, 'dashboard_seller/products.html', context)
 
-
+@login_required
 def result_data(request):
     date_data = []
-    products = Product.objects.all()
+    products = Product.objects.filter(user=request.user)
     for i in products:
         date_data.append({i.name: i.quantity})
     print(dateData)
     return JsonResponse(dateData, safe=False)
-
-
-# @login_required
-# @allowed_users(allowed_roles=['ADMIN', 'SELLER'])
-# def dashboard_seller(request):
-#     num_wishes = WishlistProduct.objects.count()
-#     num_carts = Cart.objects.count()
-#     total_price = 0
-#     carts = Cart.objects.all()
-#     for order in carts:
-#         total_price += order.order_total_price()
-#     context = {'num_carts': num_carts, 'num_wishes': num_wishes,
-#                'total_price': total_price}
-#     return render(request, 'accounts/dashboard_seller.html', context)

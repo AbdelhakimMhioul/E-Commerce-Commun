@@ -8,7 +8,7 @@ class ProductAdmin(admin.ModelAdmin):
               'description', 'photo', 'price', 'quantity']
 
 
-admin.site.register(Product, ProductAdmin)
+admin.site.register(Product)
 admin.site.register(Category)
 admin.site.register(Cart)
 admin.site.register(ProductsRated)
