@@ -3,9 +3,9 @@
 {% block main_navbar %}
 
 {% if group == 'ADMIN' %}
-{% include "includes/top_navbar.html" %}
+	{% include "includes/top_navbar.html" %}
 {% else %}
-{% include "includes/navbar.html" %}
+	{% include "includes/navbar.html" %}
 {% endif %}
 
 {% endblock main_navbar %}
@@ -15,9 +15,9 @@
 {% block content %}
 
 {% if group == 'ADMIN' %}
-<h1>Welcome to Admin Page</h1>
+	<h1>Welcome to Admin Page</h1>
 {% elif group == 'SELLER' %}
-<h1>Welcome to Seller Page</h1>
+	<h1>Welcome to Seller Page</h1>
 {% else %}
 
 <div class="container w-50 mt-3">
@@ -56,40 +56,28 @@
 <div class="d-flex">
 	<div class="container">
 		<div class="row ">
-			{% if products_9 %}
 			{% for product in products_9 %}
 			<div class="col-lg-4" id="product-{{product.id}}">
 				<div class="card" style="width: 18rem">
-					<a href="{%url 'view_product' product.id %}"><img
-							src="https://nk1bd.com/wp-content/uploads/2020/07/Dell-Inspiron-15-3580-Intel-CDC-4205U-15.6-inch-HD-Laptop-with-Genuine-Windows-10.jpg"
-							class="card-img-top" alt="" /></a>
+
+					 <a href="href="{%url 'view_product' product.id %}""><img src="{{product.photo.url}}" class="card-img-top" alt=""></a>
 					<div class="card-body">
 						<h5 class="card-title">{{product.name}}</h5>
 						<hr />
 						<p class="card-text">{{product.description}}</p>
 						<p class="card-text">Price : {{product.price}}€</p>
 						<div class="d-flex">
-							{% if user.is_authenticated %}
-							<button class="addCart btn btn-outline-success" id="addCart{{product.id}}"
-								data-catid="{{product.id}}" href="#">Add To Cart</button>
-							<button id="addWishlist{{product.id}}" data-catid="{{product.id}}"
-								class="addWishlist btn btn-outline-success" href="#">Add To WishList</button>
-							{% else %}
-							<a class="btn btn-outline-success" href="{% url 'add_cart' product.id%}">Add To Cart</a>
-							<a class="btn btn-outline-success" href="{% url 'add_wishlist' product.id%}">Add To
-								WishList</a>
-							{% endif %}
+                         <button href="#" id="add" class="btn btn-secondary me-2 " data-product={{product.id}} data-action="add">Add To Cart</button>
+							<button id="addWishlist{{product.id}}" data-catid="{{product.id}}" class="addWishlist btn btn-outline-success" href="#">Add To WishList</button>
 						</div>
 					</div>
 				</div>
 			</div>
 			{% endfor %}
-			{% else %}
-			<img src="https://cdn.dribbble.com/users/3512533/screenshots/14168376/web_1280___8_4x.jpg" />
-			{% endif %}
 		</div>
 	</div>
 </div>
+<div>
 
 {% endif %}
 
@@ -97,29 +85,31 @@
 {% endblock content %}
 
 {% block script %}
-<script type="text/javascript">
-	//ADD TO CART:
-	document.querySelectorAll('#add').forEach(item => {
-		item.addEventListener('click', function () {
-			let productId = this.dataset.product
-			let action = this.dataset.action
-			console.log(productId)
-			console.log(action)
-			var url = '/send_data/'
+<script>
+//ADD TO CART:
+document.querySelectorAll('#add').forEach(item => {
+    item.addEventListener('click',function(){
+     
+        let productId=this.dataset.product
+        let action =this.dataset.action
+		console.log(productId)
+		console.log(action)
+        var url = '/send_data/'
 
-			fetch(url, {
-				method: 'POST',
-				headers: {
-					'content-Type': 'application/json',
-					'X-CSRFToken': csrf
-				},
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'content-Type': 'application/json',
+                'X-CSRFToken':   csrf
+            },
+    
+            body: JSON.stringify({'productId': productId, 'action':action})
+        })
+})
+})
+//ADD To Wishlist
 
-				body: JSON.stringify({ 'productId': productId, 'action': action })
-			})
-		})
-	});
-	$('.addWishlist').click(function (e) {
-		e.preventDefault();
+$('.addWishlist').click(function () {
 		var catid = $(this).attr("data-catid");
 		$.ajax({
 			type: 'GET',
@@ -128,9 +118,10 @@
 				product_id: catid
 			},
 			success: function (data) {
-				$('#num_wishes').replaceWith(data.num_wishes);
+				$('#numWishes').replaceWith(data.num_wishes);
 			},
 		})
 	});
+
 </script>
 {% endblock script %}

@@ -1,11 +1,13 @@
+
+
+
+
 {% extends 'base.html' %}
 {% load static %}
 
-{% block main_navbar %}
-{% include "includes/top_navbar.html" %}
-{% endblock main_navbar %}
-
-{% block title %}Cart{% endblock title %}
+{% block mainNavBar %}
+{% include "includes/topNavBar.html" %}
+{% endblock mainNavBar %}
 
 {% block content %}
 <div class="row">
@@ -16,7 +18,7 @@
             <br>
             <table class="table">
                 <tr>
-                    <th><h5>Items: <strong>{{num_carts}}</strong></h5></th>
+                    <th><h5>Items: <strong>{{numOrders}}</strong></h5></th>
                     <th><h5>Total: <strong>${{total_price}}</strong></h5></th>
                     <th><a href="{% url 'checkout' %}" class="btn btn-success">Checkout</a></th>
                 </tr>
@@ -25,87 +27,34 @@
         <br>
         <div class="box-element">
             <div class="cart-row">
-                <div style="flex:2;"><strong>Image</strong></div>
-                <div style="flex:2;"><strong>Item</strong></div>
+                <div style="flex:2;"><strong>Product</strong></div>
                 <div style="flex:1;"><strong>Price</strong></div>
                 <div style="flex:2;"><strong>Quantity</strong></div>
                 <div style="flex:2;"><strong>Total</strong></div>
             </div>
-            {%for cart in carts %}
-            <div class="row" id='cart-{{cart.id}}'>
-                <div class="d-flex justify-content-between align-items-center mt-3 p-2 items rounded">
-                    <div class="d-flex flex-row"><img class="rounded" src="../{{cart.product.photo}}" width="40">
-                        <div class="ml-2"><span class="font-weight-bold d-block">{{cart.product.name}}</span>
+           {%for cart in  carts %}
+          <div class="row" id='{{cart.product.id}}'>
+                <div class="d-flex justify-content-between align-items-center mt-3 p-2 items rounded" >
+                    <div class="d-flex flex-row"><img class="rounded" src="{{cart.product.photo.url}}" width="40">
+                        <div class="ml-2"><span class="font-weight-bold d-block">{{cart.product.name}}</span></div>
+                    </div>
+                <div ><p style="flex:1"  class="price">${{cart.product.price|floatformat:2}}</p></div>
+                <div class="aa">
+                        <p class="quantity">{{cart.quantity_carted}}</p>
+                        <div class="quantity" id="hopla">
+                            <a href="{% url 'increase_quantity' cart.pk %}" ><img src="{% static 'images/arrow-up.png'%}" class="chg-quantity"></a>
+                            <a href="{% url 'decrease_quantity' cart.pk %}" ><img src="{% static 'images/arrow-down.png'%}" class="chg-quantity"></a>
                         </div>
-                    </div>
-                    <div>
-                        <p style="flex:1" class="price">${{cart.product.price|floatformat:1}}</p>
-                    </div>
-                    <div style="flex:2;">
-                        <p id="quantity_carted">{{cart.quantity_carted}}</p>
-                        <div class="quantity">
-                            <a id="increase_quantity" data-cartid={{cart.id}} href="#"><img src="{% static 'images/arrow-up.png'%}" class="chg-quantity"></a>
-                            <a id="decrease_quantity" data-cartid={{cart.id}} href="#"><img src="{% static 'images/arrow-down.png'%}" class="chg-quantity"></a>
-                        </div>
-                    </div>
-                    <div>
-                        <p style="flex:1" class="total">${{cart.cart_total_price}}</p>
-                    </div>
-                    <div><a id="remove_cart-{{cart.id}}" data-cartid={{cart.id}} href="#" class="btn btn-outline-danger mb-2 remove_cart"><img src="{% static 'images/remove.png'%}"></a></div>
                 </div>
+                <div ><p  style="flex:1" class="total">${{cart.cart_total_price}}</p></div>
+                <div><a id="remove" href="{% url 'delete_cart' cart.id %}" class="btn btn-outline-danger mb-2 update-cart"></a></div>
             </div>
-            {% endfor %}
+        </div>
+           {% endfor %}
         </div>
     </div>
 </div>
 {% endblock content %}
-
 {% block script %}
-<script>
-    $('#increase_quantity').click(function (e) {
-        e.preventDefault();
-		var cartid = $(this).attr("data-cartid");
-		$.ajax({
-			type: 'GET',
-			url: "/increase_quantity/".concat(cartid),
-			data: {
-				cartid: cartid
-			},
-			success: function (data) {
-                $('#quantity_carted').replaceWith(data.quantity_carted);
-			},
-		})
-	});
-    $('#decrease_quantity').click(function (e) {
-        e.preventDefault();
-		var cartid = $(this).attr("data-cartid");
-		$.ajax({
-			type: 'GET',
-			url: "/decrease_quantity/".concat(cartid),
-			data: {
-				cartid: cartid
-			},
-			success: function (data) {
-                $('#quantity_carted').replaceWith(data.quantity_carted);
-			},
-		})
-	});
-    $('.remove_cart').click(function (e) {
-        e.preventDefault();
-		var cartid = $(this).attr("data-cartid");
-		$.ajax({
-			type: 'GET',
-			url: "/delete_cart/".concat(cartid),
-			data: {
-				cartid: cartid
-			},
-			success: function (data) {
-                $('#cart-'+cartid).remove();
-                $('#total').replaceWith(data.total_price);
-				$('#num_carts').replaceWith(data.num_carts);
-                $('#num_wishes').replaceWith(data.num_wishes);
-			},
-		})
-	});
-</script>
+
 {% endblock script %}
