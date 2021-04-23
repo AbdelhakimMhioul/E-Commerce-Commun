@@ -32,23 +32,20 @@ COLORS = (
     ('BLUE', 'BLUE'),
     ('BLACK', 'BLACK'),
 )
-category=(
-    ('Vetement','Vetement'),
-)
+
 
 class Category(models.Model):
-  
-    category=models.CharField(max_length=200,null=True,choices=category)
+    category = models.CharField(max_length=200, null=True)
+
     def __str__(self):
         return self.category
 
 
 class Product(models.Model):
-    user=models.ForeignKey(
-        User,on_delete=models.CASCADE
-    )
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
-    category=models.CharField(max_length=200,null=True,choices=category)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
     description = models.TextField()
     photo = models.ImageField(blank=True,)
     price = models.FloatField(default=0)
@@ -103,30 +100,29 @@ class Cart(models.Model):
         return total_cart
 
 
-
-
-
 class Checkout(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, null=True, blank=True)
     adress_1 = models.CharField(max_length=100)
     adress_2 = models.CharField(max_length=100, blank=True)
     country = CountryField(multiple=False)
     zip_code = models.CharField(max_length=100)
 
+
 class Order(models.Model):
-    user=models.ForeignKey(User,on_delete=models.CASCADE,null=True)
-    cart = models.ManyToManyField(Cart,blank=True)
-    checkout_adress = models.ForeignKey(Checkout , on_delete=models.CASCADE,null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    cart = models.ManyToManyField(Cart, blank=True)
+    checkout_adress = models.ForeignKey(
+        Checkout, on_delete=models.CASCADE, null=True)
     status = models.CharField(max_length=200, null=True)
 
 
 class ProductsFeedBacks(models.Model):
-    product = models.ForeignKey(Product, null=True, on_delete=models.CASCADE, unique=False)
-    user = models.ForeignKey(User, on_delete=models.CASCADE,unique=False)
+    product = models.ForeignKey(
+        Product, null=True, on_delete=models.CASCADE, unique=False)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, unique=False)
     message = models.TextField()
     date_created = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__(self):
         return self.product.name
-
-

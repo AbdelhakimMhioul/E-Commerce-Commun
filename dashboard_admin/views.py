@@ -29,7 +29,7 @@ def admin_dashboard_view(request):
     ordered_products = []
     ordered_bys = []
     for order in orders:
-        ordered_product = Product.objects.filter(id=order.product.id)
+        ordered_product = Product.objects.filter(id=order.id)
         #ordered_by = Customer.objects.filter(id=order.customer.id)
         ordered_products.append(ordered_product)
         #ordered_bys.append(ordered_by)
@@ -86,5 +86,5 @@ def delete_seller_view(request, pk):
     group = Group.objects.get(name='SELLER')
     seller = group.user_set.get(id=pk)
     seller.delete()
-    return redirect('admin-Sellers')
+    return redirect('admin_sellers')
 
