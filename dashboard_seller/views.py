@@ -6,31 +6,33 @@ from main.models import Product
 from main.forms import CreateProductForm
 from main.filters import ProductFilter
 from accounts.decorators import allowed_users
-from main.models import WishlistProduct, Cart,OrderItem
-from accounts.forms import CreateUserForm
+from main.models import WishlistProduct, Cart,Order
+from accounts.forms import CreateUserForm,SettingsForm
 from django.contrib.auth.models import User
 
 @allowed_users(allowed_roles=['SELLER'])
 @login_required
 def show_dashboard(request):
-    products = Product.objects.filter(user=request.user)
-    nb_products=products.count()
- 
-    orders =  OrderItem.objects.filter(user=request.user)
     products_ordered= 0
     paid_amount = 0
     total_order=0
-    for item in orders:
-
-        products_ordered+= item.quantity
-        paid_amount+=item.price *item.quantity
-
+    products = Product.objects.filter(user=request.user)
+    nb_products=products.count()
+    orders=  Order.objects.all()
+    for order in orders:
+        carts=Cart.objects.filter(order=order)
+        for cart in carts:
+            if cart.product.user==request.user:
+                paid_amount+=cart.product.price*cart.quantity_carted
+                products_ordered+=cart.quantity_carted
+        total_order+=1
         
-
+           
     context={'nb_products':nb_products,
+    'paid_amount':paid_amount,
     'products_ordered':products_ordered,
-    ' paid_amount': paid_amount,
-    'total_order':total_order,}
+    'total_order': total_order}
+
     return render(request, 'dashboard_seller/home.html',context)
 
 
@@ -53,9 +55,12 @@ def show_settings(request):
 
 def show_general(request):
     userform = User.objects.get(id=request.user.id)
-    form = CreateUserForm(instance=userform)
+    form = SettingsForm(instance=userform)
+    
     if request.method == 'POST':
-        form = CreateUserForm(request.POST, instance=userform)
+
+        form = SettingsForm(request.POST, instance=userform)
+        print(form.name)
         if form.is_valid():
             form.save()
             return redirect('general')
@@ -95,6 +100,15 @@ def delete_product(request, pk):
         return redirect('prod')
     context = {'item': product}
     return render(request, 'dashboard_seller/delete_product.html', context)
+
+@login_required
+def delete_account(request):
+    user=request.user
+    if request.method == "POST":
+        user.delete()
+        return redirect('home')
+    context = {'user': user}
+    return render(request, 'dashboard_seller/settings/delete_account.html', context)
 
 @login_required
 def update_product(request, pk):

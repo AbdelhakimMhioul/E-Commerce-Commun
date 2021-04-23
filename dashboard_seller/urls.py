@@ -15,6 +15,7 @@ urlpatterns = [
     path('results_data/', views.result_data, name='result'),
     path('update_product/<str:pk>/', views.update_product, name="update_product"),
     path('delete_product/<str:pk>/', views.delete_product, name="delete_product"),
+    path('delete_account/', views.delete_account, name="delete_account"),
     path('settings/change-password/', auth_views.PasswordChangeView.as_view(
          template_name='dashboard_seller/settings/change_password.html'), name="change_password"),
 ]
